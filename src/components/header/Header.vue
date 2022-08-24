@@ -4,7 +4,6 @@ import Logo from './Logo.vue';
 import CurrentDate from './CurrentDate.vue';
 import ThemeToggle from './ThemeToggle.vue';
 import UserAuth from './UserAuth.vue';
-
 </script>
 
 <template>

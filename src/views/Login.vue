@@ -11,13 +11,11 @@ const password = ref('');
 const { login, error } = useLogin();
 const router = useRouter();
 
-const handleSubmit = async () => {
+const handleSubmit = async (): Promise<void> => {
   await login(email.value, password.value);
 
   if(!error.value) {
     router.push('/home');
-    console.log('логин');
-    
   }
 }
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { auth } from '@/firebase/config';
 import { signOut } from 'firebase/auth';
 import getUser from "@/composables/getUser";
@@ -15,9 +15,14 @@ const list = ref(null);
 
 const logOut = ():void => {
   signOut(auth);
-  router.push('/login');
   isListActive.value = false;
 }
+
+watchEffect(() => {
+  if (!user.value) {
+    router.push('/login');
+  }
+})
 
 clickOutside(list, () => isListActive.value = false)
 </script>
