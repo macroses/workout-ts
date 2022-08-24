@@ -4,7 +4,7 @@ import Icon from '@/components/ui/Icon.vue';
 </script>
 
 <template>
-  <div class="burger-wrap">
+  <div class="a11y-wrap">
     <Icon iconName="grid-2" width="20px"/>
   </div>
 </template>

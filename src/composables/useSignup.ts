@@ -1,38 +1,48 @@
 import { ref } from 'vue';
+import type { Ref } from 'vue';
 // firebase imports
 import { auth } from '@/firebase/config';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+
+export interface IUseSignUp{
+  error: Ref<string | null>,
+  pending: Ref<boolean>,
+  // TODO: определить тип возвращаемого параметра
+  signup (email: string, password: string, displayName: string): Promise<any>
+}
 
 const error = ref(null);
-const isPending = ref(false);
+const pending = ref(false);
 
-const signup = async (email: string, password: string) => {
+const signup = async (email: string, password: string, displayName: string): Promise<any> => {
   error.value = null;
-  isPending.value = true;
+  pending.value = true;
 
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-    if(!res) {
+    if(!user) {
       throw new Error('Регистрация не завершена');
     }
 
+    await updateProfile(user, {
+      displayName: displayName
+    })
+    
     error.value = null;
-    isPending.value = false;
+    pending.value = false;
+
+    return user;
   } 
   catch (e: any) {
     console.log(e.message);
     error.value = e.message;
-    isPending.value = false;
+    pending.value = false;
   }
 };
 
-const useSignup = () => {
-  return {
-    error,
-    isPending,
-    signup
-  }
-};
-
-export default useSignup;
+export default (): IUseSignUp => ({
+  error: ref(null),
+  pending: ref(false),
+  signup
+})

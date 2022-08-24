@@ -1,7 +1,11 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
+import { ref } from "vue";
+// import { useRouter } from "vue-router";
+
 import Icon from "../ui/Icon.vue";
 import Input from "../ui/Input.vue";
-import {ref} from "vue";
+import Button from "../ui/Button.vue";
+import useSignup from "@/composables/useSignup";
 
 const props = defineProps<{
   isModalOpen: boolean
@@ -11,9 +15,7 @@ const emits = defineEmits<{
   (e: 'close'): void
 }>();
 
-const nickName = ref('');
-const email = ref('');
-const password = ref('');
+
 
 const closeModal = () => emits('close');
 </script>
@@ -25,26 +27,31 @@ const closeModal = () => emits('close');
       <div class="modal-auth-container">
         <div class="modal-auth__title">
           Регистрация
-          <Icon width="20px" iconName="xmark"/>
+          <div class="a11y-wrap">
+            <Icon width="20px" iconName="xmark" @click="closeModal"/>
+          </div>
         </div>
-        <div class="modal-auth__body">
+        <form @submit.prevent="handleSubmit">
+          <div class="modal-auth__body">
           <Input 
-              inputType="text" 
-              :required="true"
-              placeholder="Имя"
-            />
+            inputType="email" 
+            :required="true"
+            placeholder="Почта"
+            v-model="email"
+          />
           <Input 
-              inputType="email" 
-              :required="true"
-              placeholder="Почта"
-            />
-          <Input 
-              inputType="password" 
-              :required="true"
-              placeholder="Пароль"
-            />
-
+            inputType="password" 
+            :required="true"
+            placeholder="Пароль"
+            v-model="password"
+          />
+          <div class="btn-block">
+            <Button size="md" @click="closeModal">Отмена</Button>
+            <Button size="md" @click="handleSubmit">Регистрация</Button>
+          </div>
+          <div v-if="error">{{ error }}</div>
         </div>
+        </form>
       </div>
     </div>
   </Transition>
@@ -57,4 +64,4 @@ const closeModal = () => emits('close');
   justify-content: space-between;
   align-items: center;
 }
-</style>
+</style> -->

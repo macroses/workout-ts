@@ -4,6 +4,6 @@
 
 <template>
   <main>
-    
+    ahello its home
   </main>
 </template>

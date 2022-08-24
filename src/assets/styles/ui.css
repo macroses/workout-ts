@@ -42,3 +42,45 @@
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.btn-block {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* user list auth */
+.logged {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--color-text);
+  
+}
+
+.user-funcs {
+  position: absolute;
+  list-style: none;
+  top: 100%;
+  right: 0;
+  background: var(--color-bg);
+  box-shadow: var(--elements-shadow);
+  z-index: 10;
+}
+
+.user-funcs__item {
+  padding: 4px 24px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.user-funcs__item:hover {
+  background: var(--color-bg-hover);
+}

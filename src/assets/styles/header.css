@@ -9,7 +9,7 @@
   flex: 0 1 auto;
 }
 
-.burger-wrap {
+.a11y-wrap {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -19,11 +19,11 @@
   cursor: pointer;
 }
 
-.burger-wrap:hover {
+.a11y-wrap:hover {
   background: var(--color-bg-hover);
 }
 
-.burger-wrap:hover svg {
+.a11y-wrapp:hover svg {
   fill: var(--color-accent);
 }
 
