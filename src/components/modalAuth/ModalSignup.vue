@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Icon from "../ui/Icon.vue";
 import Input from "../ui/Input.vue";
+import {ref} from "vue";
 
 const props = defineProps<{
   isModalOpen: boolean
@@ -9,6 +10,10 @@ const props = defineProps<{
 const emits = defineEmits<{
   (e: 'close'): void
 }>();
+
+const nickName = ref('');
+const email = ref('');
+const password = ref('');
 
 const closeModal = () => emits('close');
 </script>

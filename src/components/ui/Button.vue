@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import Icon from "./Icon.vue";
 
 const props = defineProps<{
@@ -15,6 +14,7 @@ const props = defineProps<{
 <button
   type="button"
   class="button"
+  :size="size"
   :disabled="isDisabled"
   :class="[size, onlyIcon]"
 >

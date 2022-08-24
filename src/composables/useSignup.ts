@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 // firebase imports
-import { auth } from '../firebase/config';
+import { auth } from '@/firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const error = ref(null);
@@ -14,7 +14,7 @@ const signup = async (email: string, password: string) => {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
     if(!res) {
-      throw new Error('Регистрация не завершена')ж
+      throw new Error('Регистрация не завершена');
     }
 
     error.value = null;
