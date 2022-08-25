@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useLogin from '../composables/useLogin';
+import useLogin from '@/composables/useLogin';
 import Input from '@/components/ui/Input.vue';
 import Button from '@/components/ui/Button.vue';
 
@@ -22,10 +22,7 @@ const handleSubmit = async (): Promise<void> => {
 
 <template>
   <div class="auth-box">
-    <div class="title">
-      <span @click="">Регистрация</span>|
-      <span>Вход</span>
-    </div>
+    <div v-if="error" class="err-msg">{{ error }}</div>
     <form @submit.prevent="handleSubmit">
       <div class="modal-auth__body">
       <Input 
@@ -43,7 +40,7 @@ const handleSubmit = async (): Promise<void> => {
       <div class="btn-block">
         <Button size="md" @click="handleSubmit">Войти</Button>
       </div>
-      <div v-if="error" class="err-msg">{{ error }}</div>
+
     </div>
     </form>
   </div>

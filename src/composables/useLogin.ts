@@ -4,11 +4,11 @@ import { auth } from '@/firebase/config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const error = ref(null);
-const isPending = ref(false);
+const pending = ref(false);
 
 const login = async (email: string, password: string) => {
   error.value = null;
-  isPending.value = true;
+  pending.value = true;
 
   try {
     const res = await signInWithEmailAndPassword(auth, email, password);
@@ -18,19 +18,19 @@ const login = async (email: string, password: string) => {
     }
     
     error.value = null;
-    isPending.value = false;
+    pending.value = false;
   } 
   catch (e: any) {
     console.log(e.message);
     error.value = e.message;
-    isPending.value = false;
+    pending.value = false;
   }
 };
 
 const useLogin = () => {
   return {
     error,
-    isPending,
+    pending,
     login
   }
 };

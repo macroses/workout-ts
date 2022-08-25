@@ -4,19 +4,16 @@ import type { Ref } from 'vue';
 import { auth } from '@/firebase/config';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
-export interface IUseSignUp{
-  error: Ref<string | null>,
-  pending: Ref<boolean>,
-  // TODO: определить тип возвращаемого параметра
-  signup (email: string, password: string, displayName: string): Promise<any>
-}
-
 const error = ref(null);
-const pending = ref(false);
+const isPending = ref(false);
 
-const signup = async (email: string, password: string, displayName: string): Promise<any> => {
+const signup = async (
+    email: string, 
+    password: string, 
+    displayName: string
+  ): Promise<any> => {
   error.value = null;
-  pending.value = true;
+  isPending.value = true;
 
   try {
     const { user } = await createUserWithEmailAndPassword(auth, email, password);
@@ -30,19 +27,23 @@ const signup = async (email: string, password: string, displayName: string): Pro
     })
     
     error.value = null;
-    pending.value = false;
+    isPending.value = false;
 
     return user;
   } 
   catch (e: any) {
     console.log(e.message);
     error.value = e.message;
-    pending.value = false;
+    isPending.value = false;
   }
 };
 
-export default (): IUseSignUp => ({
-  error: ref(null),
-  pending: ref(false),
-  signup
-})
+const useSignup = () => {
+  return {
+    error,
+    isPending,
+    signup
+  }
+};
+
+export default useSignup;

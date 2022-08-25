@@ -20,7 +20,7 @@ const logOut = ():void => {
 
 watchEffect(() => {
   if (!user.value) {
-    router.push('/login');
+    router.push('/');
   }
 })
 
@@ -32,8 +32,7 @@ clickOutside(list, () => isListActive.value = false)
     class="logged" v-if="user"
     @click="isListActive = true"
   >
-    <div class="user-name" v-if="user.displayName.length < 10">{{ user.displayName }}</div>
-    <div class="user-name" v-else>{{ user.displayName.substring(0,10)+"..." }}</div>
+    <div class="user-name">{{ user.displayName }}</div>
     <Icon width="14px" iconName="angle-down"/>
     <ul 
       ref="list"

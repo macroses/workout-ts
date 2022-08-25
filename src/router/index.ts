@@ -8,9 +8,7 @@ import { auth } from '@/firebase/config';
 const requireAuth = (to, from, next) => {
   let user = auth.currentUser;
   if(!user) {
-    // redirect them
-
-    next({ name: 'login'});
+    next({ name: 'signup'});
   } else {
     next();
   }
@@ -21,7 +19,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'SignUp',
+      name: 'signup',
       component: SignUp
     },
     {
@@ -30,11 +28,6 @@ const router = createRouter({
       component: HomeView,
       beforeEnter: requireAuth
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
-    }
   ]
 })
 

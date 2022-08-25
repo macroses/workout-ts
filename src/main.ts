@@ -15,4 +15,3 @@ onAuthStateChanged(auth, () => {
     app = createApp(App).use(createPinia()).use(router).mount('#app');
   }
 })
-
