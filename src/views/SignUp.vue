@@ -1,9 +1,14 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import Login from '../components/Login/Login.vue';
 import Signup from "@/components/Login/Signup.vue";
+import getUser from "@/composables/getUser";
+import { useRouter } from 'vue-router';
 
-const isSignup = ref(true);
+const isSignup = ref<boolean>(true);
+const { user } = getUser();
+
+const router = useRouter();
 
 const handleReg = () :void => {
   console.log('its reg')
@@ -14,6 +19,12 @@ const handleLogin = () :void => {
   console.log('its log')
   isSignup.value = false;
 }
+
+watchEffect(() => {
+  if(user.value) {
+    router.push('/home');
+  }
+})
 </script>
 
 <template>
@@ -28,11 +39,3 @@ const handleLogin = () :void => {
     v-else
     @handleLogin="handleLogin"/>
 </template>
-
-<style>
-.auth-title {
-  display: flex;
-  margin: 0 auto;
-  width: 600px;
-}
-</style>

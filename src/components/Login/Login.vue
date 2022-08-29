@@ -1,21 +1,22 @@
 <script lang="ts" setup>
+import type { Ref } from "vue";
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useLogin from '@/composables/useLogin';
 import Input from '@/components/ui/Input.vue';
 import Button from '@/components/ui/Button.vue';
 
-const email = ref('');
-const password = ref('');
+const email= ref<string>('');
+const password = ref<string>('');
 
-const { login, error } = useLogin();
+const { login, error, pending } = useLogin();
 const router = useRouter();
 
 const handleSubmit = async (): Promise<void> => {
   await login(email.value, password.value);
 
   if(!error.value) {
-    router.push('/home');
+    await router.push('/home');
   }
 }
 </script>
@@ -38,7 +39,13 @@ const handleSubmit = async (): Promise<void> => {
         v-model="password"
       />
       <div class="btn-block">
-        <Button size="md" @click="handleSubmit">Войти</Button>
+        <Button size="md" v-if="!pending" @click="handleSubmit">Войти</Button>
+        <Button
+          size="md"
+          v-if="pending"
+          @click="handleSubmit"
+          :isDisabled="true"
+        >Loading...</Button>
       </div>
 
     </div>

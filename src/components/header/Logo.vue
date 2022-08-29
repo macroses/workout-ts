@@ -4,7 +4,7 @@ import Icon from '../ui/Icon.vue';
 </script>
 
 <template>
-  <RouterLink to="/"  class="header-logo">
+  <RouterLink to="/home"  class="header-logo">
     <Icon iconName="book" width="20px"/>
     Дневник тренировок
   </RouterLink>

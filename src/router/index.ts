@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import SignUp from '../views/SignUp.vue';
-import Login from '../views/Login.vue';
 
 import { auth } from '@/firebase/config';
 
-const requireAuth = (to, from, next) => {
+const requireAuth = (to, from, next): void => {
   let user = auth.currentUser;
   if(!user) {
     next({ name: 'signup'});

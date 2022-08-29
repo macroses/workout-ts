@@ -7,10 +7,6 @@ const props = defineProps<{
   modelValue: any,
   size?: string
 }>()
-
-const emits = defineEmits<{
-
-}>()
 </script>
 
 <template>

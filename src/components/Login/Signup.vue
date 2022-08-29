@@ -52,19 +52,3 @@ const handleSubmit = async () => {
     </form>
   </div>
 </template>
-
-<style>
-.auth-box {
-  max-width: 400px;
-  margin: 50px auto;
-  position: relative;
-}
-
-.err-msg {
-  position: absolute;
-  top: -30px;
-  left: 0;
-  font-size: 12px;
-  color: red;
-}
-</style>
