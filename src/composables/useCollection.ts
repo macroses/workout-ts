@@ -5,8 +5,10 @@ import { db } from '@/firebase/config'
 import { collection, addDoc } from 'firebase/firestore'
 
 interface Document {
-  message: string,
+  title: string
   date: Date
+  userId: string | undefined
+  userName: string | null | undefined
 }
 
 const useCollection = (col: string) => {
