@@ -1,0 +1,48 @@
+.workout-form {
+  width: 0;
+  border-left: 1px solid var(--color-border);
+  transform: translateX(100%);
+  transition: transform 0.2s, width 0.2s;
+  overflow: hidden;
+}
+
+.workout-form.active {
+  width: 500px;
+  transform: translateX(0);
+}
+
+.workout-form__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+.workout-form__icon {
+  border-radius: 50%;
+  background-color: var(--color-icon-accent-bg);
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+
+.workout-form__icon svg {
+  fill: var(--color-icon-accent);
+}
+
+.workout-form__name {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workout-form__date {
+  font-weight: 600;
+}
+
+.workout-form__body {
+  padding: 12px;
+}

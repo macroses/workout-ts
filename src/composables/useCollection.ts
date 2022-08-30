@@ -1,12 +1,15 @@
 import { ref } from 'vue';
 import type { Ref } from "vue";
+import type { Dayjs } from 'dayjs';
 
 import { db } from '@/firebase/config'
 import { collection, addDoc } from 'firebase/firestore'
 
+
 interface Document {
-  title: string
-  date: Date
+  workoutDate: Date | null | undefined
+  workoutName: string
+  color: string
   userId: string | undefined
   userName: string | null | undefined
 }

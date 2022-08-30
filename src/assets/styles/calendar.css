@@ -63,3 +63,8 @@
   border-radius: 50%;
   font-size: 12px;
 }
+
+.today .day-num{
+  color: #fff;
+  background: var(--color-accent);
+}
