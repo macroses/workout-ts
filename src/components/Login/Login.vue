@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { Ref } from "vue";
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useLogin from '@/composables/useLogin';

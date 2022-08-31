@@ -20,8 +20,8 @@
   height: 15px;
   border-radius: 50%;
   
-  border: 2px solid var(--c-bg);
-  outline: 1px solid var(--c-border);
+  border: 2px solid var(--color-border);
+  outline: 1px solid var(--color-border);
   margin-right: 4px;
 }
 

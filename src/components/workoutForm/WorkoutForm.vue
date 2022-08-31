@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs';
-import {onUpdated, ref} from 'vue';
+import { ref } from 'vue';
 import Icon from '../ui/Icon.vue';
 import Input from '../ui/Input.vue';
 import DropdownColor from '../ui/DropdownColor.vue';
@@ -23,11 +23,11 @@ const closeForm = () => emits('close');
 // пушим пробник
 const handleSubmit = async () => {
   await addDocument({
-    workoutDate: props.pickedDate?.toDate(),
+    workoutDate: props.pickedDate?.toDate() ??null,
     workoutName: workoutName.value,
     color: store.taskColor,
-    userId: user.value?.uid,
-    userName: user.value?.displayName
+    userId: user.value?.uid ??null,
+    userName: user.value?.displayName ??null
   });
 
   if(!error.value) {

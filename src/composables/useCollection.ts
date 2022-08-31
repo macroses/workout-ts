@@ -1,17 +1,16 @@
 import { ref } from 'vue';
 import type { Ref } from "vue";
-import type { Dayjs } from 'dayjs';
 
 import { db } from '@/firebase/config'
 import { collection, addDoc } from 'firebase/firestore'
 
 
 interface Document {
-  workoutDate: Date | null | undefined
+  workoutDate: Date | null
   workoutName: string
   color: string
-  userId: string | undefined
-  userName: string | null | undefined
+  userId: string | null
+  userName: string | null
 }
 
 const useCollection = (col: string) => {
