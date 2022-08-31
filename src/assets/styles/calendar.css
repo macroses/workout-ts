@@ -53,6 +53,10 @@
   border-right: none;
 }
 
+.calendar-cell.activeCell {
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
 .day-num {
   display: inline-flex;
   align-items: center;

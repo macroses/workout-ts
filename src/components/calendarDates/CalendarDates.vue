@@ -1,18 +1,30 @@
-<script lang="ts" setup="">
-import { computed } from "vue";
+<script lang="ts" setup>
+import { computed, ref } from "vue";
 import { getEmptyDays, getDaysArr, getDateEquality } from "@/helpers/getDate";
 import { useStore } from "@/stores/store";
 import type { Dayjs } from "dayjs";
+import WorkoutTask from "../workoutTask/workoutTask.vue";
 
 const store = useStore();
 const emits = defineEmits<{
   (e: 'pickDate', day: Dayjs): void
-}>()
+}>();
+
+const activeCellIndex = ref<number>(0); // выделение активной ячейки
+const propWorkoutDate = ref<Dayjs | null>(null); // выбор 
 
 const emptyDaysCells = computed(() => getEmptyDays(store.initialDate));
 const filledDaysCells = computed(() => getDaysArr(store.initialDate));
 
-const pickDate = (date: Dayjs) => emits('pickDate', date);
+const pickDate = (date: Dayjs, index: number) => {
+  activeCellIndex.value = index;
+
+  if(activeCellIndex.value === index) {
+    propWorkoutDate.value = date;
+  }
+  
+  emits('pickDate', date)
+};
 </script>
 
 <template>
@@ -22,15 +34,16 @@ const pickDate = (date: Dayjs) => emits('pickDate', date);
     class="calendar-cell"
   ></li>
   <li
+    ref="cell"
     v-for="( day, index ) in filledDaysCells"
-    :key="index"
-    :class="{ today: getDateEquality(day) }"
+    :key="day.format('D')"
+    :class="[ { today: getDateEquality(day) }, { activeCell: index === activeCellIndex } ]"
     class="calendar-cell"
-    @click="pickDate(day)"
+    @click="pickDate(day, index)"
   >
     <span class="day-num">{{ day.format('D') }}</span>
-<!--    <CalendarDayTasks-->
-<!--        :day="day.format('DD.MM.YYYY')"-->
-<!--    />-->
+    <WorkoutTask 
+      :workoutDate="day"
+    />
   </li>
 </template>

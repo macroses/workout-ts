@@ -11,7 +11,7 @@ const pickedDate = ref<Dayjs | null>(null);
 const getPickedDate = (e: Dayjs) => pickedDate.value = e;
 const closeForm = () => pickedDate.value = null;
 </script>
-``
+
 <template>
   <div class="calendar-layout">
     <Weekdays />

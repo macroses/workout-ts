@@ -7,31 +7,37 @@ import DropdownColor from '../ui/DropdownColor.vue';
 import Button from '../ui/Button.vue';
 import { useStore } from '@/stores/store';
 import getUser from '@/composables/getUser';
-import useCollection from '@/composables/useCollection';
+import useCollection, { CollectionStatus } from '@/composables/useCollection';
 import MuscleGroups from './MuscleGroups.vue';
+import Loader from '../loader/Loader.vue';
 
 const props = defineProps<{ pickedDate: Dayjs | null }>();
 const emits = defineEmits<{ (e: 'close'): void }>();
 const store = useStore();
 
 const { user } = getUser();
-const { addDocument, error, isPending } = useCollection('workouts');
+const { addDocument, status } = useCollection('workouts');
 
 const workoutName = ref<string>('');
 const closeForm = () => emits('close');
 
 // пушим пробник
 const handleSubmit = async () => {
+  if(!workoutName.value) return;
+
   await addDocument({
-    workoutDate: props.pickedDate?.toDate() ??null,
+    workoutDate: props.pickedDate?.toDate() ?? null,
     workoutName: workoutName.value,
     color: store.taskColor,
-    userId: user.value?.uid ??null,
-    userName: user.value?.displayName ??null
+    userId: user.value?.uid ?? null,
+    userName: user.value?.displayName ?? null
   });
 
-  if(!error.value) {
-    workoutName.value = '';
+  switch(status.value) {
+    case CollectionStatus.Ok:
+      workoutName.value = '';
+      break;
+    default: { break }
   }
 }
 </script>
@@ -52,7 +58,10 @@ const handleSubmit = async () => {
         <Icon width="20px" iconName="xmark"/>
       </div>
     </div>
-    <form class="workout-form__body" @submit.prevent="handleSubmit">
+    <form 
+      
+      class="workout-form__body" 
+      @submit.prevent="handleSubmit">
       <Input 
         v-model="workoutName"
         inputType="text" 
@@ -61,10 +70,14 @@ const handleSubmit = async () => {
       />
       <DropdownColor />
       <MuscleGroups />
+      
       <div class="workout-form__btns">
         <Button size="md" @click="closeForm">Закрыть</Button>
-        <Button size="md"  @click="handleSubmit">Сохранить</Button>
+        <Button size="md" :accent="true" @click="handleSubmit">Сохранить</Button>
       </div>
     </form>
+    <Loader
+      size="lg"
+      v-if="status === CollectionStatus.Pending"/>
   </div>
 </template>

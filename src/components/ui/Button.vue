@@ -5,9 +5,9 @@ const props = defineProps<{
   isDisabled?: boolean,
   onlyIcon?: string
   icon?: string,
-  size: string
+  size: string,
+  accent?: boolean
 }>()
-
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const props = defineProps<{
   class="button"
   :size="size"
   :disabled="isDisabled"
-  :class="[size, onlyIcon]"
+  :class="[size, onlyIcon? 'onlyIcon' : null, accent? 'accent' : null]"
 >
   <Icon 
     v-if="icon"

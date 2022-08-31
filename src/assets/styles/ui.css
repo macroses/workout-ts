@@ -43,6 +43,12 @@
   cursor: not-allowed;
 }
 
+.button.accent {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: 0;
+}
+
 .btn-block {
   display: flex;
   gap: 8px;

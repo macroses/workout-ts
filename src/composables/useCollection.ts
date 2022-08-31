@@ -1,9 +1,13 @@
 import { ref } from 'vue';
-import type { Ref } from "vue";
-
 import { db } from '@/firebase/config'
 import { collection, addDoc } from 'firebase/firestore'
+import type { Ref } from "vue";
 
+export enum CollectionStatus {
+  Ok = 0,
+  Pending = 1,
+  Error = 2
+}
 
 interface Document {
   workoutDate: Date | null
@@ -14,27 +18,23 @@ interface Document {
 }
 
 const useCollection = (col: string) => {
-  const error: Ref<string | null> = ref(null);
-  const isPending: Ref<boolean> = ref(true);
+  const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const addDocument = async (
-    document: Document
-  ): Promise<void> => {
-    error.value = null
+  const addDocument = async ( document: Document ): Promise<void> => {
     const newGroup = collection(db, col);
 
     try {
+      status.value = CollectionStatus.Pending
       await addDoc(newGroup, document);
-      isPending.value = false;
+      status.value = CollectionStatus.Ok
     }
     catch(e: any) {
       console.log(e.message);
-      error.value = 'could not send the message';
-      isPending.value = false;
+      status.value = CollectionStatus.Error
     }
   }
 
-  return { error, addDocument, isPending }
+  return { status, addDocument }
 }
 
 export default useCollection

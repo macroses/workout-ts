@@ -20,7 +20,7 @@ export const getDateEquality = (day: Dayjs) => {
 
 export const getEmptyDays = (initialDate: Dayjs) => {
   const currentDate = initialDate.get('date');
-  let emptyDaysCount = dayjs(initialDate).subtract((currentDate), 'days').weekday();
+  let emptyDaysCount = dayjs(initialDate).subtract((currentDate), 'days').weekday() + 1;
   if (emptyDaysCount === 7) emptyDaysCount = 0;
   return emptyDaysCount;
 }
