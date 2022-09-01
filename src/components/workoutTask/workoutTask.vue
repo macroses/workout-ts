@@ -2,31 +2,33 @@
 import type { Dayjs } from 'dayjs';
 import { computed } from 'vue';
 import dayjs from 'dayjs';
-import getCollection from '@/composables/getCollection';
+import getCollectionByUser from '@/composables/getCollectionByUser';
 
 const props = defineProps<{
   workoutDate: Dayjs | null
 }>();
 
-const { documents, isPending } = getCollection('workouts');
+const { documents } = getCollectionByUser('workouts');
 
 const checkEqualDates = computed(() => {
-
-  // TODO: вынести наружу, чтобы не спамить пустыми тасками в ячейки не слать кучу запросов на получение коллекции
   if(!documents.value) return []
   return documents.value.filter(el => {
-    if (props.workoutDate.isSame(dayjs(el.workoutDate.seconds*1000))) {
-      return el.workoutName
+    if (props.workoutDate?.isSame(dayjs(el.workoutDate.seconds * 1000))) {
+      return el
     }
   })
 });
-
 </script>
 
 <template>
 <div
   class="workout-task"
   v-for="item in checkEqualDates"
->{{ item.workoutName }}
+  :style="{backgroundColor: `rgb(${item.color})`}"
+  @click.stop
+>
+  <div class="workout-task__name">
+    {{ item.workoutName }}
+  </div>
 </div>
 </template>

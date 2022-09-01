@@ -3,7 +3,11 @@ import { ref, watchEffect } from "vue";
 import { db } from '@/firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 
-const getCollection = (c: string) => {
+import getUser from "./getUser";
+
+const { user } = getUser();
+
+const getCollectionByUser = (c: string) => {
   const documents = ref();
   const pending = ref(false);
 
@@ -14,10 +18,13 @@ const getCollection = (c: string) => {
     pending.value = true;
 
     snapshot.docs.forEach(doc => {
-      results.push({
+
+      if(doc.data().userId === user.value?.uid) {
+        results.push({
         ...doc.data(),
-        id: doc.id
+        id: doc.id,
       })
+      }
     })
 
     documents.value = results;
@@ -31,4 +38,4 @@ const getCollection = (c: string) => {
   return { documents, pending };
 }
 
-export default getCollection;
+export default getCollectionByUser;

@@ -2,6 +2,7 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  transition: 0.2s;
 }
 
 .weekdays {
@@ -71,4 +72,33 @@
 .today .day-num{
   color: #fff;
   background: var(--color-accent);
+}
+
+.workout-task {
+  position: relative;
+  text-align: left;
+  font-size: 11px;
+  padding: 0px 8px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: box-shadow 0.2s;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workout-task:hover {
+  box-shadow: var(--elements-shadow);
+}
+
+.workout-task__name {
+  font-size: 11px;
+  max-width: calc(100% - 25px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-inverted);
 }

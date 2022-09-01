@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs';
 import { ref } from 'vue';
-import Icon from '../ui/Icon.vue';
 import Input from '../ui/Input.vue';
 import DropdownColor from '../ui/DropdownColor.vue';
 import Button from '../ui/Button.vue';
@@ -10,6 +9,8 @@ import getUser from '@/composables/getUser';
 import useCollection, { CollectionStatus } from '@/composables/useCollection';
 import MuscleGroups from './MuscleGroups.vue';
 import Loader from '../loader/Loader.vue';
+import WorkoutFormTitle from './WorkoutFormTitle.vue';
+import ExercisesList from './ExercisesList.vue';
 
 const props = defineProps<{ pickedDate: Dayjs | null }>();
 const emits = defineEmits<{ (e: 'close'): void }>();
@@ -19,9 +20,13 @@ const { user } = getUser();
 const { addDocument, status } = useCollection('workouts');
 
 const workoutName = ref<string>('');
+const pickedMuscleGroupId = ref<number | null>(null);
+
 const closeForm = () => emits('close');
 
-// пушим пробник
+const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
+const resetMuscleGroups = () => pickedMuscleGroupId.value = null
+
 const handleSubmit = async () => {
   if(!workoutName.value) return;
 
@@ -40,26 +45,13 @@ const handleSubmit = async () => {
     default: { break }
   }
 }
+
 </script>
 
 <template>
-  <div 
-    class="workout-form"
-    :class="{ active: pickedDate }"
-  >
-    <div class="workout-form__title">
-      <div class="workout-form__name">
-        <div class="workout-form__icon">
-          <Icon width="20px" iconName="clipboard-check"/>
-        </div>
-        Тренировка <span class="workout-form__date">{{ pickedDate?.format('DD.MM.YYYY') }}</span>
-      </div>
-      <div class="a11y-wrap" @click="closeForm">
-        <Icon width="20px" iconName="xmark"/>
-      </div>
-    </div>
+  <div class="workout-form" :class="{ active: pickedDate }">
+    <WorkoutFormTitle :pickedDate="pickedDate" @close="closeForm"/>
     <form 
-      
       class="workout-form__body" 
       @submit.prevent="handleSubmit">
       <Input 
@@ -69,15 +61,17 @@ const handleSubmit = async () => {
         required
       />
       <DropdownColor />
-      <MuscleGroups />
-      
+      <MuscleGroups
+        @pickMuscleGroup="getPickedMuscleGroup"
+        @resetMuscleGroup="resetMuscleGroups"
+      />
+      <ExercisesList :pickedMuscleGroupId="pickedMuscleGroupId"/>
+
       <div class="workout-form__btns">
-        <Button size="md" @click="closeForm">Закрыть</Button>
-        <Button size="md" :accent="true" @click="handleSubmit">Сохранить</Button>
+        <Button size="sm" @click="closeForm">Закрыть</Button>
+        <Button size="sm" :accent="true" @click="handleSubmit">Сохранить</Button>
       </div>
     </form>
-    <Loader
-      size="lg"
-      v-if="status === CollectionStatus.Pending"/>
+    <Loader size="lg" v-if="status === CollectionStatus.Pending"/>
   </div>
 </template>

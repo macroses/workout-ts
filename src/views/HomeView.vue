@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs';
-
 import { ref } from 'vue';
 import Weekdays from '@/components/weekdays/Weekdays.vue';
 import CalendarDates from '@/components/calendarDates/CalendarDates.vue';

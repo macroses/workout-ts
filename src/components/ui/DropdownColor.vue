@@ -19,8 +19,7 @@ const colorCollection = [
 ];
   
 const store = useStore();
-
-const container = ref(null);
+const container = ref<null | HTMLDivElement>(null);
 
 const defaultColor = ref<string>(store.taskColor);
 const isDropDownActive = ref<boolean>(false);
@@ -28,9 +27,9 @@ const isDropDownActive = ref<boolean>(false);
 const toggleDropdown = () => isDropDownActive.value = !isDropDownActive.value;
 
 const dropColor = (color: string) => {
+  isDropDownActive.value = false;
   store.taskColor = color;
   defaultColor.value = color;
-  isDropDownActive.value = false;
 };
   
 clickOutside(container, () => isDropDownActive.value = false);
