@@ -10,7 +10,8 @@ export const useStore = defineStore({
   id: 'mainStore',
   state: () => ({
     initialDate: dayjs(),
+
     taskColor: '' || "3, 155, 229",
-    workoutsDateCollection: []
+    workoutName: ''
   })
 })

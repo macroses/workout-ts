@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs';
+import type { Exercise } from '@/types/interface';
+
 import { ref } from 'vue';
+import { useStore } from '@/stores/store';
+
+import getUser from '@/composables/getUser';
+import useCollection, { CollectionStatus } from '@/composables/useCollection';
+
 import Input from '../ui/Input.vue';
 import DropdownColor from '../ui/DropdownColor.vue';
 import Button from '../ui/Button.vue';
-import { useStore } from '@/stores/store';
-import getUser from '@/composables/getUser';
-import useCollection, { CollectionStatus } from '@/composables/useCollection';
 import MuscleGroups from './MuscleGroups.vue';
 import Loader from '../loader/Loader.vue';
 import WorkoutFormTitle from './WorkoutFormTitle.vue';
 import ExercisesList from './ExercisesList.vue';
+import PickedExercises from './PickedExercises.vue';
 
 const props = defineProps<{ pickedDate: Dayjs | null }>();
 const emits = defineEmits<{ (e: 'close'): void }>();
@@ -25,7 +30,19 @@ const pickedMuscleGroupId = ref<number | null>(null);
 const closeForm = () => emits('close');
 
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
-const resetMuscleGroups = () => pickedMuscleGroupId.value = null
+const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
+
+const workoutExercises = ref<Exercise[]>([]);
+
+const getPickedExercises = (exercise: Exercise) => {
+  if(workoutExercises.value.includes(exercise)) { // удалим, если уже есть в массиве
+    workoutExercises.value = workoutExercises.value.filter(el => el.id !== exercise.id);
+  }
+  else {
+    workoutExercises.value.push(exercise)
+  }
+}
+
 
 const handleSubmit = async () => {
   if(!workoutName.value) return;
@@ -65,8 +82,12 @@ const handleSubmit = async () => {
         @pickMuscleGroup="getPickedMuscleGroup"
         @resetMuscleGroup="resetMuscleGroups"
       />
-      <ExercisesList :pickedMuscleGroupId="pickedMuscleGroupId"/>
-
+      <ExercisesList 
+        :pickedMuscleGroupId="pickedMuscleGroupId"
+        @pickedExercise="getPickedExercises"
+      />
+      <PickedExercises 
+        :workoutExercises="workoutExercises"/>
       <div class="workout-form__btns">
         <Button size="sm" @click="closeForm">Закрыть</Button>
         <Button size="sm" :accent="true" @click="handleSubmit">Сохранить</Button>

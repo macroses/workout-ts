@@ -1,10 +1,11 @@
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, type Ref } from "vue";
 
 import { db } from '@/firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
+import type { Collection } from '@/types/interface';
 
 const getCollection = (c: string) => {
-  const documents = ref();
+  const documents: Ref<Collection | undefined> = ref();
   const pending = ref(false);
 
   let colRef = collection(db, c);

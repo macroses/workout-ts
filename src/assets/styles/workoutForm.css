@@ -126,6 +126,11 @@
   cursor: pointer;
 }
 
+.exercise-item__btn.active {
+  background-color: var(--color-icon-accent-blue-bg);
+  color: var(--color-icon-accent-blue);
+}
+
 .exercise-item__btn:hover {
   background-color: var( --color-bg-hover);
 }

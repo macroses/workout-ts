@@ -1,32 +1,39 @@
 <script setup lang="ts">
 import {computed, ref} from 'vue';
 import getCollection from '@/composables/getCollection';
+import type { Exercise } from '@/types/interface'
 
-const props = defineProps<{
-  pickedMuscleGroupId: number | null
+const props = defineProps<{ pickedMuscleGroupId: number | null }>();
+const emits = defineEmits<{
+  (e: 'pickedExercise', item: Exercise): void
 }>();
 
 const { documents } = getCollection('exercises');
+
 const filtered = computed(() => {
   if (props.pickedMuscleGroupId !== null) {
-    return documents.value.filter(doc => doc.categoryId === props.pickedMuscleGroupId)
+    return documents.value?.filter((doc: Exercise) => {
+      return doc.categoryId === props.pickedMuscleGroupId
+    });
   }
 })
 
-const activeItem = ref(0);
-
-const pickedExercise = (index: number) => {
-  activeItem.value = index;
+const pickedExercise = (item: Exercise) => {
+  emits('pickedExercise', item);
+  item.isSelected = !item.isSelected;
 }
 </script>
 
 <template>
   <ul class="exercises">
-    <li class="exercise-item" v-for="(item, index) in filtered" :key="item.id">
+    <li class="exercise-item" 
+      v-for="item in filtered" 
+      :key="item.id"
+    >
       <button
-        @click="pickedExercise(index)"
+        @click="pickedExercise(item)"
         class="exercise-item__btn"
-        :class="{active: activeItem === index}"
+        :class="[item.isSelected ? 'active' : null]"
         type="button"
       >
         {{ item.name }}
