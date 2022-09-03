@@ -7,7 +7,7 @@
 }
 
 .workout-form.active {
-  min-width: 400px;
+  width: 400px;
   transform: translateX(0);
 }
 
@@ -60,6 +60,7 @@
   border-bottom: none;
   gap: 1px;
   margin-bottom: 12px;
+  border-radius: 4px;
 }
 
 .muscle-groups__item {
@@ -133,4 +134,19 @@
 
 .exercise-item__btn:hover {
   background-color: var( --color-bg-hover);
+}
+
+.picked-exercises {
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-bottom: 0;
+}
+
+.picked-exercises__item {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--color-border);
 }

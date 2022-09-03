@@ -32,14 +32,14 @@ const closeForm = () => emits('close');
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
 
-const workoutExercises = ref<Exercise[]>([]);
+// const workoutExercises = ref<Exercise[]>([]);
 
 const getPickedExercises = (exercise: Exercise) => {
-  if(workoutExercises.value.includes(exercise)) { // удалим, если уже есть в массиве
-    workoutExercises.value = workoutExercises.value.filter(el => el.id !== exercise.id);
+  if(store.pickedExercises.includes(exercise)) { // удалим, если уже есть в массиве
+    store.pickedExercises = store.pickedExercises.filter(el => el.id !== exercise.id);
   }
   else {
-    workoutExercises.value.push(exercise)
+    store.pickedExercises.push(exercise)
   }
 }
 
@@ -52,7 +52,8 @@ const handleSubmit = async () => {
     workoutName: workoutName.value,
     color: store.taskColor,
     userId: user.value?.uid ?? null,
-    userName: user.value?.displayName ?? null
+    userName: user.value?.displayName ?? null,
+    pickedExercise: store.pickedExercises
   });
 
   switch(status.value) {
@@ -86,8 +87,7 @@ const handleSubmit = async () => {
         :pickedMuscleGroupId="pickedMuscleGroupId"
         @pickedExercise="getPickedExercises"
       />
-      <PickedExercises 
-        :workoutExercises="workoutExercises"/>
+      <PickedExercises />
       <div class="workout-form__btns">
         <Button size="sm" @click="closeForm">Закрыть</Button>
         <Button size="sm" :accent="true" @click="handleSubmit">Сохранить</Button>

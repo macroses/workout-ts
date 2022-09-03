@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { db } from '@/firebase/config'
 import { collection, addDoc } from 'firebase/firestore'
 import type { Ref } from "vue";
+import type { Workout } from "@/types/interface";
 
 export enum CollectionStatus {
   Ok = 0,
@@ -9,18 +10,10 @@ export enum CollectionStatus {
   Error = 2
 }
 
-interface Document {
-  workoutDate: Date | null
-  workoutName: string
-  color: string
-  userId: string | null
-  userName: string | null
-}
-
 const useCollection = (col: string) => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const addDocument = async ( document: Document ): Promise<void> => {
+  const addDocument = async ( document: Workout ): Promise<void> => {
     const newGroup = collection(db, col);
 
     try {

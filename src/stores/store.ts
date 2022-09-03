@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
+import type { Exercise } from "@/types/interface";
 
 import weekday from 'dayjs/plugin/weekday';
 dayjs.locale('ru');
@@ -12,6 +13,7 @@ export const useStore = defineStore({
     initialDate: dayjs(),
 
     taskColor: '' || "3, 155, 229",
-    workoutName: ''
+    workoutName: '',
+    pickedExercises: []
   })
 })
