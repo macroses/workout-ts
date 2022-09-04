@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import Icon from "@/components/ui/Icon.vue";
+import { ref, watch} from "vue";
 import { useStore } from "@/stores/store";
-import {computed, ref, watch} from "vue";
+import { useOnlyNumbers } from "@/helpers/usseOnlyNumbers";
 import Input from "@/components/ui/Input.vue";
 import Button from "@/components/ui/Button.vue";
+import PickedExerciseSets from "@/components/workoutForm/PickedExerciseSets.vue";
+import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vue";
 
 const store = useStore();
 
 const isFormOpened = ref<boolean>(false);
 const activeId = ref<string>('');
-
 
 const toggleSelect = (id: string) => {
   activeId.value = id;
@@ -18,50 +19,52 @@ const toggleSelect = (id: string) => {
 
 // for active exercise
 const saveSet = (exerciseTitle: string, exerciseId: string) => {
+  if (!store.exerciseRepeats) return;
   store.saveSet(exerciseTitle, exerciseId)
   store.exerciseWeight = '';
   store.exerciseRepeats = '';
-}
+};
 
 watch(activeId, (value) => {
   if(value) {
     store.exerciseWeight = '';
     store.exerciseRepeats = '';
   }
-})
+});
+
+// TODO: сделать дропдаун типа нагрузки
 </script>
 
 <template>
   <ul class="picked-exercises">
     <li
-      v-for="item in store.pickedExercises"
-      :key="item.id"
+      v-for="pickedExercise in store.pickedExercises"
+      :key="pickedExercise.id"
       class="picked-exercises__item"
-      @click.stop="toggleSelect(item.id)"
+      @click.stop="toggleSelect(pickedExercise.id)"
     >
-      <div class="picked-exercise__title">
-        {{ item.name }}
-        <Icon width="12px" icon-name="angle-down"/>
-      </div>
+      <PickedExerciseTitle :title="pickedExercise.name"/>
+      <PickedExerciseSets :exerciseId="pickedExercise.id"/>
 
-
-
-      <div class="picked-exercise__form"
-        v-if="isFormOpened = activeId === item.id"
+      <div
+        class="picked-exercise__form"
+        v-if="isFormOpened = activeId === pickedExercise.id"
       >
         <Input
           inputType="text"
           placeholder="вес"
           size="sm"
           v-model="store.exerciseWeight"
+          @keydown="useOnlyNumbers($event)"
         />
         <Input
-            inputType="text"
-            placeholder="вес"
-            size="sm"
-            v-model="store.exerciseRepeats"
+          inputType="text"
+          placeholder="повторения"
+          size="sm"
+          v-model="store.exerciseRepeats"
+          @keydown="useOnlyNumbers($event)"
         />
-        <Button size="sm" @click="saveSet(item.name, item.id)">Сохранить</Button>
+        <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button>
       </div>
     </li>
   </ul>

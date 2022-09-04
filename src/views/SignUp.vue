@@ -16,7 +16,6 @@ const handleReg = () :void => {
 }
 
 const handleLogin = () :void => {
-  console.log('its log')
   isSignup.value = false;
 }
 

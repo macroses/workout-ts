@@ -69,7 +69,6 @@
 
 .user-funcs {
   position: absolute;
-  list-style: none;
   top: 100%;
   right: 0;
   background: var(--color-bg);

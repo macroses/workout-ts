@@ -21,7 +21,7 @@ const props = defineProps<{ pickedDate: Dayjs | null }>();
 const emits = defineEmits<{ (e: 'close'): void }>();
 const store = useStore();
 
-const { user } = getUser();
+const { user } = getUser(); // получаем актуального юзера
 const { addDocument, status } = useCollection('workouts');
 
 const workoutName = ref<string>('');
@@ -32,8 +32,6 @@ const closeForm = () => emits('close');
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
 
-// const workoutExercises = ref<Exercise[]>([]);
-
 const getPickedExercises = (exercise: Exercise) => {
   if(store.pickedExercises.includes(exercise)) { // удалим, если уже есть в массиве
     store.pickedExercises = store.pickedExercises.filter(el => el.id !== exercise.id);
@@ -42,7 +40,6 @@ const getPickedExercises = (exercise: Exercise) => {
     store.pickedExercises.push(exercise)
   }
 }
-
 
 const handleSubmit = async () => {
   if(!workoutName.value) return;
@@ -63,7 +60,6 @@ const handleSubmit = async () => {
     default: { break }
   }
 }
-
 </script>
 
 <template>

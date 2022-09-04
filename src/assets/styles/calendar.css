@@ -7,7 +7,6 @@
 
 .weekdays {
   display: grid;
-  list-style: none;
   gap: 1px;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 20px;
@@ -30,7 +29,6 @@
 
 .days {
   display: grid;
-  list-style: none;
   height: 100%;
   gap: 1px;
   grid-template-columns: repeat(7, 1fr);
@@ -78,7 +76,7 @@
   position: relative;
   text-align: left;
   font-size: 11px;
-  padding: 0px 8px;
+  padding: 0 8px;
   height: 36px;
   overflow: hidden;
   border-radius: 2px;

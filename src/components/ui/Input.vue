@@ -13,12 +13,14 @@ const props = defineProps<{
   <label class="input-wrap">
     <input
       class="baseInput"
+      :class="size"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
 
       :type="inputType" 
       :required="required"
-      :placeholder="placeholder">
+      :placeholder="placeholder"
+    >
   </label>
 </template>
 

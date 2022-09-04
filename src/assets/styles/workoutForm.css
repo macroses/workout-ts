@@ -106,7 +106,6 @@
   border-bottom: none;
   gap: 1px;
   margin-bottom: 12px;
-  list-style: none;
   max-height: 316px;
   overflow: auto;
 }
@@ -137,7 +136,6 @@
 }
 
 .picked-exercises {
-  list-style: none;
   border: 1px solid var(--color-border);
   border-bottom: 0;
 }
@@ -152,4 +150,27 @@
   align-items: center;
   justify-content: space-between;
   padding: 4px 8px;
+  background-color: var(--color-icon-accent-orange-bg);
+  color: var(--color-icon-accent-orange);
+  cursor: pointer;
+}
+
+.picked-exercise__form {
+  display: flex;
+  align-items: stretch;
+}
+
+.picked-exercise__sets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+.picked-exercise__set {
+  background-color: var(--color-bg-hover);
+  color: var(--color-accent);
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 0 4px;
 }

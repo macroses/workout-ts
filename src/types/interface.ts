@@ -1,3 +1,5 @@
+import type { Dayjs } from "dayjs";
+
 export interface Workout {
   workoutDate: Date | null
   workoutName: string
@@ -31,6 +33,16 @@ export interface Set {
   load: string
   setId: string
   exerciseId: string
+}
+
+export type Store = {
+  taskColor: string
+  workoutName: string
+  pickedExercises: Exercise[]
+  exercisesUserDataSets: Set[]
+  exerciseWeight: string
+  exerciseRepeats: string
+  initialDate: Dayjs
 }
 
 export type Collection = Workout | Exercise | MuscleGroup

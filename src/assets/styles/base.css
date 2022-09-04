@@ -16,6 +16,9 @@
 
   --color-icon-accent-blue: #409eff;
   --color-icon-accent-blue-bg: #dbedff;
+
+  --color-icon-accent-orange: #fd9220;
+  --color-icon-accent-orange-bg: #faf2e6;
 }
 
 *,
@@ -46,6 +49,10 @@ body {
 a {
   text-decoration: none;
   color: var(--color-accent);
+}
+
+ul {
+  list-style: none;
 }
 
 #app {
