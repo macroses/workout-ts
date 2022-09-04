@@ -144,9 +144,12 @@
 
 .picked-exercises__item {
   font-size: 13px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.picked-exercise__title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 4px 8px;
-  border-bottom: 1px solid var(--color-border);
 }
