@@ -41,4 +41,9 @@ const props = defineProps<{
 .baseInput:focus {
   border-color: var(--color-accent);
 }
+
+.baseInput.sm {
+  height: 28px;
+  font-size: 12px;
+}
 </style>

@@ -53,7 +53,7 @@ const handleSubmit = async () => {
     color: store.taskColor,
     userId: user.value?.uid ?? null,
     userName: user.value?.displayName ?? null,
-    pickedExercise: store.pickedExercises
+    exercisesUserDataSets: store.exercisesUserDataSets
   });
 
   switch(status.value) {

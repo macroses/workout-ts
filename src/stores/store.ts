@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
-import type { Exercise } from "@/types/interface";
+import type { Set } from "@/types/interface";
+import { uid } from "uid";
 
 import weekday from 'dayjs/plugin/weekday';
 dayjs.locale('ru');
@@ -14,6 +15,24 @@ export const useStore = defineStore({
 
     taskColor: '' || "3, 155, 229",
     workoutName: '',
-    pickedExercises: []
-  })
+    pickedExercises: [],
+    exercisesUserDataSets: [],
+    exerciseWeight: '',
+    exerciseRepeats: ''
+  }),
+  actions: {
+    saveSet(exerciseTitle: string, exerciseId: string) {
+      const set: Set = {
+        exerciseTitle: exerciseTitle,
+        weight: this.exerciseWeight,
+        repeats: this.exerciseRepeats,
+        load: '',
+        setId: uid(10),
+        exerciseId: exerciseId
+      }
+      this.exercisesUserDataSets.push(set);
+      this.exerciseWeight = '';
+      this.exerciseRepeats = '';
+    }
+  }
 })
