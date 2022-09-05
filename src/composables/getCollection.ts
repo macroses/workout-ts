@@ -5,7 +5,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import type { Collection } from '@/types/interface';
 
 const getCollection = (c: string) => {
-  const documents: Ref<Collection | undefined> = ref();
+  const documents: Ref<Collection[] | undefined> = ref([]);
   const pending = ref(false);
 
   let colRef = collection(db, c);

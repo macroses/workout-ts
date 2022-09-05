@@ -45,4 +45,4 @@ export type Store = {
   initialDate: Dayjs
 }
 
-export type Collection = Workout | Exercise | MuscleGroup
+export type Collection = Workout | Exercise | MuscleGroup | Store

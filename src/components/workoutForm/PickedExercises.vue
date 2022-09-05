@@ -31,8 +31,6 @@ watch(activeId, (value) => {
     store.exerciseRepeats = '';
   }
 });
-
-// TODO: сделать дропдаун типа нагрузки
 </script>
 
 <template>
@@ -64,6 +62,9 @@ watch(activeId, (value) => {
           v-model="store.exerciseRepeats"
           @keydown="useOnlyNumbers($event)"
         />
+        <div class="picked-exercise__load">
+          Тяжелая
+        </div>
         <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button>
       </div>
     </li>

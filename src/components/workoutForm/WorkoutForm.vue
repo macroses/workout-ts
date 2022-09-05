@@ -32,14 +32,7 @@ const closeForm = () => emits('close');
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
 
-const getPickedExercises = (exercise: Exercise) => {
-  if(store.pickedExercises.includes(exercise)) { // удалим, если уже есть в массиве
-    store.pickedExercises = store.pickedExercises.filter(el => el.id !== exercise.id);
-  }
-  else {
-    store.pickedExercises.push(exercise)
-  }
-}
+const getPickedExercises = (exercise: Exercise) => store.putToStorePickedExercises(exercise); // кладем в стор выбранные упражнения
 
 const handleSubmit = async () => {
   if(!workoutName.value) return;
@@ -79,14 +72,14 @@ const handleSubmit = async () => {
         @pickMuscleGroup="getPickedMuscleGroup"
         @resetMuscleGroup="resetMuscleGroups"
       />
-      <ExercisesList 
+      <ExercisesList
         :pickedMuscleGroupId="pickedMuscleGroupId"
         @pickedExercise="getPickedExercises"
       />
       <PickedExercises />
       <div class="workout-form__btns">
-        <Button size="sm" @click="closeForm">Закрыть</Button>
-        <Button size="sm" :accent="true" @click="handleSubmit">Сохранить</Button>
+        <Button size="md" @click="closeForm">Закрыть</Button>
+        <Button size="md" :accent="true" @click="handleSubmit">Сохранить</Button>
       </div>
     </form>
     <Loader size="lg" v-if="status === CollectionStatus.Pending"/>

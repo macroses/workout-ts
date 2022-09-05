@@ -106,7 +106,7 @@
   border-bottom: none;
   gap: 1px;
   margin-bottom: 12px;
-  max-height: 316px;
+  max-height: 221px;
   overflow: auto;
 }
 
@@ -158,6 +158,13 @@
 .picked-exercise__form {
   display: flex;
   align-items: stretch;
+  gap: 8px;
+  padding: 0 8px;
+}
+
+.picked-exercise__form .input-wrap {
+  max-width: 100px;
+  margin-bottom: 0;
 }
 
 .picked-exercise__sets {
@@ -168,9 +175,28 @@
 }
 
 .picked-exercise__set {
-  background-color: var(--color-bg-hover);
-  color: var(--color-accent);
+  background-color: var(--color-icon-accent-blue-bg);
+  color:  var(--color-icon-accent-blue);
   border-radius: 4px;
   font-size: 11px;
-  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+  padding: 2px 4px;
+}
+
+.picked-exercise__set svg{
+  fill: var(--color-icon-accent-blue);
+  cursor: pointer;
+}
+
+.picked-exercise__load {
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0 8px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  color: var(--color-btn);
 }

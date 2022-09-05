@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed} from 'vue';
 import getCollection from '@/composables/getCollection';
 import type { Exercise } from '@/types/interface'
 
@@ -25,9 +25,9 @@ const pickedExercise = (item: Exercise) => {
 </script>
 
 <template>
-  <ul class="exercises">
-    <li class="exercise-item" 
-      v-for="item in filtered" 
+  <ul class="exercises" v-if="pickedMuscleGroupId !== null">
+    <li class="exercise-item"
+      v-for="item in filtered"
       :key="item.id"
     >
       <button
