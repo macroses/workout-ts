@@ -48,20 +48,3 @@ const resetMuscleGroup = () => {
   </transition>
   <Loader v-if="!pending" size="md"/>
 </template>
-
-<style>
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.2s;
-}
-
-.slide-up-enter-from {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.slide-up-leave-to {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-</style>
