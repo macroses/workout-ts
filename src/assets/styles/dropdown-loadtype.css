@@ -1,0 +1,37 @@
+.load {
+  position: relative;
+}
+.load__list {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 100%;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  z-index: 2;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  overflow: hidden;
+}
+
+.load__item {
+  padding: 4px 8px;
+  color: var(--color-text-inverted);
+  cursor: pointer;
+}
+
+.load__result {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  padding: 0 8px;
+  font-weight: bold;
+}
+
+.load__result svg {
+  fill: var(--color-text-inverted);
+}

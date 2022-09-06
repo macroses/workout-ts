@@ -4,6 +4,7 @@ import Weekdays from '@/components/weekdays/Weekdays.vue';
 import CalendarDates from '@/components/calendarDates/CalendarDates.vue';
 import WorkoutForm from '@/components/workoutForm/WorkoutForm.vue';
 import {useStore} from "@/stores/store";
+import ReadWorkoutData from "@/components/readWorkoutData/ReadWorkoutData.vue";
 
 const store = useStore();
 
@@ -18,7 +19,6 @@ const closeForm = () => store.pickedDate = null;
       <CalendarDates @pickDate="getPickedDate" />
     </ul>
   </div>
-  <WorkoutForm
-    @close="closeForm"
-  />
+  <WorkoutForm @close="closeForm" />
+  <ReadWorkoutData />
 </template>
