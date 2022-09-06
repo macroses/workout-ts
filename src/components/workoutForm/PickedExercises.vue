@@ -6,6 +6,8 @@ import Input from "@/components/ui/Input.vue";
 import Button from "@/components/ui/Button.vue";
 import PickedExerciseSets from "@/components/workoutForm/PickedExerciseSets.vue";
 import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vue";
+import DropdownLoadType from "./DropdownLoadType.vue";
+import type { LoadType } from "@/types/interface";
 
 const store = useStore();
 
@@ -34,7 +36,7 @@ watch(activeId, (value) => {
 </script>
 
 <template>
-  <ul class="picked-exercises">
+  <TransitionGroup name="list" tag="ul" class="picked-exercises">
     <li
       v-for="pickedExercise in store.pickedExercises"
       :key="pickedExercise.id"
@@ -62,11 +64,9 @@ watch(activeId, (value) => {
           v-model="store.exerciseRepeats"
           @keydown="useOnlyNumbers($event)"
         />
-        <div class="picked-exercise__load">
-          Тяжелая
-        </div>
+        <DropdownLoadType/>
         <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button>
       </div>
     </li>
-  </ul>
+  </TransitionGroup>
 </template>

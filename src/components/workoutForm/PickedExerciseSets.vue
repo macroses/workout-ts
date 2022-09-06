@@ -10,14 +10,16 @@ const deleteSet = (clickedSetId: string) => store.deleteSetItem(clickedSetId)
 </script>
 
 <template>
-  <ul class="picked-exercise__sets">
+  <TransitionGroup name="list" tag="ul" class="picked-exercise__sets">
     <li
-        v-for="set in store.filterSetsByExercise(exerciseId)"
-        :key="set.setId"
-        class="picked-exercise__set"
+      v-for="set in store.filterSetsByExercise(exerciseId)"
+      :key="set.setId"
+      class="picked-exercise__set"
     >
-      {{ set.weight }} x {{ set.repeats }}
-      <Icon @click="deleteSet(set.setId)" width="13px" iconName="xmark"/>
+      <div class="picked-exercise__box" :style="{ backgroundColor: `rgb(${set.load})` }">
+        {{ set.weight }} x {{ set.repeats }}
+        <Icon @click="deleteSet(set.setId)" width="13px" iconName="xmark"/>
+      </div>
     </li>
-  </ul>
+  </TransitionGroup>
 </template>

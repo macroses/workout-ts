@@ -25,7 +25,10 @@ const pickedExercise = (item: Exercise) => {
 </script>
 
 <template>
-  <ul class="exercises" v-if="pickedMuscleGroupId !== null">
+  <ul 
+    class="exercises"
+    :class="{active: pickedMuscleGroupId !== null}"
+  >
     <li class="exercise-item"
       v-for="item in filtered"
       :key="item.id"

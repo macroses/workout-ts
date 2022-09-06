@@ -45,6 +45,8 @@
 
 .workout-form__body {
   padding: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .workout-form__btns {
@@ -106,8 +108,13 @@
   border-bottom: none;
   gap: 1px;
   margin-bottom: 12px;
-  max-height: 221px;
+  height: 0;
+}
+
+.exercises.active {
+  height: 221px;
   overflow: auto;
+  transition: height 0.2s ease-out;
 }
 
 .exercise-item {
@@ -159,7 +166,7 @@
   display: flex;
   align-items: stretch;
   gap: 8px;
-  padding: 0 8px;
+  padding: 8px;
 }
 
 .picked-exercise__form .input-wrap {
@@ -170,33 +177,36 @@
 .picked-exercise__sets {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: 8px;
+  padding: 0 8px;
 }
 
 .picked-exercise__set {
-  background-color: var(--color-icon-accent-blue-bg);
-  color:  var(--color-icon-accent-blue);
-  border-radius: 4px;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-weight: bold;
-  padding: 2px 4px;
+  padding: 8px 0;
 }
 
 .picked-exercise__set svg{
-  fill: var(--color-icon-accent-blue);
+  fill:  var(--color-text-inverted);
   cursor: pointer;
 }
 
 .picked-exercise__load {
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  padding: 0 8px;
   font-size: 13px;
   display: flex;
   align-items: center;
   color: var(--color-btn);
+  width: 150px;
+}
+
+.picked-exercise__box {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color:  var(--color-text-inverted);
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 2px 4px;
 }

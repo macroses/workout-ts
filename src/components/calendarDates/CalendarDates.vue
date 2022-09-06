@@ -11,7 +11,6 @@ const emits = defineEmits<{
 }>();
 
 const activeCellIndex = ref<number>(0); // выделение активной ячейки
-const propWorkoutDate = ref<Dayjs | null>(null); // выбор 
 
 const emptyDaysCells = computed(() => getEmptyDays(store.initialDate));
 const filledDaysCells = computed(() => getDaysArr(store.initialDate));
@@ -20,7 +19,7 @@ const pickDate = (date: Dayjs, index: number) => {
   activeCellIndex.value = index;
 
   if(activeCellIndex.value === index) {
-    propWorkoutDate.value = date;
+    store.pickedDate = date;
   }
   
   emits('pickDate', date)

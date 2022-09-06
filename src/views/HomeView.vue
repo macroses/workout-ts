@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import type { Dayjs } from 'dayjs';
-import { ref } from 'vue';
 import Weekdays from '@/components/weekdays/Weekdays.vue';
 import CalendarDates from '@/components/calendarDates/CalendarDates.vue';
 import WorkoutForm from '@/components/workoutForm/WorkoutForm.vue';
+import {useStore} from "@/stores/store";
 
-const pickedDate = ref<Dayjs | null>(null);
+const store = useStore();
 
-const getPickedDate = (e: Dayjs) => pickedDate.value = e;
-const closeForm = () => pickedDate.value = null;
+const getPickedDate = (date: Dayjs) => store.pickedDate = date;
+const closeForm = () => store.pickedDate = null;
 </script>
 
 <template>
@@ -18,8 +18,7 @@ const closeForm = () => pickedDate.value = null;
       <CalendarDates @pickDate="getPickedDate" />
     </ul>
   </div>
-  <WorkoutForm 
-    :pickedDate="pickedDate"
+  <WorkoutForm
     @close="closeForm"
   />
 </template>

@@ -25,26 +25,24 @@ const resetMuscleGroup = () => {
 </script>
 
 <template>
-  <transition name="slide-up" mode="out-in">
-    <div v-if="pending && isGroupPicked" class="muscle-groups">
-      <div
-        class="muscle-groups__item"
-        v-for="doc in documents"
-        :key="doc.id"
-        @click="pickMuscleGroup(doc.muscleId, doc.name)"
-      >
-        <Icon :iconName="doc.iconName" width="14px"/>
-        {{ doc.name }}
-      </div>
-    </div>
-    <button
-      @click="resetMuscleGroup"
-      class="picked-group"
-      v-else
+  <div v-if="pending && isGroupPicked" class="muscle-groups">
+    <div
+      class="muscle-groups__item"
+      v-for="doc in documents"
+      :key="doc.id"
+      @click="pickMuscleGroup(doc.muscleId, doc.name)"
     >
-      {{ pickedGroup }}
-      <Icon iconName="angle-down" width="14px"/>
-    </button>
-  </transition>
+      <Icon :iconName="doc.iconName" width="14px"/>
+      {{ doc.name }}
+    </div>
+  </div>
+  <button
+    @click="resetMuscleGroup"
+    class="picked-group"
+    v-else
+  >
+    {{ pickedGroup }}
+    <Icon iconName="angle-down" width="14px"/>
+  </button>
   <Loader v-if="!pending" size="md"/>
 </template>

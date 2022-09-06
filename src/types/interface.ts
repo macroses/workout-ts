@@ -30,7 +30,7 @@ export interface Set {
   exerciseTitle: string
   weight: string
   repeats: string
-  load: string
+  load?: string
   setId: string
   exerciseId: string
 }
@@ -41,8 +41,17 @@ export type Store = {
   pickedExercises: Exercise[]
   exercisesUserDataSets: Set[]
   exerciseWeight: string
+  exerciseLoad: LoadType | null
   exerciseRepeats: string
   initialDate: Dayjs
+  pickedDate: Dayjs | null
+}
+
+export type LoadType = {
+  id: string,
+  loadType: string
+  activeLoadType: boolean
+  color: string
 }
 
 export type Collection = Workout | Exercise | MuscleGroup | Store

@@ -4,9 +4,14 @@ import dayjs from "dayjs";
 import 'dayjs/locale/ru';
 import { uid } from "uid";
 import weekday from 'dayjs/plugin/weekday';
+import useCollection, { CollectionStatus } from '@/composables/useCollection';
+import getUser from '@/composables/getUser';
 
 dayjs.locale('ru');
 dayjs.extend(weekday);
+
+const { addDocument, status } = useCollection('workouts');
+const { user } = getUser(); // получаем актуального юзера
 
 export const useStore = defineStore({
   id: 'mainStore',
@@ -17,7 +22,9 @@ export const useStore = defineStore({
     exercisesUserDataSets: [],
     exerciseWeight: '',
     exerciseRepeats: '',
+    exerciseLoad: null,
     initialDate: dayjs(),
+    pickedDate: null
   } as Store),
   actions: {
     saveSet(exerciseTitle: string, exerciseId: string): void {
@@ -25,7 +32,7 @@ export const useStore = defineStore({
         exerciseTitle: exerciseTitle,
         weight: this.exerciseWeight,
         repeats: this.exerciseRepeats,
-        load: '',
+        load: this.exerciseLoad?.color || '',
         setId: uid(10),
         exerciseId: exerciseId
       };
@@ -34,7 +41,7 @@ export const useStore = defineStore({
       this.exerciseWeight = '';
       this.exerciseRepeats = '';
     },
-    putToStorePickedExercises<T extends Exercise>(exercise: T) {
+    putToStorePickedExercises<T extends Exercise>(exercise: T): void {
       if(this.pickedExercises.includes(exercise)) { // удалим, если уже есть в массиве
         this.pickedExercises = this.pickedExercises.filter(el => el.id !== exercise.id);
       }
@@ -57,6 +64,33 @@ export const useStore = defineStore({
       this.exercisesUserDataSets = this.exercisesUserDataSets.filter(set => {
         return set.setId !== clickedSetId
       });
+    },
+
+    async pushWorkoutToBase(): Promise<void> { // TODO: перенести до конца submit формы
+      if(!this.workoutName) return;
+
+      await addDocument({
+        workoutDate: this.pickedDate?.toDate() ?? null,
+        workoutName: this.workoutName,
+        color: this.taskColor,
+        userId: user.value?.uid ?? null,
+        userName: user.value?.displayName ?? null,
+        exercisesUserDataSets: this.exercisesUserDataSets
+      });
+
+      switch(status.value) {
+        // очищаем все
+        case CollectionStatus.Ok:
+          this.workoutName = '';
+          this.taskColor = "3, 155, 229";
+          this.pickedExercises = [];
+          this.exercisesUserDataSets = [];
+          this.exerciseWeight = '';
+          this.exerciseRepeats = '';
+          this.exerciseLoad = null;
+          break;
+        default: { break }
+      }
     }
   }
 })
