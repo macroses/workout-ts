@@ -65,7 +65,8 @@ watch(activeId, (value) => {
           @keydown="useOnlyNumbers($event)"
         />
         <DropdownLoadType/>
-        <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button>
+        <!-- <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button> -->
+        <button type="button" class="save-set__btn"  @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</button>
       </div>
     </li>
   </TransitionGroup>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Button from "../ui/Button.vue";
 import { computed } from "vue";
-import {getResetCurrentMonth, getNextMonth, getPrevMonth} from "@/helpers/getDate";
+import { getResetCurrentMonth, getNextMonth, getPrevMonth } from "@/helpers/getDate";
 import { useStore } from "@/stores/store";
 
 const store = useStore();

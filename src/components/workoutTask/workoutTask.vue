@@ -5,10 +5,14 @@ import dayjs from 'dayjs';
 import getCollectionByUser from '@/composables/getCollectionByUser';
 import deleteWorkoutCollection from "@/composables/deleteWorkoutCollection";
 import Icon from "@/components/ui/Icon.vue";
+import type { Workout } from '@/types/interface';
+import { useStore } from '@/stores/store';
 
 const props = defineProps<{
   workoutDate: Dayjs | null
 }>();
+
+const store = useStore();
 
 const { documents } = getCollectionByUser('workouts');
 
@@ -20,6 +24,8 @@ const checkEqualDates = computed(() => {
     }
   })
 });
+
+const pushWorkoutToStore = (workout: Workout) => store.readWorkout = workout;
 </script>
 
 <template>
@@ -27,11 +33,11 @@ const checkEqualDates = computed(() => {
   class="workout-task"
   v-for="item in checkEqualDates"
   :style="{ backgroundColor: `rgb(${item.color})` }"
-  @click.stop
+  @click.stop="pushWorkoutToStore(item)"
 >
   <div class="workout-task__name">
     {{ item.workoutName }}
-    <Icon width="16px" iconName="xmark" @click="deleteWorkoutCollection(item.id)"/>
   </div>
+  <Icon width="16px" iconName="xmark" @click="deleteWorkoutCollection(item.id)"/>
 </div>
 </template>

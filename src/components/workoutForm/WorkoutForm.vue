@@ -52,10 +52,10 @@ const handleSubmit = async () => {
         @pickedExercise="getPickedExercises"
       />
       <PickedExercises />
-      <div class="workout-form__btns">
-        <Button size="md" @click="closeForm">Закрыть</Button>
-        <Button size="md" :accent="true" @click.stop="handleSubmit">Сохранить</Button>
-      </div>
+    </div>
+    <div class="workout-form__btns">
+      <Button size="md" @click="closeForm">Закрыть</Button>
+      <Button size="md" :accent="true" @click.stop="handleSubmit">Сохранить</Button>
     </div>
 <!--    <Loader size="lg" v-if="status === CollectionStatus.Pending"/>-->
   </div>

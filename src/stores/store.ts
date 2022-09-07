@@ -24,7 +24,8 @@ export const useStore = defineStore({
     exerciseRepeats: '',
     exerciseLoad: null,
     initialDate: dayjs(),
-    pickedDate: null
+    pickedDate: null,
+    readWorkout: null
   } as Store),
   actions: {
     saveSet(exerciseTitle: string, exerciseId: string): void {
@@ -71,7 +72,7 @@ export const useStore = defineStore({
 
       await addDocument({
         workoutDate: this.pickedDate?.toDate() ?? null,
-        workoutName: this.workoutName,
+        workoutName: this.workoutName.slice(0, 20),
         color: this.taskColor,
         userId: user.value?.uid ?? null,
         userName: user.value?.displayName ?? null,

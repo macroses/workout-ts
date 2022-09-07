@@ -1,16 +1,8 @@
 <script setup lang="ts">
-import type { Dayjs } from 'dayjs';
 import Icon from '../ui/Icon.vue';
 import { useStore } from "@/stores/store";
-import {ref} from "vue";
-
-// const props = defineProps<{
-//   pickedDate: Dayjs | null
-// }>();
 
 const store = useStore();
-
-const pickedDate = ref<Dayjs | null>(store.pickedDate)
 
 const emits = defineEmits<{ (e: 'close'): void }>();
 const closeForm = () => emits('close');

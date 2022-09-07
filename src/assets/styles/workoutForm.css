@@ -4,6 +4,7 @@
   transform: translateX(100%);
   transition: 0.2s;
   overflow: hidden;
+  background-color: var(--color-bg);
 }
 
 .workout-form.active {
@@ -45,14 +46,13 @@
 
 .workout-form__body {
   padding: 12px;
-  display: flex;
-  flex-direction: column;
 }
 
 .workout-form__btns {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
+  padding: 0px 12px;
 }
 
 .muscle-groups {
@@ -177,12 +177,18 @@
 .picked-exercise__sets {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  column-gap: 8px;
   padding: 0 8px;
 }
 
+.save-set__btn {
+  background: transparent;
+  border: 1px solid var(--ccolor-border);
+}
+
 .picked-exercise__set {
-  padding: 8px 0;
+  margin-bottom: 8px;
+  /* padding-top: 8px; */
 }
 
 .picked-exercise__set svg{

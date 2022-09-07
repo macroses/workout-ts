@@ -45,6 +45,7 @@ export type Store = {
   exerciseRepeats: string
   initialDate: Dayjs
   pickedDate: Dayjs | null
+  readWorkout: Workout | null
 }
 
 export type LoadType = {

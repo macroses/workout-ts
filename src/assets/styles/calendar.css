@@ -92,6 +92,10 @@
   box-shadow: var(--elements-shadow);
 }
 
+.workout-task svg {
+  fill: var(--color-text-inverted);
+}
+
 .workout-task__name {
   font-size: 11px;
   max-width: calc(100% - 25px);
