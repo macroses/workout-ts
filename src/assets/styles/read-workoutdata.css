@@ -1,5 +1,6 @@
 .workout-data {
   width: 0;
+  flex-shrink: 0;
   border-left: 1px solid var(--color-border);
   transform: translateX(100%);
   transition: 0.2s;
@@ -10,10 +11,11 @@
 .workout-data.active {
   width: 400px;
   transform: translateX(0);
+  box-shadow: var(--elements-shadow);
 }
 
 .workout-data__title {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   padding: 12px;
   color: var(--color-text-inverted);
@@ -76,4 +78,36 @@
 
 .workout-data__icon.edit svg {
   fill: var(--color-icon-accent-blue);
+}
+
+.workout-data__list {
+  padding: 12px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.workout-data__list-item {
+  font-size: 15px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.workout-data__list-item:not(:last-child) {
+  border-bottom: 0;
+}
+
+.workout-data__list-item:nth-child(odd) {
+  background-color: var(--color-bg-hover);
+}
+
+.workout-data__sets-list {
+  display: flex;
+  gap: 8px;
+}
+
+.workout-data__sets-list li {
+  color: var(--color-text-inverted);
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 13px;
 }

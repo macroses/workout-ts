@@ -16,6 +16,7 @@ const emptyDaysCells = computed(() => getEmptyDays(store.initialDate));
 const filledDaysCells = computed(() => getDaysArr(store.initialDate));
 
 const pickDate = (date: Dayjs, index: number) => {
+  store.readWorkout = null;
   activeCellIndex.value = index;
 
   if(activeCellIndex.value === index) {

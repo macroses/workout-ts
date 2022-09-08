@@ -1,5 +1,6 @@
 .workout-form {
   width: 0;
+  flex-shrink: 0;
   border-left: 1px solid var(--color-border);
   transform: translateX(100%);
   transition: 0.2s;
@@ -10,6 +11,7 @@
 .workout-form.active {
   width: 400px;
   transform: translateX(0);
+  box-shadow: var(--elements-shadow);
 }
 
 .workout-form__title {
@@ -183,7 +185,7 @@
 
 .save-set__btn {
   background: transparent;
-  border: 1px solid var(--ccolor-border);
+  border: 1px solid var(--color-border);
 }
 
 .picked-exercise__set {

@@ -11,7 +11,7 @@ import Icon from "../ui/Icon.vue";
 const { user } = getUser();
 const router = useRouter();
 const isListActive = ref<boolean>(false);
-const list = ref<null | HTMLUListElement >(null);
+const list = ref<null | HTMLAllCollection >(null);
 
 const logOut = ():void => {
   signOut(auth);

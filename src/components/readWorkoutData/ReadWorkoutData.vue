@@ -45,34 +45,35 @@ const result = computed(() => {
   }, [])
 })
 
-
 </script>
 
 <template>
-<div class="workout-data active">
+<div class="workout-data active" v-if="store.readWorkout">
   <div class="workout-data__title" :style="{ backgroundColor: `rgb(${ store.readWorkout?.color })` }">
     <div class="workout-data__name">{{ store.readWorkout?.workoutName }}</div>
-    <div class="workout-data__date">{{ dayjs.unix(store.readWorkout?.workoutDate.seconds).format('DD.MM.YYYY') }}</div>
+    <div class="workout-data__date">{{ dayjs.unix(store.readWorkout?.workoutDate?.seconds).format('DD.MM.YYYY') }}</div>
     <div class="a11y-wrap">
       <Icon width="20px" iconName="xmark"/>
     </div>
   </div>
-  <div class="workout-data__funcs">
+  <!-- <div class="workout-data__funcs">
     <div class="workout-data__icon edit">
       <Icon width="20px" iconName="pen"/>
     </div>
     <div class="workout-data__icon delete">
       <Icon width="20px" iconName="trash"/>
     </div>
-  </div>
+  </div> -->
   <div class="workout-data__content">
     <ul class="workout-data__list">
       <li
         v-for="workout in result"
         class="workout-data__list-item">
-        {{ workout.exerciseTitle }}
+        <div class="workout-data__exercise-name">
+          {{ workout.exerciseTitle }}
+        </div>
         <ul class="workout-data__sets-list">
-          <li v-for="set in workout.sets"> {{set.weight}} x {{ set.repeats }}</li>
+          <li v-for="set in workout.sets" :style="{ backgroundColor: `rgb(${set.load})` }"> {{set.weight}} x {{ set.repeats }}</li>
         </ul>
       </li>
     </ul>
@@ -81,3 +82,7 @@ const result = computed(() => {
   </div>
 </div>
 </template>
+
+<style>
+
+</style>

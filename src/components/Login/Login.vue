@@ -55,7 +55,7 @@ const handleSubmit = async (): Promise<void> => {
 <style>
 .auth-box {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 0 auto;
   position: relative;
 }
 

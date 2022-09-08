@@ -25,7 +25,10 @@ const checkEqualDates = computed(() => {
   })
 });
 
-const pushWorkoutToStore = (workout: Workout) => store.readWorkout = workout;
+const pushWorkoutToStore = (workout: Workout) => {
+  store.readWorkout = workout;
+  store.pickedDate = null;
+};
 
 </script>
 

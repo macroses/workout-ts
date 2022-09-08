@@ -19,7 +19,7 @@ const colorCollection = [
 ];
   
 const store = useStore();
-const container = ref<null | HTMLDivElement>(null);
+const container = ref<null | HTMLAllCollection>(null);
 
 const defaultColor = ref<string>(store.taskColor);
 const isDropDownActive = ref<boolean>(false);

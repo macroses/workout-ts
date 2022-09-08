@@ -27,14 +27,31 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="auth-title">
-    <div @click="isSignup = true">Регистрация</div>
-    <div @click="isSignup = false">Вход</div>
+  <div class="auth-container">
+    <div class="auth-body">
+      <div class="auth-title">
+        <div 
+          @click="isSignup = true" 
+          :class="{active: isSignup}"
+        >
+          Регистрация
+        </div>
+        <div @click="isSignup = false" 
+          :class="{active: !isSignup}"
+        >
+          Вход
+        </div>
+      </div>
+      <Signup
+        v-if="isSignup"
+        @handleReg="handleReg"/>
+      <Login
+        v-else
+        @handleLogin="handleLogin"/>
+    </div>
   </div>
-  <Signup
-    v-if="isSignup"
-    @handleReg="handleReg"/>
-  <Login
-    v-else
-    @handleLogin="handleLogin"/>
 </template>
+
+<style>
+  
+</style>
