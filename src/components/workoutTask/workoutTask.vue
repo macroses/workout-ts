@@ -26,6 +26,7 @@ const checkEqualDates = computed(() => {
 });
 
 const pushWorkoutToStore = (workout: Workout) => store.readWorkout = workout;
+
 </script>
 
 <template>
@@ -41,3 +42,4 @@ const pushWorkoutToStore = (workout: Workout) => store.readWorkout = workout;
   <Icon width="16px" iconName="xmark" @click="deleteWorkoutCollection(item.id)"/>
 </div>
 </template>
+

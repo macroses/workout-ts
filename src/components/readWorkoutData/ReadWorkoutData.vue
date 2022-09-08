@@ -2,8 +2,50 @@
 import { useStore } from '@/stores/store';
 import dayjs from 'dayjs';
 import Icon from '../ui/Icon.vue';
+import { computed } from "vue";
+
+interface ResultSet {
+  exerciseId: string
+  exerciseTitle: string
+  sets: Array<{
+    weight: string,
+    repeats: string,
+    load?: string,
+    setId: string
+  }>
+}
 
 const store = useStore();
+
+const result = computed(() => {
+  return store.readWorkout?.exercisesUserDataSets.reduce((acc: ResultSet[], current): ResultSet[] => {
+    const found = acc.find(el => el.exerciseId === current.exerciseId);
+
+    if (found) {
+      found.sets.push({
+        weight: current.weight,
+        repeats: current.repeats,
+        load: current.load,
+        setId: current.setId
+      });
+    } else {
+      acc.push({
+        exerciseId: current.exerciseId,
+        exerciseTitle: current.exerciseTitle,
+        sets: [{
+          weight: current.weight,
+          repeats: current.repeats,
+          load: current.load,
+          setId: current.setId
+        }]
+      })
+    }
+
+    return acc;
+  }, [])
+})
+
+
 </script>
 
 <template>
@@ -26,9 +68,16 @@ const store = useStore();
   <div class="workout-data__content">
     <ul class="workout-data__list">
       <li
-        v-for="workout in store.readWorkout?.exercisesUserDataSets"
-        class="workout-data__list-item">{{ workout.exerciseTitle }}</li>
+        v-for="workout in result"
+        class="workout-data__list-item">
+        {{ workout.exerciseTitle }}
+        <ul class="workout-data__sets-list">
+          <li v-for="set in workout.sets"> {{set.weight}} x {{ set.repeats }}</li>
+        </ul>
+      </li>
     </ul>
+
+<!--    <div v-for="item in result">{{item}}</div>-->
   </div>
 </div>
 </template>
