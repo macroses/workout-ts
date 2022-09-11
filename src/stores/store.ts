@@ -25,17 +25,31 @@ export const useStore = defineStore({
     exerciseLoad: null,
     initialDate: dayjs(),
     pickedDate: null,
-    readWorkout: null
+    readWorkout: null,
+    isEditMode: false
   } as Store),
   actions: {
-    saveSet(exerciseTitle: string, exerciseId: string): void {
+    restoreDefaultsState () {
+      this.taskColor = '' || "3, 155, 229";
+      this.workoutName = '';
+      this.pickedExercises = [];
+      this.exercisesUserDataSets = [];
+      this.exerciseWeight = '';
+      this.exerciseRepeats = '';
+      this.exerciseLoad = null;
+      this.initialDate = dayjs();
+      this.pickedDate = null;
+      this.readWorkout = null;
+    },
+    saveSet(exerciseTitle: string, exerciseId: string, isSelected: boolean): void {
       const set: Set = {
         exerciseTitle: exerciseTitle,
         weight: this.exerciseWeight,
         repeats: this.exerciseRepeats,
         load: this.exerciseLoad?.color || '',
         setId: uid(10),
-        exerciseId: exerciseId
+        exerciseId: exerciseId,
+        isSelected: isSelected
       };
 
       this.exercisesUserDataSets.push(set);
@@ -51,7 +65,7 @@ export const useStore = defineStore({
       }
     },
 
-    filterSetsByExercise(exerciseId: string): Set[] { // отфильтруем подходы по ID упражнения
+    filterSetsByExercise (exerciseId: string): Set[] { // отфильтруем подходы по ID упражнения
       const filteredSets: Set[] = [];
       this.exercisesUserDataSets.forEach(set => {
         if(set.exerciseId === exerciseId) {
@@ -61,13 +75,13 @@ export const useStore = defineStore({
       return filteredSets;
     },
 
-    deleteSetItem(clickedSetId: string): void {
+    deleteSetItem (clickedSetId: string): void {
       this.exercisesUserDataSets = this.exercisesUserDataSets.filter(set => {
         return set.setId !== clickedSetId
       });
     },
 
-    async pushWorkoutToBase(): Promise<void> { // TODO: перенести до конца submit формы
+    async pushWorkoutToBase (): Promise<void> {
       if(!this.workoutName) return;
 
       await addDocument({
@@ -82,16 +96,10 @@ export const useStore = defineStore({
       switch(status.value) {
         // очищаем все
         case CollectionStatus.Ok:
-          this.workoutName = '';
-          this.taskColor = "3, 155, 229";
-          this.pickedExercises = [];
-          this.exercisesUserDataSets = [];
-          this.exerciseWeight = '';
-          this.exerciseRepeats = '';
-          this.exerciseLoad = null;
+          this.restoreDefaultsState()
           break;
         default: { break }
       }
-    }
+    },
   }
 })

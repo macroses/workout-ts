@@ -33,6 +33,7 @@ export interface Set {
   load?: string
   setId: string
   exerciseId: string
+  isSelected: boolean
 }
 
 export type Store = {
@@ -46,6 +47,7 @@ export type Store = {
   initialDate: Dayjs
   pickedDate: Dayjs | null
   readWorkout: Workout | null
+  isEditMode: boolean
 }
 
 export type LoadType = {

@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import getCollection from '@/composables/getCollection';
-import type { Exercise } from '@/types/interface'
+import type { Exercise, Set } from '@/types/interface';
+import { useStore } from "@/stores/store";
 
 const props = defineProps<{ pickedMuscleGroupId: number | null }>();
 const emits = defineEmits<{
   (e: 'pickedExercise', item: Exercise): void
 }>();
+
+const store = useStore();
 
 const { documents } = getCollection('exercises');
 
@@ -22,12 +25,15 @@ const pickedExercise = (item: Exercise) => {
   emits('pickedExercise', item);
   item.isSelected = !item.isSelected;
 }
+
+
 </script>
 
 <template>
-  <ul 
+  <ul
+    v-if="pickedMuscleGroupId"
     class="exercises"
-    :class="{active: pickedMuscleGroupId !== null}"
+    :class="[pickedMuscleGroupId ? 'active' : null]"
   >
     <li class="exercise-item"
       v-for="item in filtered"

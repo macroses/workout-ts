@@ -1,0 +1,34 @@
+.edit-workout {
+  width: 0;
+  flex-shrink: 0;
+  border-left: 1px solid var(--color-border);
+  transform: translateX(100%);
+  transition: 0.2s;
+  overflow: hidden;
+  background-color: var(--color-bg);
+  visibility: hidden;
+}
+
+.edit-workout.active {
+  width: 400px;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.edit-workout__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+.edit-workout__name {
+  padding: 12px;
+}
+
+/*.edit-workout {*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*  padding: 12px;*/
+/*}*/

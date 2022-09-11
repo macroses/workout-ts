@@ -6,15 +6,16 @@
   transition: 0.2s;
   overflow: hidden;
   background-color: var(--color-bg);
+  visibility: hidden;
 }
 
 .workout-data.active {
   width: 400px;
   transform: translateX(0);
-  box-shadow: var(--elements-shadow);
+  visibility: visible;
 }
 
-.workout-data__title {
+.workout-data__header {
   font-size: 15px;
   font-weight: bold;
   padding: 12px;
@@ -24,45 +25,33 @@
   gap: 24px;
 }
 
-.workout-data__date {
-  margin-left: auto;
-}
-
-.workout-data__title .a11y-wrap {
+.workout-data__header .a11y-wrap {
   min-width: 40px;
 }
 
 .workout-data__name {
+  padding: 12px;
   font-weight: bold;
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.workout-data__title .a11y-wrap:hover {
+.workout-data__header .a11y-wrap:hover {
   background: rgba(255,255,255, 0.2);
 }
 
-.workout-data__title svg {
+.workout-data__header svg {
   fill: var(--color-text-inverted);
 }
 
 .workout-data__funcs {
   display: flex;
   align-items: center;
-  padding: 12px;
-  gap: 12px;
+
+  margin-left: auto;
 }
 
-.workout-data__icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-}
 
 .workout-data__icon.delete {
   background-color: var(--color-icon-accent-red-bg);
@@ -81,7 +70,7 @@
 }
 
 .workout-data__list {
-  padding: 12px;
+  padding: 12px 12px 0;
   border-radius: 20px;
   overflow: hidden;
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { clickOutside } from "@/helpers/clickOutside";
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import { useStore } from "@/stores/store";
 import Icon from "@/components/ui/Icon.vue";
   
@@ -41,7 +41,7 @@ clickOutside(container, () => isDropDownActive.value = false);
     class="dropdown-color__container"
     @click="toggleDropdown"
   >
-    <div class="title">
+    <div class="title" v-once>
       <Icon iconName="brush" width="15px"/>
       Цвет задачи
     </div>
@@ -50,7 +50,6 @@ clickOutside(container, () => isDropDownActive.value = false);
       :style="{ backgroundColor:'rgb(' + defaultColor + ')' }">
     </div>
     <Icon iconName="angle-down" width="11px"/>
-
     <ul
         v-if="isDropDownActive"
         class="dropdown-color">
@@ -59,7 +58,7 @@ clickOutside(container, () => isDropDownActive.value = false);
         :key="colorItem.id"
         :style="{ backgroundColor: 'rgb(' + colorItem.rgb + ')' }"
         :class="{ active: colorItem.rgb === defaultColor }"
-        @click="dropColor(colorItem.rgb)"
+        @click.stop="dropColor(colorItem.rgb)"
       >
       </li>
     </ul>

@@ -18,16 +18,18 @@ const store = useStore();
 
 const pickedMuscleGroupId = ref<number | null>(null);
 
-const closeForm = () => emits('close');
-
-const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup 
+const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
+
+const closeForm = () => store.pickedDate = null;
 
 const getPickedExercises = (exercise: Exercise) => store.putToStorePickedExercises(exercise);
 
 const handleSubmit = async () => {
   await store.pushWorkoutToBase();
-  closeForm();
+  if(store.workoutName) {
+    closeForm();
+  }
 }
 </script>
 

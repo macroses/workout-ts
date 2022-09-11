@@ -3,11 +3,9 @@ import { ref, watch} from "vue";
 import { useStore } from "@/stores/store";
 import { useOnlyNumbers } from "@/helpers/usseOnlyNumbers";
 import Input from "@/components/ui/Input.vue";
-import Button from "@/components/ui/Button.vue";
 import PickedExerciseSets from "@/components/workoutForm/PickedExerciseSets.vue";
 import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vue";
 import DropdownLoadType from "./DropdownLoadType.vue";
-import type { LoadType } from "@/types/interface";
 
 const store = useStore();
 
@@ -20,9 +18,9 @@ const toggleSelect = (id: string) => {
 }
 
 // for active exercise
-const saveSet = (exerciseTitle: string, exerciseId: string) => {
+const saveSet = (exerciseTitle: string, exerciseId: string, isSelected: boolean) => {
   if (!store.exerciseRepeats) return;
-  store.saveSet(exerciseTitle, exerciseId)
+  store.saveSet(exerciseTitle, exerciseId, isSelected)
   store.exerciseWeight = '';
   store.exerciseRepeats = '';
 };
@@ -65,8 +63,14 @@ watch(activeId, (value) => {
           @keydown="useOnlyNumbers($event)"
         />
         <DropdownLoadType/>
-        <!-- <Button size="sm" @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</Button> -->
-        <button type="button" class="save-set__btn"  @click="saveSet(pickedExercise.name, pickedExercise.id)">Сохранить</button>
+
+        <button
+          type="button"
+          class="save-set__btn"
+          @click="saveSet(pickedExercise.name, pickedExercise.id, pickedExercise.isSelected)"
+        >
+          Сохранить
+        </button>
       </div>
     </li>
   </TransitionGroup>

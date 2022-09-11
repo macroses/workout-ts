@@ -11,7 +11,6 @@ const { user } = getUser();
 const router = useRouter();
 
 const handleReg = () :void => {
-  console.log('its reg')
   isSignup.value = true;
 }
 

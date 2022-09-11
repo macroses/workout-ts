@@ -3,8 +3,6 @@ import type { Dayjs } from 'dayjs';
 import { computed } from 'vue';
 import dayjs from 'dayjs';
 import getCollectionByUser from '@/composables/getCollectionByUser';
-import deleteWorkoutCollection from "@/composables/deleteWorkoutCollection";
-import Icon from "@/components/ui/Icon.vue";
 import type { Workout } from '@/types/interface';
 import { useStore } from '@/stores/store';
 
@@ -29,7 +27,6 @@ const pushWorkoutToStore = (workout: Workout) => {
   store.readWorkout = workout;
   store.pickedDate = null;
 };
-
 </script>
 
 <template>
@@ -42,7 +39,6 @@ const pushWorkoutToStore = (workout: Workout) => {
   <div class="workout-task__name">
     {{ item.workoutName }}
   </div>
-  <Icon width="16px" iconName="xmark" @click="deleteWorkoutCollection(item.id)"/>
 </div>
 </template>
 

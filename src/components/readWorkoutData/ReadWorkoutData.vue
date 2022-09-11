@@ -3,6 +3,8 @@ import { useStore } from '@/stores/store';
 import dayjs from 'dayjs';
 import Icon from '../ui/Icon.vue';
 import { computed } from "vue";
+import deleteWorkoutCollection from '@/composables/deleteWorkoutCollection';
+import type { Workout } from "@/types/interface";
 
 interface ResultSet {
   exerciseId: string
@@ -16,6 +18,14 @@ interface ResultSet {
 }
 
 const store = useStore();
+const emits = defineEmits<{
+  (e: 'editWorkout', workout: Workout): void
+}>();
+
+const editWorkout = (workout: Workout) => {
+  emits('editWorkout', workout);
+  store.isEditMode = true;
+}
 
 const result = computed(() => {
   return store.readWorkout?.exercisesUserDataSets.reduce((acc: ResultSet[], current): ResultSet[] => {
@@ -43,31 +53,41 @@ const result = computed(() => {
 
     return acc;
   }, [])
-})
+});
 
+const deleteWorkoutAndCloseReadModal = (id: string): void => {
+  const approveDelete = confirm('Удалить тренировку?')
+  if (approveDelete) {
+    deleteWorkoutCollection(id);
+
+  }
+  store.readWorkout = null;
+}
 </script>
 
 <template>
-<div class="workout-data active" v-if="store.readWorkout">
-  <div class="workout-data__title" :style="{ backgroundColor: `rgb(${ store.readWorkout?.color })` }">
-    <div class="workout-data__name">{{ store.readWorkout?.workoutName }}</div>
+<div class="workout-data" :class="{ active: store.readWorkout && !store.isEditMode }">
+  <div class="workout-data__header" :style="{ backgroundColor: `rgb(${ store.readWorkout?.color })` }">
+    
     <div class="workout-data__date">{{ dayjs.unix(store.readWorkout?.workoutDate?.seconds).format('DD.MM.YYYY') }}</div>
-    <div class="a11y-wrap">
-      <Icon width="20px" iconName="xmark"/>
+    <div class="workout-data__funcs">
+      <div class="a11y-wrap" @click="editWorkout(store.readWorkout)">
+        <Icon width="20px" iconName="pen"/>
+      </div>
+      <div class="a11y-wrap" @click="deleteWorkoutAndCloseReadModal(store.readWorkout?.id)">
+        <Icon width="20px" iconName="trash" />
+      </div>
+      <div class="a11y-wrap" @click="store.readWorkout = null">
+        <Icon width="20px" iconName="xmark"/>
+      </div>
     </div>
   </div>
-  <!-- <div class="workout-data__funcs">
-    <div class="workout-data__icon edit">
-      <Icon width="20px" iconName="pen"/>
-    </div>
-    <div class="workout-data__icon delete">
-      <Icon width="20px" iconName="trash"/>
-    </div>
-  </div> -->
   <div class="workout-data__content">
+    <div class="workout-data__name">{{ store.readWorkout?.workoutName }}</div>
     <ul class="workout-data__list">
       <li
         v-for="workout in result"
+        :key="workout.exerciseId"
         class="workout-data__list-item">
         <div class="workout-data__exercise-name">
           {{ workout.exerciseTitle }}
