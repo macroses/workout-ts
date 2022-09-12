@@ -2,20 +2,8 @@
 import { useStore } from '@/stores/store';
 import dayjs from 'dayjs';
 import Icon from '../ui/Icon.vue';
-import { computed } from "vue";
 import deleteWorkoutCollection from '@/composables/deleteWorkoutCollection';
 import type { Workout } from "@/types/interface";
-
-interface ResultSet {
-  exerciseId: string
-  exerciseTitle: string
-  sets: Array<{
-    weight: string,
-    repeats: string,
-    load?: string,
-    setId: string
-  }>
-}
 
 const store = useStore();
 const emits = defineEmits<{
@@ -27,39 +15,10 @@ const editWorkout = (workout: Workout) => {
   store.isEditMode = true;
 }
 
-const result = computed(() => {
-  return store.readWorkout?.exercisesUserDataSets.reduce((acc: ResultSet[], current): ResultSet[] => {
-    const found = acc.find(el => el.exerciseId === current.exerciseId);
-
-    if (found) {
-      found.sets.push({
-        weight: current.weight,
-        repeats: current.repeats,
-        load: current.load,
-        setId: current.setId
-      });
-    } else {
-      acc.push({
-        exerciseId: current.exerciseId,
-        exerciseTitle: current.exerciseTitle,
-        sets: [{
-          weight: current.weight,
-          repeats: current.repeats,
-          load: current.load,
-          setId: current.setId
-        }]
-      })
-    }
-
-    return acc;
-  }, [])
-});
-
 const deleteWorkoutAndCloseReadModal = (id: string): void => {
   const approveDelete = confirm('Удалить тренировку?')
   if (approveDelete) {
     deleteWorkoutCollection(id);
-
   }
   store.readWorkout = null;
 }
@@ -86,19 +45,22 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
     <div class="workout-data__name">{{ store.readWorkout?.workoutName }}</div>
     <ul class="workout-data__list">
       <li
-        v-for="workout in result"
-        :key="workout.exerciseId"
+        v-for="exerciseItem in store.readWorkout?.exercisesUserDataSets"
+        :key="exerciseItem.id"
         class="workout-data__list-item">
         <div class="workout-data__exercise-name">
-          {{ workout.exerciseTitle }}
+          {{ exerciseItem.name }}
         </div>
         <ul class="workout-data__sets-list">
-          <li v-for="set in workout.sets" :style="{ backgroundColor: `rgb(${set.load})` }"> {{set.weight}} x {{ set.repeats }}</li>
+          <li v-for="setItem in exerciseItem.sets" 
+            :style="{ backgroundColor: `rgb(${setItem.load})` }"
+            :key="setItem.setId"
+          > 
+            {{setItem.weight}} x {{ setItem.repeats }}
+          </li>
         </ul>
       </li>
     </ul>
-
-<!--    <div v-for="item in result">{{item}}</div>-->
   </div>
 </div>
 </template>

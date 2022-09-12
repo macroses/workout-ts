@@ -1,8 +1,7 @@
 import { ref } from 'vue';
-import type { Ref } from 'vue';
 // firebase imports
 import { auth } from '@/firebase/config';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
 
 const error = ref(null);
 const isPending = ref(false);
@@ -11,7 +10,7 @@ const signup = async (
     email: string, 
     password: string, 
     displayName: string
-  ): Promise<any> => {
+  ): Promise<User | undefined> => {
   error.value = null;
   isPending.value = true;
 

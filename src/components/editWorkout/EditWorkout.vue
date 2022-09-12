@@ -8,19 +8,20 @@ import DropdownColor from "@/components/ui/DropdownColor.vue";
 import MuscleGroups from "@/components/workoutForm/MuscleGroups.vue";
 import ExercisesList from "@/components/workoutForm/ExercisesList.vue";
 import PickedExercises from "@/components/workoutForm/PickedExercises.vue";
+import Input from "@/components/ui/Input.vue";
 
 const props = defineProps<{ editableWorkout: Workout | null }>();
 const store = useStore();
 
-const newWorkoutName = ref<string | null>(null);
 const pickedMuscleGroupId = ref<number | null>(null);
 
 const updateWorkout = async (): Promise<void> => {
-  if (!newWorkoutName.value) return;
+  if (!store.workoutName) return;
   await updateWorkoutCollection(
-      props.editableWorkout?.id as string,
-      newWorkoutName.value,
-      store.taskColor
+    props.editableWorkout?.id as string,
+    store.workoutName,
+    store.taskColor,
+    store.pickedExercises as Exercise[]
   )
 };
 
@@ -34,29 +35,37 @@ const closeForm = (): void => {
 };
 
 watchEffect(() => {
-  newWorkoutName.value = props.editableWorkout?.workoutName ?? null;
-  // store.exercisesUserDataSets = [store.exercisesUserDataSets, ...props.editableWorkout?.exercisesUserDataSets]
-  // store.exercisesUserDataSets = props.editableWorkout?.exercisesUserDataSets
+  if(props.editableWorkout) {
+    store.workoutName = props.editableWorkout.workoutName;
+    store.taskColor = props.editableWorkout.color;
+    store.pickedExercises = props.editableWorkout.exercisesUserDataSets
+  }
 });
 </script>
 
 <template>
 <div class="edit-workout" :class="{active: store.isEditMode}">
-  <input type="text" v-model="newWorkoutName">
-
+  <div class="edit-workout__title" v-once>Редактированиe</div>
+  <Input
+    size="md"
+    required
+    inputType="text"
+    v-model="store.workoutName"
+    placeholder="Название тренировки"
+  />
   <DropdownColor />
   <MuscleGroups
     @pickMuscleGroup="getPickedMuscleGroup"
     @resetMuscleGroup="resetMuscleGroups"
   />
   <ExercisesList
-      v-if="pickedMuscleGroupId"
-      :pickedMuscleGroupId="pickedMuscleGroupId"
-      @pickedExercise="getPickedExercises"
+    v-if="pickedMuscleGroupId"
+    :pickedMuscleGroupId="pickedMuscleGroupId"
+    @pickedExercise="getPickedExercises"
   />
   <PickedExercises />
 
-  <div class="workout-form__btns">
+  <div class="workout-form__btns" v-once>
     <Button size="md" @click="closeForm">Закрыть</Button>
     <Button size="md" :accent="true" @click.stop="updateWorkout">Сохранить</Button>
   </div>

@@ -14,8 +14,6 @@ const store = useStore();
 const getPickedDate = (date: Dayjs) => store.pickedDate = date;
 const editWorkout = ref<Workout | null>(null);
 const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
-
-// update
 </script>
 
 <template>

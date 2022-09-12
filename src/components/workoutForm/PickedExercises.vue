@@ -6,6 +6,8 @@ import Input from "@/components/ui/Input.vue";
 import PickedExerciseSets from "@/components/workoutForm/PickedExerciseSets.vue";
 import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vue";
 import DropdownLoadType from "./DropdownLoadType.vue";
+import { uid } from "uid";
+import type { Exercise } from "@/types/interface";
 
 const store = useStore();
 
@@ -18,11 +20,20 @@ const toggleSelect = (id: string) => {
 }
 
 // for active exercise
-const saveSet = (exerciseTitle: string, exerciseId: string, isSelected: boolean) => {
-  if (!store.exerciseRepeats) return;
-  store.saveSet(exerciseTitle, exerciseId, isSelected)
-  store.exerciseWeight = '';
-  store.exerciseRepeats = '';
+const saveSet = (exerciseId: string) => {
+  store.sets = {
+    weight: store.exerciseWeight,
+    repeats: store.exerciseRepeats,
+    load: store.exerciseLoad?.color,
+    setId: uid(20),
+    exerciseId: exerciseId
+  }
+
+  store.pickedExercises.forEach((exersise: Exercise) => {
+    if(exersise.id === exerciseId) {
+      exersise.sets.push(store.sets);
+    }
+  })
 };
 
 watch(activeId, (value) => {
@@ -67,7 +78,7 @@ watch(activeId, (value) => {
         <button
           type="button"
           class="save-set__btn"
-          @click="saveSet(pickedExercise.name, pickedExercise.id, pickedExercise.isSelected)"
+          @click="saveSet(pickedExercise.id)"
         >
           Сохранить
         </button>

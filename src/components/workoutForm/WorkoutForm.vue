@@ -13,7 +13,7 @@ import WorkoutFormTitle from './WorkoutFormTitle.vue';
 import ExercisesList from './ExercisesList.vue';
 import PickedExercises from './PickedExercises.vue';
 
-const emits = defineEmits<{ (e: 'close'): void }>();
+// const emits = defineEmits<{ (e: 'close'): void }>();
 const store = useStore();
 
 const pickedMuscleGroupId = ref<number | null>(null);
@@ -21,7 +21,10 @@ const pickedMuscleGroupId = ref<number | null>(null);
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
 
-const closeForm = () => store.pickedDate = null;
+const closeForm = () => {
+  // store.pickedDate = null;
+  store.restoreDefaultsState();
+};
 
 const getPickedExercises = (exercise: Exercise) => store.putToStorePickedExercises(exercise);
 

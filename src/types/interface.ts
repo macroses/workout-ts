@@ -6,8 +6,8 @@ export interface Workout {
   color: string
   userId: string | null
   userName: string | null
-  id?: string
-  exercisesUserDataSets: Set[]
+  id?: string | null
+  exercisesUserDataSets: Exercise[] | null
 }
 
 export interface Exercise {
@@ -16,7 +16,8 @@ export interface Exercise {
   isSelected: boolean
   isSettingsActive: boolean
   name: string,
-  id: string
+  id: string,
+  sets: Set[]
 }
 
 export interface MuscleGroup {
@@ -28,19 +29,28 @@ export interface MuscleGroup {
 
 export interface Set {
   exerciseTitle: string
-  weight: string
-  repeats: string
-  load?: string
-  setId: string
   exerciseId: string
   isSelected: boolean
+  sets: Array<{
+    weight: string
+    repeats: string
+    load: string
+    setId: string
+    exerciseId: string
+  }>
 }
 
-export type Store = {
+export interface Store {
   taskColor: string
   workoutName: string
-  pickedExercises: Exercise[]
-  exercisesUserDataSets: Set[]
+  pickedExercises: Exercise[] | null
+  sets: {
+    weight: string
+    repeats: string
+    load: string
+    setId: string
+    exerciseId: string
+  } | null
   exerciseWeight: string
   exerciseLoad: LoadType | null
   exerciseRepeats: string

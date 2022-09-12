@@ -2,11 +2,13 @@ import { db } from '@/firebase/config';
 import { updateDoc, doc } from 'firebase/firestore';
 import { CollectionStatus } from "@/composables/useCollection";
 import { ref, type Ref } from "vue";
+import type {Exercise} from "@/types/interface";
 
 const updateWorkoutCollection = async (
   id: string,
   workoutName?: string,
-  color?: string
+  color?: string,
+  dataSets?: Exercise[]
 ) => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
   const error: Ref<string> = ref('');
@@ -18,7 +20,8 @@ const updateWorkoutCollection = async (
 
     await updateDoc(docRef, {
       workoutName: workoutName,
-      color: color
+      color: color,
+      exercisesUserDataSets: dataSets
     });
 
     status.value = CollectionStatus.Ok
@@ -32,7 +35,7 @@ const updateWorkoutCollection = async (
   }
 
   //return status for create loader
-  return { status, error }
+  return { status, error };
 }
 
 export default updateWorkoutCollection;
