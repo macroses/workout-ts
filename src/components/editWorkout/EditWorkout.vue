@@ -23,6 +23,8 @@ const updateWorkout = async (): Promise<void> => {
     store.taskColor,
     store.pickedExercises as Exercise[]
   )
+
+  closeForm();
 };
 
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup;

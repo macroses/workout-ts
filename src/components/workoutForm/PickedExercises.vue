@@ -8,6 +8,7 @@ import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vu
 import DropdownLoadType from "./DropdownLoadType.vue";
 import { uid } from "uid";
 import type { Exercise } from "@/types/interface";
+import Button from "@/components/ui/Button.vue";
 
 const store = useStore();
 
@@ -75,13 +76,13 @@ watch(activeId, (value) => {
         />
         <DropdownLoadType/>
 
-        <button
-          type="button"
+        <Button
+          size="sm"
           class="save-set__btn"
           @click="saveSet(pickedExercise.id)"
         >
           Сохранить
-        </button>
+        </Button>
       </div>
     </li>
   </TransitionGroup>

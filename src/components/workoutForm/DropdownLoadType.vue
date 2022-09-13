@@ -16,7 +16,7 @@ const loadTypes: LoadType[] = [
 ]
 
 const isLoadType = ref<boolean>(false);
-const list = ref<null | HTMLUListElement>(null)
+const list = ref<null | HTMLUListElement>(null);
 
 const toggleLoadList = () => isLoadType.value = !isLoadType.value
 
@@ -33,7 +33,7 @@ clickOutside(list, () => isLoadType.value = false);
   <div 
     class="load__result" 
     @click="toggleLoadList"
-    :style="{ backgroundColor: store.exerciseLoad?.color, color: 'var(--color-text-inverted)' }"
+    :style="{ backgroundColor: `rgb(${store.exerciseLoad?.color})`, color: 'var(--color-text-inverted)' }"
   >
     {{ store.exerciseLoad?.loadType }}
     <Icon :iconName="isLoadType ? 'angle-up' : 'angle-down'" width="12px"/>
