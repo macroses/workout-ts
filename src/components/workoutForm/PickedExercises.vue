@@ -30,9 +30,9 @@ const saveSet = (exerciseId: string) => {
     exerciseId: exerciseId
   }
 
-  store.pickedExercises.forEach((exersise: Exercise) => {
+  store.pickedExercises?.forEach((exersise: Exercise) => {
     if(exersise.id === exerciseId) {
-      exersise.sets.push(store.sets);
+      exersise.sets.push(store?.sets);
     }
   })
 };

@@ -2,13 +2,17 @@
 import getCollection from '@/composables/getCollection';
 import Icon from '../ui/Icon.vue';
 import Loader from '../loader/Loader.vue';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
+import { useStore } from '@/stores/store';
 
 const { documents, pending } = getCollection('muscles');
 const emits = defineEmits<{
   (e: 'pickMuscleGroup', muscleGroupId: number): void
   (e: 'resetMuscleGroup'): void
 }>();
+
+const store = useStore();
+
 const isGroupPicked = ref(true);
 const pickedGroup = ref('');
 
@@ -22,6 +26,10 @@ const resetMuscleGroup = () => {
   emits('resetMuscleGroup');
   isGroupPicked.value = true;
 };
+
+watchEffect(() => {
+  if (!store.pickedExercises?.length) isGroupPicked.value = true;
+})
 </script>
 
 <template>

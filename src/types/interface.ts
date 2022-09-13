@@ -28,26 +28,21 @@ export interface MuscleGroup {
 }
 
 export interface Set {
-  exerciseTitle: string
   exerciseId: string
-  isSelected: boolean
-  sets: Array<{
-    weight: string
-    repeats: string
-    load: string
-    setId: string
-    exerciseId: string
-  }>
+  load: string
+  repeats: string
+  setId: string
+  weight: string
 }
 
 export interface Store {
   taskColor: string
   workoutName: string
   pickedExercises: Exercise[] | null
-  sets: {
+  sets?: {
     weight: string
     repeats: string
-    load: string
+    load?: string 
     setId: string
     exerciseId: string
   } | null

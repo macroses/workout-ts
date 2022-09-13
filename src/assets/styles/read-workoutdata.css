@@ -1,7 +1,6 @@
 .workout-data {
   width: 0;
   flex-shrink: 0;
-  border-left: 1px solid var(--color-border);
   transform: translateX(100%);
   transition: 0.2s;
   overflow: hidden;
@@ -92,6 +91,7 @@
 .workout-data__sets-list {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .workout-data__sets-list li {

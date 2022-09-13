@@ -32,10 +32,11 @@ clickOutside(list, () => isLoadType.value = false);
 <div class="picked-exercise__load load">
   <div 
     class="load__result" 
+    :class="{ notLoaded: !store.exerciseLoad }"
     @click="toggleLoadList"
-    :style="{ backgroundColor: `rgb(${store.exerciseLoad?.color})`, color: 'var(--color-text-inverted)' }"
+    :style="{ backgroundColor: `rgb(${store.exerciseLoad?.color})` }"
   >
-    {{ store.exerciseLoad?.loadType }}
+    {{ store.exerciseLoad?.loadType || 'нагрузка' }}
     <Icon :iconName="isLoadType ? 'angle-up' : 'angle-down'" width="12px"/>
   </div>
   <Transition>

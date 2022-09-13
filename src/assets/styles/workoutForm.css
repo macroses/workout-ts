@@ -1,7 +1,6 @@
 .workout-form {
   width: 0;
   flex-shrink: 0;
-  border-left: 1px solid var(--color-border);
   transform: translateX(100%);
   transition: 0.2s;
   overflow: hidden;
@@ -146,8 +145,6 @@
 }
 
 .picked-exercises {
-  border: 1px solid var(--color-border);
-  border-bottom: 0;
   border-radius: 4px;
 }
 
@@ -217,4 +214,5 @@
   border-radius: 4px;
   font-size: 11px;
   padding: 2px 4px;
+  margin: 4px 0 4px 8px;
 }

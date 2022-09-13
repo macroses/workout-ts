@@ -1,15 +1,13 @@
 <script lang="ts" setup>
 import { useStore } from "@/stores/store";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 import Icon from "../ui/Icon.vue";
 
 const props = defineProps<{ exerciseId: string }>();
 
 const store = useStore();
 
-const deleteSet = (clickedSetId: string) => {
-  
-};
+const deleteSet = (clickedSetId: string) => store.deleteSetFromExercise(clickedSetId);
 
 const filteredSets = computed(() => {
   return store.pickedExercises?.filter(el => el.id === props.exerciseId).map(el => el.sets)[0]

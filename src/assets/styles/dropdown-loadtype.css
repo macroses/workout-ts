@@ -20,6 +20,8 @@
   cursor: pointer;
 }
 
+
+
 .load__result {
   cursor: pointer;
   display: flex;
@@ -29,7 +31,11 @@
   height: 100%;
   border-radius: 4px;
   padding: 0 8px;
-  font-weight: bold;
+  color: var(--color-text-inverted);
+}
+
+.load__result.notLoaded {
+  color: var(--color-text);
 }
 
 .load__result svg {

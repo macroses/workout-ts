@@ -13,7 +13,6 @@ import WorkoutFormTitle from './WorkoutFormTitle.vue';
 import ExercisesList from './ExercisesList.vue';
 import PickedExercises from './PickedExercises.vue';
 
-// const emits = defineEmits<{ (e: 'close'): void }>();
 const store = useStore();
 
 const pickedMuscleGroupId = ref<number | null>(null);
@@ -22,11 +21,13 @@ const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value 
 const resetMuscleGroups = () => pickedMuscleGroupId.value = null;
 
 const closeForm = () => {
-  // store.pickedDate = null;
+  resetMuscleGroups();
   store.restoreDefaultsState();
 };
 
-const getPickedExercises = (exercise: Exercise) => store.putToStorePickedExercises(exercise);
+const getPickedExercises = (exercise: Exercise) => {
+  store.putToStorePickedExercises(exercise);
+}
 
 const handleSubmit = async () => {
   await store.pushWorkoutToBase();
@@ -37,31 +38,32 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="workout-form" :class="{ active: store.pickedDate }">
-    <WorkoutFormTitle :pickedDate="store" @close="closeForm"/>
-    <div class="workout-form__body">
-      <Input 
-        v-model="store.workoutName"
-        inputType="text" 
-        placeholder="Название тренировки"
-        required
-      />
-      <DropdownColor />
-      <MuscleGroups
-        @pickMuscleGroup="getPickedMuscleGroup"
-        @resetMuscleGroup="resetMuscleGroups"
-      />
-      <ExercisesList
-        v-if="pickedMuscleGroupId"
-        :pickedMuscleGroupId="pickedMuscleGroupId"
-        @pickedExercise="getPickedExercises"
-      />
-      <PickedExercises />
-    </div>
-    <div class="workout-form__btns">
-      <Button size="md" @click="closeForm">Закрыть</Button>
-      <Button size="md" :accent="true" @click.stop="handleSubmit">Сохранить</Button>
-    </div>
-<!--    <Loader size="lg" v-if="status === CollectionStatus.Pending"/>-->
+<div class="workout-form" :class="{ active: store.pickedDate }">
+  <WorkoutFormTitle :pickedDate="store" @close="closeForm"/>
+  <div class="workout-form__body">
+    <Input 
+      v-model="store.workoutName"
+      inputType="text" 
+      placeholder="Название тренировки"
+      required
+    />
+    <DropdownColor />
+    <MuscleGroups
+      @pickMuscleGroup="getPickedMuscleGroup"
+      @resetMuscleGroup="resetMuscleGroups"
+    />
+    <ExercisesList
+      v-if="pickedMuscleGroupId"
+      :pickedMuscleGroupId="pickedMuscleGroupId"
+      @pickedExercise="getPickedExercises"
+    />
+    <PickedExercises />
   </div>
+<!--  <Loader size="lg" v-if="status === CollectionStatus.Pending"/>-->
+  <div class="workout-form__btns">
+    <Button size="md" @click="closeForm">Закрыть</Button>
+    <Button size="md" :accent="true" @click.stop="handleSubmit">Сохранить</Button>
+  </div>
+
+</div>
 </template>

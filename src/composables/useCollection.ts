@@ -30,4 +30,4 @@ const useCollection = (col: string) => {
   return { status, addDocument }
 }
 
-export default useCollection
+export default useCollection;

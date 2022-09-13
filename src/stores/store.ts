@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import 'dayjs/locale/ru';
 import weekday from 'dayjs/plugin/weekday';
 import useCollection, { CollectionStatus } from '@/composables/useCollection';
+import updateWorkoutCollection from "@/composables/updateWorkoutCollection";
 import getUser from '@/composables/getUser';
 
 dayjs.locale('ru');
@@ -17,7 +18,7 @@ export const useStore = defineStore({
   state: () => ({
     taskColor: '' || "3, 155, 229",
     workoutName: '',
-    pickedExercises: [],
+    pickedExercises: [] || null,
     exerciseWeight: '',
     exerciseRepeats: '',
     sets: null,
@@ -34,19 +35,30 @@ export const useStore = defineStore({
       this.pickedExercises = [];
       this.exerciseWeight = '';
       this.exerciseRepeats = '';
+      this.sets = null,
       this.exerciseLoad = null;
       this.initialDate = dayjs();
       this.pickedDate = null;
       this.readWorkout = null;
+      this.isEditMode = false;
     },
 
     putToStorePickedExercises<T extends Exercise>(exercise: T): void {
       if(this.pickedExercises?.includes(exercise)) {
         this.pickedExercises = this.pickedExercises.filter(el => el.id !== exercise.id);
+        console.log(exercise);
+        
       }
       else {
         this.pickedExercises?.push(exercise)
+        console.log(exercise);
       }
+    },
+
+    deleteSetFromExercise (clickedSetId: string) {
+      this.pickedExercises?.forEach(exercise => {
+        exercise.sets = exercise.sets.filter(set => set.setId !== clickedSetId)
+      })
     },
 
     async pushWorkoutToBase (): Promise<void> {
@@ -69,5 +81,15 @@ export const useStore = defineStore({
         default: { break }
       }
     },
+
+    async updateWorkoutAtBase (editableWorkoutId: string): Promise<void> {
+      if (!this.workoutName) return;
+      await updateWorkoutCollection (
+        editableWorkoutId,
+        this.workoutName,
+        this.taskColor,
+        this.pickedExercises as Exercise[]
+      )
+    }
   }
 })

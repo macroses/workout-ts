@@ -1,8 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{
-  size: string,
-  color?: string
-}>();
+
 </script>
   
 <template>
@@ -16,6 +13,14 @@ const props = defineProps<{
 </template>
 
 <style>
+.showbox {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .loader {
   position: relative;

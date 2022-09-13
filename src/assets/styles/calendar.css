@@ -4,6 +4,7 @@
   flex-direction: column;
   transition: 0.2s;
   position: relative;
+  border-right: 1px solid var(--color-border);
 }
 
 .lock-layer {
@@ -92,7 +93,6 @@
 
 .workout-task {
   position: relative;
-  text-align: left;
   font-size: 11px;
   padding: 0 8px;
   height: 36px;
@@ -103,7 +103,18 @@
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  box-shadow: none;
+}
+
+.active-cell {
+  opacity: 1;
+  animation: blink 0.5s infinite alternate linear;
+}
+
+@keyframes blink {
+  to {
+    box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2), 0 8px 20px 5px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .workout-task:hover {

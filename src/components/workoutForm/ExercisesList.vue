@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {computed} from 'vue';
+import { computed } from 'vue';
 import getCollection from '@/composables/getCollection';
-import type { Exercise, Set } from '@/types/interface';
+import type { Exercise } from '@/types/interface';
 import { useStore } from "@/stores/store";
 
 const props = defineProps<{ pickedMuscleGroupId: number | null }>();
@@ -18,6 +18,8 @@ const filtered = computed(() => {
     return documents.value?.filter((doc: Exercise) => {
       return doc.categoryId === props.pickedMuscleGroupId
     });
+  } else {
+    return;
   }
 })
 
