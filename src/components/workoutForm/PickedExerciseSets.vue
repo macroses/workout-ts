@@ -15,7 +15,11 @@ const filteredSets = computed(() => {
 </script>
 
 <template>
-  <TransitionGroup name="list" tag="ul" class="picked-exercise__sets">
+  <TransitionGroup
+    name="list"
+    tag="ul"
+    class="picked-exercise__sets"
+  >
     <li
       v-for="set in filteredSets"
       :key="set.setId"

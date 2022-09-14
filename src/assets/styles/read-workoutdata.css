@@ -100,3 +100,15 @@
   border-radius: 4px;
   font-size: 13px;
 }
+
+.workout-data__exercise-name {
+  font-weight: bold;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.workout-data__not-complete {
+  text-align: center;
+  font-style: italic;
+}

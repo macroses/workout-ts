@@ -51,7 +51,7 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
         <div class="workout-data__exercise-name">
           {{ exerciseItem.name }}
         </div>
-        <ul class="workout-data__sets-list">
+        <ul class="workout-data__sets-list" v-if="exerciseItem.sets.length">
           <li v-for="setItem in exerciseItem.sets" 
             :style="{ backgroundColor: `rgb(${setItem.load})` }"
             :key="setItem.setId"
@@ -59,6 +59,7 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
             {{setItem.weight}} x {{ setItem.repeats }}
           </li>
         </ul>
+        <div v-else class="workout-data__not-complete">- не заполнено -</div>
       </li>
     </ul>
   </div>

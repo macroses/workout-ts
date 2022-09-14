@@ -54,7 +54,8 @@
   display: flex;
   gap: 12px;
   justify-content: flex-end;
-  padding: 0px 12px;
+  padding: 0 12px;
+  margin-top: 8px;
 }
 
 .muscle-groups {

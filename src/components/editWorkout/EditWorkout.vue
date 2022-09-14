@@ -48,28 +48,30 @@ watchEffect(() => {
 <template>
 <div class="edit-workout" :class="{active: store.isEditMode}">
   <div class="edit-workout__title" v-once>Редактированиe</div>
-  <Input
-    size="md"
-    required
-    inputType="text"
-    v-model="store.workoutName"
-    placeholder="Название тренировки"
-  />
-  <DropdownColor />
-  <MuscleGroups
-    @pickMuscleGroup="getPickedMuscleGroup"
-    @resetMuscleGroup="resetMuscleGroups"
-  />
-  <ExercisesList
-    v-if="pickedMuscleGroupId"
-    :pickedMuscleGroupId="pickedMuscleGroupId"
-    @pickedExercise="getPickedExercises"
-  />
-  <PickedExercises />
+  <div class="edit-workout__body">
+    <Input
+        size="md"
+        required
+        inputType="text"
+        v-model="store.workoutName"
+        placeholder="Название тренировки"
+    />
+    <DropdownColor />
+    <MuscleGroups
+        @pickMuscleGroup="getPickedMuscleGroup"
+        @resetMuscleGroup="resetMuscleGroups"
+    />
+    <ExercisesList
+        v-if="pickedMuscleGroupId"
+        :pickedMuscleGroupId="pickedMuscleGroupId"
+        @pickedExercise="getPickedExercises"
+    />
+    <PickedExercises />
 
-  <div class="workout-form__btns" v-once>
-    <Button size="md" @click="closeForm">Закрыть</Button>
-    <Button size="md" :accent="true" @click.stop="updateWorkout">Сохранить</Button>
+    <div class="workout-form__btns" v-once>
+      <Button size="md" @click="closeForm">Закрыть</Button>
+      <Button size="md" :accent="true" @click.stop="updateWorkout">Сохранить</Button>
+    </div>
   </div>
 </div>
 </template>
