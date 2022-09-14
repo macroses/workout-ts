@@ -1,30 +1,38 @@
 <script setup lang="ts">
 import type {Workout, Exercise} from "@/types/interface";
+import { CollectionStatus } from "@/types/collectionStatus";
 import {ref, watchEffect} from "vue";
 import {useStore} from "@/stores/store";
 import Button from '@/components/ui/Button.vue';
-import updateWorkoutCollection from "@/composables/updateWorkoutCollection";
+import updateWorkoutCollection from '@/composables/updateWorkoutCollection';
 import DropdownColor from "@/components/ui/DropdownColor.vue";
 import MuscleGroups from "@/components/workoutForm/MuscleGroups.vue";
 import ExercisesList from "@/components/workoutForm/ExercisesList.vue";
 import PickedExercises from "@/components/workoutForm/PickedExercises.vue";
 import Input from "@/components/ui/Input.vue";
+import Loader from "@/components/loader/Loader.vue";
 
 const props = defineProps<{ editableWorkout: Workout | null }>();
 const store = useStore();
+const { status, updateCollection } = updateWorkoutCollection();
 
 const pickedMuscleGroupId = ref<number | null>(null);
 
 const updateWorkout = async (): Promise<void> => {
   if (!store.workoutName) return;
-  await updateWorkoutCollection(
+  await updateCollection(
     props.editableWorkout?.id as string,
     store.workoutName,
     store.taskColor,
     store.pickedExercises as Exercise[]
   )
 
-  closeForm();
+  switch(status.value) {
+    case CollectionStatus.Ok:
+      closeForm();
+      break;
+    default: { break }
+  }
 };
 
 const getPickedMuscleGroup = (muscleGroup: number) => pickedMuscleGroupId.value = muscleGroup;
@@ -48,23 +56,23 @@ watchEffect(() => {
 <template>
 <div class="edit-workout" :class="{active: store.isEditMode}">
   <div class="edit-workout__title" v-once>Редактированиe</div>
-  <div class="edit-workout__body">
+  <div class="edit-workout__body" v-if="status === CollectionStatus.Ok">
     <Input
-        size="md"
-        required
-        inputType="text"
-        v-model="store.workoutName"
-        placeholder="Название тренировки"
+      size="md"
+      required
+      inputType="text"
+      v-model="store.workoutName"
+      placeholder="Название тренировки"
     />
     <DropdownColor />
     <MuscleGroups
-        @pickMuscleGroup="getPickedMuscleGroup"
-        @resetMuscleGroup="resetMuscleGroups"
+      @pickMuscleGroup="getPickedMuscleGroup"
+      @resetMuscleGroup="resetMuscleGroups"
     />
     <ExercisesList
-        v-if="pickedMuscleGroupId"
-        :pickedMuscleGroupId="pickedMuscleGroupId"
-        @pickedExercise="getPickedExercises"
+      v-if="pickedMuscleGroupId"
+      :pickedMuscleGroupId="pickedMuscleGroupId"
+      @pickedExercise="getPickedExercises"
     />
     <PickedExercises />
 
@@ -73,6 +81,7 @@ watchEffect(() => {
       <Button size="md" :accent="true" @click.stop="updateWorkout">Сохранить</Button>
     </div>
   </div>
+  <Loader v-if="status === CollectionStatus.Pending"/>
 </div>
 </template>
 

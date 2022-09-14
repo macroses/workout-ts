@@ -108,13 +108,7 @@
 
 .active-cell {
   opacity: 1;
-  animation: blink 0.5s infinite alternate linear;
-}
-
-@keyframes blink {
-  to {
-    box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2), 0 8px 20px 5px rgba(0, 0, 0, 0.2);
-  }
+  box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2), 0 8px 20px 5px rgba(0, 0, 0, 0.2);
 }
 
 .workout-task:hover {

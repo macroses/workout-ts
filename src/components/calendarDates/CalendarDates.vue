@@ -1,8 +1,8 @@
 <script lang="ts" setup>
+import type { Dayjs } from "dayjs";
 import { computed, ref } from "vue";
 import { getEmptyDays, getDaysArr, getDateEquality } from "@/helpers/getDate";
 import { useStore } from "@/stores/store";
-import type { Dayjs } from "dayjs";
 import WorkoutTask from "../workoutTask/workoutTask.vue";
 
 const store = useStore();

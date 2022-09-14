@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 import dayjs from "dayjs";
 import 'dayjs/locale/ru';
 import weekday from 'dayjs/plugin/weekday';
-import useCollection, { CollectionStatus } from '@/composables/useCollection';
-import updateWorkoutCollection from "@/composables/updateWorkoutCollection";
+import { CollectionStatus } from '@/types/collectionStatus';
+import useCollection from "@/composables/useCollection";
 import getUser from '@/composables/getUser';
 
 dayjs.locale('ru');
@@ -35,7 +35,7 @@ export const useStore = defineStore({
       this.pickedExercises = [];
       this.exerciseWeight = '';
       this.exerciseRepeats = '';
-      this.sets = null,
+      this.sets = null;
       this.exerciseLoad = null;
       this.initialDate = dayjs();
       this.pickedDate = null;
@@ -46,12 +46,9 @@ export const useStore = defineStore({
     putToStorePickedExercises<T extends Exercise>(exercise: T): void {
       if(this.pickedExercises?.includes(exercise)) {
         this.pickedExercises = this.pickedExercises.filter(el => el.id !== exercise.id);
-        console.log(exercise);
-        
       }
       else {
         this.pickedExercises?.push(exercise)
-        console.log(exercise);
       }
     },
 
@@ -82,14 +79,14 @@ export const useStore = defineStore({
       }
     },
 
-    async updateWorkoutAtBase (editableWorkoutId: string): Promise<void> {
-      if (!this.workoutName) return;
-      await updateWorkoutCollection (
-        editableWorkoutId,
-        this.workoutName,
-        this.taskColor,
-        this.pickedExercises as Exercise[]
-      )
-    }
+    // async updateWorkoutAtBase (editableWorkoutId: string): Promise<void> {
+    //   if (!this.workoutName) return;
+    //   await updateWorkoutCollection (
+    //     editableWorkoutId,
+    //     this.workoutName,
+    //     this.taskColor,
+    //     this.pickedExercises as Exercise[]
+    //   )
+    // }
   }
 })

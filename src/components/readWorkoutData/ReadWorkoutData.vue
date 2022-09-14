@@ -3,12 +3,15 @@ import { useStore } from '@/stores/store';
 import dayjs from 'dayjs';
 import Icon from '../ui/Icon.vue';
 import deleteWorkoutCollection from '@/composables/deleteWorkoutCollection';
+import {CollectionStatus} from "@/types/collectionStatus";
 import type { Workout } from "@/types/interface";
 
 const store = useStore();
 const emits = defineEmits<{
   (e: 'editWorkout', workout: Workout): void
 }>();
+
+const { status, deleteCollection } = deleteWorkoutCollection();
 
 const editWorkout = (workout: Workout) => {
   emits('editWorkout', workout);
@@ -18,8 +21,14 @@ const editWorkout = (workout: Workout) => {
 const deleteWorkoutAndCloseReadModal = (id: string): void => {
   const approveDelete = confirm('Удалить тренировку?')
   if (approveDelete) {
-    deleteWorkoutCollection(id);
+    deleteCollection(id);
   }
+
+  switch (status.value) {
+    case CollectionStatus.Ok:
+
+  }
+
   store.readWorkout = null;
 }
 </script>

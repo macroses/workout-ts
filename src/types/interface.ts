@@ -29,7 +29,7 @@ export interface MuscleGroup {
 
 export interface Set {
   exerciseId: string
-  load: string
+  load?: string
   repeats: string
   setId: string
   weight: string
@@ -42,7 +42,7 @@ export interface Store {
   sets?: {
     weight: string
     repeats: string
-    load?: string 
+    load?: string
     setId: string
     exerciseId: string
   } | null

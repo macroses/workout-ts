@@ -7,34 +7,38 @@ import PickedExerciseSets from "@/components/workoutForm/PickedExerciseSets.vue"
 import PickedExerciseTitle from "@/components/workoutForm/PickedExerciseTitle.vue";
 import DropdownLoadType from "./DropdownLoadType.vue";
 import { uid } from "uid";
-import type { Exercise } from "@/types/interface";
+import type { Exercise, Set } from "@/types/interface";
 import Button from "@/components/ui/Button.vue";
 
 const store = useStore();
 
 const isFormOpened = ref<boolean>(false);
 const activeId = ref<string>('');
+const sets = ref<Set | null>(null);
 
 const toggleSelect = (id: string) => {
   activeId.value = id;
   isFormOpened.value = activeId.value === id;
 }
 
+
+
 // for active exercise
 const saveSet = (exerciseId: string) => {
-  store.sets = {
-    weight: store.exerciseWeight,
-    repeats: store.exerciseRepeats,
+  sets.value = {
+    exerciseId: exerciseId,
     load: store.exerciseLoad?.color,
+    repeats: store.exerciseRepeats,
     setId: uid(20),
-    exerciseId: exerciseId
+    weight: store.exerciseWeight
   }
 
   store.pickedExercises?.forEach((exersise: Exercise) => {
     if(exersise.id === exerciseId) {
-      exersise.sets.push(store?.sets);
+      exersise.sets.push(sets.value);
     }
   })
+
 };
 
 watch(activeId, (value) => {

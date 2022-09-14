@@ -18,7 +18,7 @@ export const getDateEquality = (day: Dayjs) => {
   return dayjs().isSame(day, 'day');
 }
 
-export const getEmptyDays = (initialDate: Dayjs) => {
+export const getEmptyDays = (initialDate: Dayjs): number => {
   const currentDate = initialDate.get('date');
   let emptyDaysCount = dayjs(initialDate).subtract((currentDate), 'days').weekday() + 1;
   if (emptyDaysCount === 7) emptyDaysCount = 0;

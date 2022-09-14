@@ -1,14 +1,9 @@
 import { ref } from 'vue';
 import { db } from '@/firebase/config'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore';
+import { CollectionStatus } from "@/types/collectionStatus";
 import type { Ref } from "vue";
 import type { Workout } from "@/types/interface";
-
-export enum CollectionStatus {
-  Ok = 0,
-  Pending = 1,
-  Error = 2
-}
 
 const useCollection = (col: string) => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
