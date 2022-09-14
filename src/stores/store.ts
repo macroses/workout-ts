@@ -78,15 +78,5 @@ export const useStore = defineStore({
         default: { break }
       }
     },
-
-    // async updateWorkoutAtBase (editableWorkoutId: string): Promise<void> {
-    //   if (!this.workoutName) return;
-    //   await updateWorkoutCollection (
-    //     editableWorkoutId,
-    //     this.workoutName,
-    //     this.taskColor,
-    //     this.pickedExercises as Exercise[]
-    //   )
-    // }
   }
 })
