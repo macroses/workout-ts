@@ -3,8 +3,9 @@
   flex-shrink: 0;
   border-left: 1px solid var(--color-border);
   transform: translateX(100%);
-  transition: 0.2s;
+  transition: transform 0.2s;
   overflow: auto;
+  opacity: 0;
   background-color: var(--color-bg);
   visibility: hidden;
   max-height: calc(100vh - 57px);
@@ -15,6 +16,7 @@
   width: 400px;
   transform: translateX(0);
   visibility: visible;
+  opacity: 1;
 }
 
 .edit-workout__title {

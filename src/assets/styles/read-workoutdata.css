@@ -2,14 +2,16 @@
   width: 0;
   flex-shrink: 0;
   transform: translateX(100%);
-  transition: 0.2s;
+  transition: transform 0.2s;
   overflow: hidden;
+  opacity: 0;
   background-color: var(--color-bg);
   visibility: hidden;
 }
 
 .workout-data.active {
   width: 400px;
+  opacity: 1;
   transform: translateX(0);
   visibility: visible;
 }

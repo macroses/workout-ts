@@ -1,42 +1,32 @@
 import { db } from '@/firebase/config';
 import { updateDoc, doc } from 'firebase/firestore';
 import { ref } from "vue";
-import type {Exercise} from "@/types/interface";
 import { CollectionStatus } from "@/types/collectionStatus";
 import type { Ref } from 'vue';
 
-const updateWorkoutCollection = () => {
+type UpdateCollection = {
+  status: Ref<CollectionStatus>
+  updateCollection:  (id: string, date: Date) => Promise<void>
+}
+
+const updateWorkoutDate = (): UpdateCollection => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const updateCollection = async (
-    id: string,
-    workoutName?: string,
-    color?: string,
-    dataSets?: Exercise[]
-  ) => {
-    
+  const updateCollection = async ( id: string, date: Date ): Promise<void> => {
     const docRef = doc(db, 'workouts', id);
 
     try {
       status.value = CollectionStatus.Pending;
-
-      await updateDoc(docRef, {
-        workoutName: workoutName,
-        color: color,
-        exercisesUserDataSets: dataSets
-      });
-
+      await updateDoc(docRef, { workoutDate: date });
       status.value = CollectionStatus.Ok
-      console.log(id, "was updated")
 
     } catch (e: any) {
-
       console.log(e);
       status.value = CollectionStatus.Error;
     }
   };
-  
+
   return { status, updateCollection };
 }
 
-export default updateWorkoutCollection;
+export default updateWorkoutDate;

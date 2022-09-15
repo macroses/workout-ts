@@ -36,7 +36,7 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
 <template>
 <div class="workout-data" :class="{ active: store.readWorkout && !store.isEditMode }">
   <div class="workout-data__header" :style="{ backgroundColor: `rgb(${ store.readWorkout?.color })` }">
-    
+
     <div class="workout-data__date">{{ dayjs.unix(store.readWorkout?.workoutDate?.seconds).format('DD.MM.YYYY') }}</div>
     <div class="workout-data__funcs">
       <div class="a11y-wrap" @click="editWorkout(store.readWorkout)">
@@ -61,10 +61,10 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
           {{ exerciseItem.name }}
         </div>
         <ul class="workout-data__sets-list" v-if="exerciseItem.sets.length">
-          <li v-for="setItem in exerciseItem.sets" 
+          <li v-for="setItem in exerciseItem.sets"
             :style="{ backgroundColor: `rgb(${setItem.load})` }"
             :key="setItem.setId"
-          > 
+          >
             {{setItem.weight}} x {{ setItem.repeats }}
           </li>
         </ul>
