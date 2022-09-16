@@ -1,16 +1,4 @@
 :root {
-  --color-text: #2c3e50;
-  --color-text-inverted: rgb(238, 238, 238);
-  --color-text-hover: rgba(0,0,0, 0.7);
-  --color-accent: #409eff;
-
-  --color-bg: #ffffff;
-  --color-bg-hover: #ecf5ff;
-  --color-border: #dcdfe6;
-  --color-btn: #606266;
-  --color-icon: #909399;
-  --elements-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),0px 8px 20px rgba(0, 0, 0, 0.08);
-
   --color-icon-accent: #00b934;
   --color-icon-accent-bg: #e6f7eb;
 
@@ -22,6 +10,33 @@
 
   --color-icon-accent-red: #ff0000;
   --color-icon-accent-red-bg: #ffc3c3;
+
+  --color-accent: #409eff;
+}
+
+:root {
+  --color-text: #2c3e50;
+  --color-text-inverted: rgb(238, 238, 238);
+  --color-text-hover: rgba(0,0,0, 0.7);
+
+  --color-bg: #ffffff;
+  --color-bg-hover: #ecf5ff;
+  --color-border: #dcdfe6;
+  --color-btn: #606266;
+  --color-icon: #909399;
+  --elements-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),0px 8px 20px rgba(0, 0, 0, 0.08);
+}
+:root.dark-theme {
+  --color-text: #fff;
+  --color-text-inverted: rgb(238, 238, 238);
+  --color-text-hover: rgba(0,0,0, 0.7);
+
+  --color-bg: #121212;
+  --color-bg-hover: #ecf5ff;
+  --color-border: #dcdfe6;
+  --color-btn: #606266;
+  --color-icon: #909399;
+  --elements-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04),0px 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 *,

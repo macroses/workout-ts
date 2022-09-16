@@ -19,13 +19,19 @@ const router = createRouter({
     {
       path: '/',
       name: 'signup',
-      component: SignUp
+      component: SignUp,
+      meta: {
+        title: "Дневник тренировок"
+      }
     },
     {
       path: '/home',
       name: 'home',
       component: HomeView,
-      beforeEnter: requireAuth
+      beforeEnter: requireAuth,
+      meta: {
+        title: "Дневник тренировок"
+      }
     },
   ]
 })
