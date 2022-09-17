@@ -34,6 +34,7 @@ const props = defineProps<{
   width: 100%;
   display: block;
   height: 36px;
+  background-color: var(--color-bg-input);
   border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 8px;

@@ -87,7 +87,7 @@
 }
 
 .today .day-num{
-  color: #fff;
+  color: var(--color-text-inverted);
   background: var(--color-accent);
 }
 
