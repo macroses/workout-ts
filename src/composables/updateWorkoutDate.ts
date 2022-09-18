@@ -6,13 +6,13 @@ import type { Ref } from 'vue';
 
 type UpdateCollection = {
   status: Ref<CollectionStatus>
-  updateCollection:  (id: string, date: Date) => Promise<void>
+  updateCollection:  (id: string, date: Date | null) => Promise<void>
 }
 
 const updateWorkoutDate = (): UpdateCollection => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const updateCollection = async ( id: string, date: Date ): Promise<void> => {
+  const updateCollection = async ( id: string, date: Date | null ): Promise<void> => {
     const docRef = doc(db, 'workouts', id);
 
     try {

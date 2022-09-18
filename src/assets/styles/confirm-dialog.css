@@ -1,0 +1,48 @@
+.confirm-dialog {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-dialog__layer {
+  background: var(--color-bg-modal);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  padding: 24px;
+  box-shadow: var(--elements-shadow);
+}
+
+.confirm-dialog__title {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.confirm-dialog__buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm-dialog__buttons .button {
+  font-size: 11px;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.3s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.3s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

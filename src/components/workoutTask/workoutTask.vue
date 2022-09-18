@@ -5,24 +5,21 @@ import dayjs from 'dayjs';
 import getCollectionByUser from '@/composables/getCollectionByUser';
 import type { Workout } from '@/types/interface';
 import { useStore } from '@/stores/store';
-import {CollectionStatus} from "@/types/collectionStatus";
-import Loader from "@/components/loader/Loader.vue";
 
 const props = defineProps<{
   workoutDate: Dayjs | null
-  loadingStatus: number
 }>();
 
 const emits = defineEmits<{
-  (e: 'handleStartDrag', id: string): void
+  (e: 'handleStartDrag', workout: Workout): void
 }>();
 
 const store = useStore();
 
 const { documents } = getCollectionByUser('workouts');
 
-const handleStartDrag = (id: string) => {
-  emits('handleStartDrag', id);
+const handleStartDrag = (workout: Workout) => {
+  emits('handleStartDrag', workout);
 }
 
 const checkEqualDates = computed(() => {
@@ -49,12 +46,11 @@ const pushWorkoutToStore = (workout: Workout) => {
   :style="{ backgroundColor: `rgb(${item.color})` }"
   @click.stop="pushWorkoutToStore(item)"
   draggable="true"
-  @dragstart="handleStartDrag(item.id)"
+  @dragstart="handleStartDrag(item)"
 >
   <div class="workout-task__name">
     {{ item.workoutName }}
   </div>
-  <Loader v-if="loadingStatus === CollectionStatus.pending"/>
 </div>
 </template>
 

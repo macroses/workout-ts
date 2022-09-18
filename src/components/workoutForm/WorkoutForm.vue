@@ -30,7 +30,7 @@ const getPickedExercises = (exercise: Exercise) => {
 }
 
 const handleSubmit = async () => {
-  await store.pushWorkoutToBase();
+  await store.pushWorkoutToBase(null, null);
   if(store.workoutName) {
     closeForm();
   }

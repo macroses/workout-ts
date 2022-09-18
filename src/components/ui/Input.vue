@@ -38,7 +38,7 @@ const props = defineProps<{
   border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 8px;
-  outline: none;
+  color: var(--color-text);
 }
 
 .baseInput:focus {

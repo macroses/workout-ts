@@ -26,6 +26,10 @@
   padding: 0 16px;
 }
 
+.button.custom {
+  padding: 4px 8px;
+}
+
 .button.lg {
   height: 42px;
   padding: 0 24px;
