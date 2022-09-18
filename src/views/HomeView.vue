@@ -14,6 +14,10 @@ const store = useStore();
 const getPickedDate = (date: Dayjs) => store.pickedDate = date;
 const editWorkout = ref<Workout | null>(null);
 const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
+
+const dropHere = () => {
+//  todo: навести тренировкой сюда, через dragover
+}
 </script>
 
 <template>
@@ -23,6 +27,7 @@ const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
     <ul ref="countCells" class="days">
       <CalendarDates @pickDate="getPickedDate" />
     </ul>
+    <div class="next-month" @dragover="dropHere"></div>
   </div>
   <WorkoutForm />
   <ReadWorkoutData @editWorkout="getEditWorkout"/>
