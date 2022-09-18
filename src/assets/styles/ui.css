@@ -93,3 +93,12 @@
 .user-funcs__item:hover {
   background: var(--color-bg-hover);
 }
+
+.next-month {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100px;
+  background: rgba(0,0,0, .5);
+}

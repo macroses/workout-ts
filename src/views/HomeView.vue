@@ -11,12 +11,20 @@ import {ref} from "vue";
 
 const store = useStore();
 
+const emits = defineEmits<{
+  (e: 'blockIntersection', next): void
+}>();
+
 const getPickedDate = (date: Dayjs) => store.pickedDate = date;
 const editWorkout = ref<Workout | null>(null);
 const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
 
-const dropHere = () => {
-//  todo: навести тренировкой сюда, через dragover
+const blockIntersection = () => {
+// с зажатой тренировкой наведем на это поле, чтобы переключить месяц
+//  TODO: додумать как сделать таймаут однократным. Как сделать событие попадание в блок однократным.
+  setTimeout(() => {
+    emits('blockIntersection', 'lol')
+  }, 2000);
 }
 </script>
 
@@ -27,7 +35,7 @@ const dropHere = () => {
     <ul ref="countCells" class="days">
       <CalendarDates @pickDate="getPickedDate" />
     </ul>
-    <div class="next-month" @dragover="dropHere"></div>
+    <div class="next-month" @dragover="blockIntersection"></div>
   </div>
   <WorkoutForm />
   <ReadWorkoutData @editWorkout="getEditWorkout"/>
