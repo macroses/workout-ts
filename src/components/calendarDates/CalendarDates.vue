@@ -1,17 +1,20 @@
 <script lang="ts" setup>
 import type { Dayjs } from "dayjs";
+import type { Workout } from "@/types/interface";
+import {CollectionStatus} from "@/types/collectionStatus";
 import { computed, ref } from "vue";
+import { useStore } from "@/stores/store";
+import { useDragStore } from "@/stores/dragStore";
 import { getEmptyDays, getDaysArr, getDateEquality } from "@/helpers/getDate";
 import updateWorkoutDate from '@/composables/updateWorkoutDate';
-import { useStore } from "@/stores/store";
+import useCollection from "@/composables/useCollection";
 import WorkoutTask from "../workoutTask/workoutTask.vue";
 import Button from "@/components/ui/Button.vue";
-import type {Workout} from "@/types/interface";
-import useCollection from "@/composables/useCollection";
-import {CollectionStatus} from "@/types/collectionStatus";
 import Loader from '@/components/loader/Loader.vue'
 
 const store = useStore();
+const dragStore = useDragStore();
+
 const emits = defineEmits<{
   (e: 'pickDate', day: Dayjs): void
 }>();
@@ -20,7 +23,6 @@ const { updateCollection } = updateWorkoutDate();
 const { addDocument, status } = useCollection('workouts')
 
 const activeCellIndex = ref<number>(0); // выделение активной ячейки
-const dragObject = ref<Workout | null>(null);
 const draggedDate = ref<Date | null>(null);
 const isConfirm = ref(false);
 
@@ -38,18 +40,25 @@ const pickDate = (date: Dayjs, index: number): void => {
   emits('pickDate', date)
 };
 
-const handleStartDrag = (workout: Workout) => dragObject.value = workout;
+const handleStartDrag = (workout: Workout) => {
+  store.pickedDate = null;
+  store.readWorkout = null;
+  dragStore.draggedObject = workout;
+};
 
 const handleDrop = async (day: Dayjs) => {
   isConfirm.value = !isConfirm.value;
   draggedDate.value = day.toDate(); // drop workout and get new date of workout
+  store.isDragged = false;
 }
 
 const taskReplace = async () => {
   store.readWorkout = null; // clear, for closing read window
   isConfirm.value = false;
+  console.log('startReplace', dragStore.draggedObject, dragStore.draggedObject?.id);
+  
   await updateCollection(
-    dragObject.value?.id as string,
+    dragStore.draggedObject?.id as string,
     draggedDate.value
   );
 };
@@ -58,11 +67,11 @@ const taskCopy = async () => {
 
   await addDocument({
     workoutDate: draggedDate.value,
-    workoutName: dragObject.value?.workoutName ?? null,
-    userName: dragObject.value?.userName ?? null,
-    userId: dragObject.value?.userId ?? null,
-    exercisesUserDataSets: dragObject.value?.exercisesUserDataSets ?? null,
-    color: dragObject.value?.color ?? null
+    workoutName: dragStore.draggedObject?.workoutName ?? null,
+    userName: dragStore.draggedObject?.userName ?? null,
+    userId: dragStore.draggedObject?.userId ?? null,
+    exercisesUserDataSets: dragStore.draggedObject?.exercisesUserDataSets ?? null,
+    color: dragStore.draggedObject?.color ?? null
   });
 
   isConfirm.value = false;

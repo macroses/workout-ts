@@ -53,6 +53,7 @@ export interface Store {
   pickedDate: Dayjs | null
   readWorkout: Workout | null
   isEditMode: boolean
+  isDragged: boolean
 }
 
 export type LoadType = {

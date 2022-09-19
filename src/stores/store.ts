@@ -27,7 +27,8 @@ export const useStore = defineStore({
     initialDate: dayjs(),
     pickedDate: null,
     readWorkout: null,
-    isEditMode: false
+    isEditMode: false,
+    isDragged: false
   } as Store),
   actions: {
     restoreDefaultsState () {

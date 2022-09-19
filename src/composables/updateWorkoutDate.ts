@@ -15,6 +15,8 @@ const updateWorkoutDate = (): UpdateCollection => {
   const updateCollection = async ( id: string, date: Date | null ): Promise<void> => {
     const docRef = doc(db, 'workouts', id);
 
+    console.log(id, date);
+    
     try {
       status.value = CollectionStatus.Pending;
       await updateDoc(docRef, { workoutDate: date });

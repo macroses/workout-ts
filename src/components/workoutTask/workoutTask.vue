@@ -20,6 +20,7 @@ const { documents } = getCollectionByUser('workouts');
 
 const handleStartDrag = (workout: Workout) => {
   emits('handleStartDrag', workout);
+  store.isDragged = true;
 }
 
 const checkEqualDates = computed(() => {
@@ -35,6 +36,14 @@ const pushWorkoutToStore = (workout: Workout) => {
   store.readWorkout = workout;
   store.pickedDate = null;
 };
+
+// const getMousePosition = (event) => {
+//   event.target.addEventListener('mousemove', function() {
+//     console.log(event.clientX)
+//   })
+// }
+// todo найти позицию мыши при зажатой кнопке. Определить в каой половине окна она находится
+// todo найти ширину окна, поделить на 2. Определить где находится курсор, слева или справа
 </script>
 
 <template>
@@ -47,6 +56,7 @@ const pushWorkoutToStore = (workout: Workout) => {
   @click.stop="pushWorkoutToStore(item)"
   draggable="true"
   @dragstart="handleStartDrag(item)"
+  @mousedown="getMousePosition"
 >
   <div class="workout-task__name">
     {{ item.workoutName }}
