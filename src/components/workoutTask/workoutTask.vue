@@ -56,7 +56,6 @@ const pushWorkoutToStore = (workout: Workout) => {
   @click.stop="pushWorkoutToStore(item)"
   draggable="true"
   @dragstart="handleStartDrag(item)"
-  @mousedown="getMousePosition"
 >
   <div class="workout-task__name">
     {{ item.workoutName }}

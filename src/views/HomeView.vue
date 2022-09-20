@@ -9,7 +9,7 @@ import ReadWorkoutData from "@/components/readWorkoutData/ReadWorkoutData.vue";
 import {useStore} from "@/stores/store";
 import {ref} from "vue";
 import Icon from "../components/ui/Icon.vue";
-import { resetDragInterval, dragIntersection } from "@/helpers/dragDirection";
+import {getNextMonth, getPrevMonth} from "@/helpers/getDate";
 
 const store = useStore();
 
@@ -17,10 +17,48 @@ const getPickedDate = (date: Dayjs) => store.pickedDate = date;
 const editWorkout = ref<Workout | null>(null);
 const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
 
-const blockIntersection = (direction: string) => {
-  dragIntersection(direction);
+let isHovered = false;
+let isNext = false;
+let isPrev = false;
+let timer = ref(0);
 
+const currentHalf = ref('');
+let leftSideWidth = window.innerWidth / 2;
+
+const dragIntersection = (direction: string ) => {
+  // if dragged workout go to left or right side interval start
+  // then month toggle to next or prev value
+  if (!isHovered) {
+    isHovered = true;
+
+    if(direction === "next") {
+      isNext = true;
+
+      timer.value = setTimeout(() => {
+        store.initialDate = getNextMonth(store.initialDate);
+      }, 1500);
+    }
+    else if (direction === "prev") {
+      isPrev = true;
+
+      timer.value = setTimeout(() => {
+        store.initialDate = getPrevMonth(store.initialDate);
+      }, 1500);
+    }
+
+    else store.isDragged = false;
+  }
 };
+
+const resetDragInterval = () => {
+  isHovered = isNext = isPrev = false;
+  clearInterval(timer.value);
+}
+
+const translateCalendarLayout = (event: MouseEvent) => {
+  if (event.clientX <= leftSideWidth) currentHalf.value = 'left';
+  else currentHalf.value = 'right';
+}
 </script>
 
 <template>
@@ -28,9 +66,14 @@ const blockIntersection = (direction: string) => {
   <Transition name="slideMonth" mode="out-in" :duration="100">
     <div 
       class="calendar-layout" 
-      :class="{dragged: store.isDragged}"
+      :class="[
+        {dragged: store.isDragged},
+        {toLeft: currentHalf === 'left'},
+        {toRight: currentHalf === 'right'}
+      ]"
       :key="store.initialDate.toDate().toDateString()"
       @dragend="resetDragInterval"
+      @dragover="translateCalendarLayout"
     >
       <div class="lock-layer" :class="{editMode: store.isEditMode}"></div>
       <Weekdays />
@@ -42,18 +85,18 @@ const blockIntersection = (direction: string) => {
   <div 
     class="next-month" 
     :class="{ dragged: store.isDragged }"
-    @dragenter="blockIntersection('next')"
+    @dragenter="dragIntersection('next')"
     @dragexit="resetDragInterval"
   >
-    <Icon width="30px" iconName="chevrons-right"/>
+    <Icon width="40px" iconName="chevrons-right"/>
   </div>
   <div 
     class="perv-month" 
     :class="{ dragged: store.isDragged }"
-    @dragenter="blockIntersection('prev')" 
+    @dragenter="dragIntersection('prev')"
     @dragexit="resetDragInterval"
   >
-    <Icon width="30px" iconName="chevrons-left"/>
+    <Icon width="40px" iconName="chevrons-left"/>
   </div>
   <WorkoutForm />
   <ReadWorkoutData @editWorkout="getEditWorkout"/>
