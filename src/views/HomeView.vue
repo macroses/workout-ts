@@ -59,6 +59,17 @@ const translateCalendarLayout = (event: MouseEvent) => {
   if (event.clientX <= leftSideWidth) currentHalf.value = 'left';
   else currentHalf.value = 'right';
 }
+
+// const wheelEvent = (event: WheelEvent) => {
+//   if (event.deltaY > 0) {
+//     store.initialDate = getNextMonth(store.initialDate);
+//     console.log(event.deltaY)
+//   }
+//   else if (event.deltaY < 0) {
+//     store.initialDate = getPrevMonth(store.initialDate);
+//   }
+// }
+
 </script>
 
 <template>
@@ -74,6 +85,7 @@ const translateCalendarLayout = (event: MouseEvent) => {
       :key="store.initialDate.toDate().toDateString()"
       @dragend="resetDragInterval"
       @dragover="translateCalendarLayout"
+      @wheel=""
     >
       <div class="lock-layer" :class="{editMode: store.isEditMode}"></div>
       <Weekdays />
