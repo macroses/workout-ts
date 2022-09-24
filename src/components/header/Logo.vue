@@ -6,6 +6,6 @@ import Icon from '../ui/Icon.vue';
 <template>
   <RouterLink to="/home"  class="header-logo">
     <Icon iconName="book" width="20px"/>
-    Дневник тренировок
+    <span class="header-logo__text">Дневник тренировок</span>
   </RouterLink>
 </template>

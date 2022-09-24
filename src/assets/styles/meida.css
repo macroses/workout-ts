@@ -1,0 +1,65 @@
+@media (max-width: 992px) {
+  .header-logo__text {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-logo {
+    display: none;
+  }
+
+  .button {
+    font-size: 11px;
+  }
+
+  .header-currentdate .button {
+    height: 23px;
+  }
+
+  .current-textdate {
+    font-size: 11px;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  .header {
+    padding: 8px;
+  }
+
+  .workout-task__name {
+    display: none;
+  }
+
+  .workout-form,
+  .workout-data{
+    transform: unset;
+    transform: translateY(-100%);
+    position: absolute;
+  }
+
+  .workout-form.active {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    isolation: isolate;
+    transform: translateY(0);
+  }
+
+  .workout-data.active {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    isolation: isolate;
+  }
+}

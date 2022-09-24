@@ -7,6 +7,7 @@ import { useRouter } from "vue-router";
 import { clickOutside } from '@/helpers/clickOutside';
 
 import Icon from "../ui/Icon.vue";
+import ThemeToggle from '@/components/header/ThemeToggle.vue'
 
 const { user } = getUser();
 const router = useRouter();
@@ -40,6 +41,7 @@ clickOutside(list, () => isListActive.value = false)
       v-if="isListActive"
     >
       <li class="user-funcs__item" @click="logOut">Выйти</li>
+      <li class="user-funcs__item"><ThemeToggle/></li>
     </ul>
   </div>
 </template>

@@ -11,7 +11,7 @@ import UserAuth from './UserAuth.vue';
     <Burger />
     <Logo />
     <CurrentDate />
-    <ThemeToggle />
+<!--    <ThemeToggle />-->
     <UserAuth />
   </header>
 </template>

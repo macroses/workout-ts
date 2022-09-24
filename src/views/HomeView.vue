@@ -60,17 +60,44 @@ const translateCalendarLayout = (event: MouseEvent) => {
   else currentHalf.value = 'right';
 }
 
-// const wheelEvent = (event: WheelEvent) => {
-//   if (event.deltaY > 0) {
-//     store.initialDate = getNextMonth(store.initialDate);
-//     console.log(event.deltaY)
-//   }
-//   else if (event.deltaY < 0) {
-//     store.initialDate = getPrevMonth(store.initialDate);
-//   }
-// }
+const throttle = (callback, ms) => {
+  let isThrottled = false;
+  let saveArgs;
+  let savedThis;
 
-// commit for mac
+  function wrapper () {
+    if (isThrottled) {
+      saveArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    callback.apply(this, arguments);
+
+    isThrottled = true;
+
+    setTimeout(function() {
+      isThrottled = false;
+      if (saveArgs) {
+        wrapper.apply(savedThis, savedThis);
+        saveArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+
+const wheelEvent = (event: WheelEvent) => {
+  if (event.deltaY > 0) {
+    store.initialDate = getNextMonth(store.initialDate);
+    console.log(event.deltaY)
+  }
+  else if (event.deltaY < 0) {
+    store.initialDate = getPrevMonth(store.initialDate);
+  }
+}
+
 
 </script>
 
@@ -87,7 +114,7 @@ const translateCalendarLayout = (event: MouseEvent) => {
       :key="store.initialDate.toDate().toDateString()"
       @dragend="resetDragInterval"
       @dragover="translateCalendarLayout"
-      @wheel=""
+      @wheel="throttle(wheelEvent, 1000)"
     >
       <div class="lock-layer" :class="{editMode: store.isEditMode}"></div>
       <Weekdays />
