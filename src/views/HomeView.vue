@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type {Workout} from "@/types/interface";
 import type {Dayjs} from 'dayjs';
 import Weekdays from '@/components/weekdays/Weekdays.vue';
@@ -25,28 +25,25 @@ let timer = ref(0);
 const currentHalf = ref('');
 let leftSideWidth = window.innerWidth / 2;
 
-const dragIntersection = (direction: string ) => {
+const dragIntersection = (direction: string) => {
   // if dragged workout go to left or right side interval start
   // then month toggle to next or prev value
   if (!isHovered) {
     isHovered = true;
 
-    if(direction === "next") {
+    if (direction === "next") {
       isNext = true;
 
       timer.value = setTimeout(() => {
         store.initialDate = getNextMonth(store.initialDate);
       }, 1500);
-    }
-    else if (direction === "prev") {
+    } else if (direction === "prev") {
       isPrev = true;
 
       timer.value = setTimeout(() => {
         store.initialDate = getPrevMonth(store.initialDate);
       }, 1500);
-    }
-
-    else store.isDragged = false;
+    } else store.isDragged = false;
   }
 };
 
@@ -65,7 +62,7 @@ const throttle = (callback, ms) => {
   let saveArgs;
   let savedThis;
 
-  function wrapper () {
+  function wrapper() {
     if (isThrottled) {
       saveArgs = arguments;
       savedThis = this;
@@ -76,7 +73,7 @@ const throttle = (callback, ms) => {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false;
       if (saveArgs) {
         wrapper.apply(savedThis, savedThis);
@@ -92,8 +89,7 @@ const wheelEvent = (event: WheelEvent) => {
   if (event.deltaY > 0) {
     store.initialDate = getNextMonth(store.initialDate);
     console.log(event.deltaY)
-  }
-  else if (event.deltaY < 0) {
+  } else if (event.deltaY < 0) {
     store.initialDate = getPrevMonth(store.initialDate);
   }
 }
@@ -102,45 +98,45 @@ const wheelEvent = (event: WheelEvent) => {
 </script>
 
 <template>
-<main>
-  <Transition name="slideMonth" mode="out-in" :duration="100">
-    <div 
-      class="calendar-layout" 
-      :class="[
+  <main>
+    <Transition :duration="100" mode="out-in" name="slideMonth">
+      <div
+          :key="store.initialDate.toDate().toDateString()"
+          :class="[
         {dragged: store.isDragged},
         {toLeft: currentHalf === 'left'},
         {toRight: currentHalf === 'right'}
       ]"
-      :key="store.initialDate.toDate().toDateString()"
-      @dragend="resetDragInterval"
-      @dragover="translateCalendarLayout"
-      @wheel="throttle(wheelEvent, 1000)"
+          class="calendar-layout"
+          @dragend="resetDragInterval"
+          @dragover="translateCalendarLayout"
+          @wheel="throttle(wheelEvent, 1000)"
+      >
+        <div :class="{editMode: store.isEditMode}" class="lock-layer"></div>
+        <Weekdays/>
+        <ul ref="countCells" class="days">
+          <CalendarDates @pickDate="getPickedDate"/>
+        </ul>
+      </div>
+    </Transition>
+    <div
+        :class="{ dragged: store.isDragged }"
+        class="next-month"
+        @dragenter="dragIntersection('next')"
+        @dragexit="resetDragInterval"
     >
-      <div class="lock-layer" :class="{editMode: store.isEditMode}"></div>
-      <Weekdays />
-      <ul ref="countCells" class="days">
-        <CalendarDates @pickDate="getPickedDate" />
-      </ul>
+      <Icon iconName="chevrons-right" width="40px"/>
     </div>
-  </Transition>
-  <div 
-    class="next-month" 
-    :class="{ dragged: store.isDragged }"
-    @dragenter="dragIntersection('next')"
-    @dragexit="resetDragInterval"
-  >
-    <Icon width="40px" iconName="chevrons-right"/>
-  </div>
-  <div 
-    class="perv-month" 
-    :class="{ dragged: store.isDragged }"
-    @dragenter="dragIntersection('prev')"
-    @dragexit="resetDragInterval"
-  >
-    <Icon width="40px" iconName="chevrons-left"/>
-  </div>
-  <WorkoutForm />
-  <ReadWorkoutData @editWorkout="getEditWorkout"/>
-  <EditWorkout :editableWorkout="editWorkout"/>
-</main>
+    <div
+        :class="{ dragged: store.isDragged }"
+        class="perv-month"
+        @dragenter="dragIntersection('prev')"
+        @dragexit="resetDragInterval"
+    >
+      <Icon iconName="chevrons-left" width="40px"/>
+    </div>
+    <WorkoutForm/>
+    <ReadWorkoutData @editWorkout="getEditWorkout"/>
+    <EditWorkout :editableWorkout="editWorkout"/>
+  </main>
 </template>

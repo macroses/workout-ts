@@ -34,7 +34,8 @@
   }
 
   .workout-form,
-  .workout-data{
+  .workout-data,
+  .edit-workout {
     transform: unset;
     transform: translateY(-100%);
     position: absolute;
@@ -61,5 +62,22 @@
     max-height: 100vh;
     overflow: auto;
     isolation: isolate;
+    transform: translateY(0);
+  }
+
+  .lock-layer.editMode {
+    display: none;
+  }
+
+  .edit-workout.active {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    isolation: isolate;
+    transform: translateY(0);
   }
 }

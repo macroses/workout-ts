@@ -22,9 +22,9 @@ const getCollectionByUser = (c: string) => {
 
       if(doc.data().userId === user.value?.uid) {
         results.push({
-        ...doc.data(),
-        id: doc.id,
-      })
+          ...doc.data(),
+          id: doc.id,
+        })
       }
     })
 
