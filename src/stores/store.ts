@@ -12,7 +12,7 @@ dayjs.locale('ru');
 dayjs.extend(weekday);
 
 const { addDocument, status } = useCollection('workouts');
-const { user } = getUser(); // получаем актуального юзера
+const { user } = getUser();
 
 export const useStore = defineStore({
   id: 'mainStore',

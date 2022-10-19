@@ -26,7 +26,6 @@ const deleteWorkoutAndCloseReadModal = (id: string): void => {
 
   switch (status.value) {
     case CollectionStatus.Ok:
-
   }
 
   store.readWorkout = null;

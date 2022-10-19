@@ -10,7 +10,4 @@ export const useDragStore = defineStore({
   state: () => ({
     draggedObject: null
   } as DragStore),
-  actions: {
-    
-  }
 })
