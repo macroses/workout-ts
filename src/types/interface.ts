@@ -3,7 +3,7 @@ import type { Dayjs } from "dayjs";
 export interface Workout {
   workoutDate: Date | null
   workoutName: string | null
-  color: string | null
+  color?: string
   userId: string | null
   userName: string | null
   id?: string | null
@@ -36,8 +36,8 @@ export interface Set {
 }
 
 export interface Store {
-  taskColor?: string
-  workoutName?: string
+  taskColor: string
+  workoutName: string | null
   pickedExercises: Exercise[] | null
   sets?: {
     weight: string

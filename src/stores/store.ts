@@ -17,8 +17,8 @@ const { user } = getUser();
 export const useStore = defineStore({
   id: 'mainStore',
   state: () => ({
-    taskColor: '' || "3, 155, 229",
-    workoutName: '',
+    taskColor: "3, 155, 229",
+    workoutName: null,
     pickedExercises: [] || null,
     exerciseWeight: '',
     exerciseRepeats: '',
@@ -32,8 +32,8 @@ export const useStore = defineStore({
   } as Store),
   actions: {
     restoreDefaultsState () {
-      this.taskColor = '' || "3, 155, 229";
-      this.workoutName = '';
+      this.taskColor = "3, 155, 229";
+      this.workoutName = null;
       this.pickedExercises = [];
       this.exerciseWeight = '';
       this.exerciseRepeats = '';
@@ -67,7 +67,7 @@ export const useStore = defineStore({
         await addDocument({
           workoutDate: this.pickedDate?.toDate() ?? null,
           workoutName: this.workoutName.slice(0, 20),
-          color: this.taskColor ?? null,
+          color: this.taskColor,
           userId: user.value?.uid ?? null,
           userName: user.value?.displayName ?? null,
           exercisesUserDataSets: this.pickedExercises

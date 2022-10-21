@@ -21,8 +21,6 @@ const toggleSelect = (id: string) => {
   isFormOpened.value = activeId.value === id;
 }
 
-
-
 // for active exercise
 const saveSet = (exerciseId: string) => {
   sets.value = {
@@ -33,9 +31,9 @@ const saveSet = (exerciseId: string) => {
     weight: store.exerciseWeight
   }
 
-  store.pickedExercises?.forEach((exersise: Exercise) => {
-    if(exersise.id === exerciseId) {
-      exersise.sets.push(sets.value);
+  store.pickedExercises?.forEach((exercise: Exercise) => {
+    if(exercise.id === exerciseId) {
+      exercise.sets.push(sets.value);
     }
   })
 

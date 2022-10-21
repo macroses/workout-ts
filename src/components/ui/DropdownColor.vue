@@ -21,7 +21,7 @@ const colorCollection = [
 const store = useStore();
 const container = ref<null | HTMLAllCollection>(null);
 
-const defaultColor = ref<string>(store.taskColor);
+const defaultColor = ref<string | undefined>(store.taskColor);
 const isDropDownActive = ref<boolean>(false);
 
 const toggleDropdown = () => isDropDownActive.value = !isDropDownActive.value;

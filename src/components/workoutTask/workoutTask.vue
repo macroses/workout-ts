@@ -26,7 +26,7 @@ const handleStartDrag = (workout: Workout) => {
 const checkEqualDates = computed(() => {
   if (!documents.value) return []
   return documents.value.filter(el => {
-    if (props.workoutDate?.isSame(dayjs(el.workoutDate.seconds * 1000))) {
+    if (props.workoutDate?.isSame(dayjs(el?.workoutDate?.seconds * 1000))) {
       return el;
     }
   })

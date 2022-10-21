@@ -12,7 +12,7 @@ import PickedExercises from "@/components/workoutForm/PickedExercises.vue";
 import Input from "@/components/ui/Input.vue";
 import Loader from "@/components/loader/Loader.vue";
 
-const props = defineProps<{ editableWorkout: Workout | null }>();
+const props = defineProps<{ editableWorkout: Workout }>();
 const store = useStore();
 const { status, updateCollection } = updateWorkoutCollection();
 

@@ -96,7 +96,7 @@ ul {
 #app {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 ::-webkit-scrollbar {

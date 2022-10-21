@@ -32,7 +32,6 @@ const changeAuthMethodToLogin = () => {
 
 <template>
   <div class="auth-box">
-
     <div v-if="error" class="err-msg">{{ authErrors(error) }}</div>
     <div class="auth-title">Регистрация</div>
     <form @submit.prevent="handleSubmit">

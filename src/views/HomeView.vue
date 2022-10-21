@@ -36,13 +36,13 @@ const dragIntersection = (direction: string) => {
 
       timer.value = setTimeout(() => {
         store.initialDate = getNextMonth(store.initialDate);
-      }, 1500);
+      }, 700);
     } else if (direction === "prev") {
       isPrev = true;
 
       timer.value = setTimeout(() => {
         store.initialDate = getPrevMonth(store.initialDate);
-      }, 1500);
+      }, 700);
     } else store.isDragged = false;
   }
 };
@@ -56,45 +56,6 @@ const translateCalendarLayout = (event: MouseEvent) => {
   if (event.clientX <= leftSideWidth) currentHalf.value = 'left';
   else currentHalf.value = 'right';
 }
-
-const throttle = (callback, ms) => {
-  let isThrottled = false;
-  let saveArgs;
-  let savedThis;
-
-  function wrapper() {
-    if (isThrottled) {
-      saveArgs = arguments;
-      savedThis = this;
-      return;
-    }
-
-    callback.apply(this, arguments);
-
-    isThrottled = true;
-
-    setTimeout(function () {
-      isThrottled = false;
-      if (saveArgs) {
-        wrapper.apply(savedThis, savedThis);
-        saveArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
-}
-
-const wheelEvent = (event: WheelEvent) => {
-  if (event.deltaY > 0) {
-    store.initialDate = getNextMonth(store.initialDate);
-    console.log(event.deltaY)
-  } else if (event.deltaY < 0) {
-    store.initialDate = getPrevMonth(store.initialDate);
-  }
-}
-
-
 </script>
 
 <template>
@@ -110,7 +71,6 @@ const wheelEvent = (event: WheelEvent) => {
           class="calendar-layout"
           @dragend="resetDragInterval"
           @dragover="translateCalendarLayout"
-          @wheel="throttle(wheelEvent, 1000)"
       >
         <div :class="{editMode: store.isEditMode}" class="lock-layer"></div>
         <Weekdays/>
