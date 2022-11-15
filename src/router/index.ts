@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import SignUp from '../views/SignUp.vue';
+import Statistic from '../views/Statistic.vue';
 
 import { auth } from '@/firebase/config';
 
@@ -31,6 +32,15 @@ const router = createRouter({
       beforeEnter: requireAuth,
       meta: {
         title: "Дневник тренировок"
+      }
+    },
+    {
+      path: '/statistic',
+      name: 'statistic',
+      component: Statistic,
+      beforeEnter: requireAuth,
+      meta: {
+        title: "Статистика"
       }
     },
   ]

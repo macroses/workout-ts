@@ -14,7 +14,6 @@ const handleReg = () :void => {
   isSignup.value = true;
 }
 
-
 const handleLogin = () :void => {
   isSignup.value = false;
 }

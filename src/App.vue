@@ -7,6 +7,6 @@ import Aside from '@/components/aside/Aside.vue';
 
 <template>
   <Header />
-  <Aside></Aside>
+  <Aside />
   <RouterView />
 </template>

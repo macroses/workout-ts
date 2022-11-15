@@ -46,7 +46,7 @@ const handleStartDrag = (workout: Workout) => {
   dragStore.draggedObject = workout;
 };
 
-const handleDrop = async (day: Dayjs) => {
+const handleDrop = (day: Dayjs) => {
   isConfirm.value = !isConfirm.value;
   draggedDate.value = day.toDate(); // drop workout and get new date of workout
   store.isDragged = false;
@@ -55,7 +55,6 @@ const handleDrop = async (day: Dayjs) => {
 const taskReplace = async () => {
   store.readWorkout = null; // clear, for closing read window
   isConfirm.value = false;
-  console.log('startReplace', dragStore.draggedObject, dragStore.draggedObject?.id);
 
   await updateCollection(
       dragStore.draggedObject?.id as string,
