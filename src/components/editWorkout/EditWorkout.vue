@@ -24,7 +24,8 @@ const updateWorkout = async (): Promise<void> => {
     props.editableWorkout?.id as string,
     store.workoutName,
     store.taskColor,
-    store.pickedExercises as Exercise[]
+    store.pickedExercises as Exercise[],
+    store.workoutTonnage
   )
 
   switch(status.value) {
@@ -48,7 +49,8 @@ watchEffect(() => {
   if(props.editableWorkout) {
     store.workoutName = props.editableWorkout.workoutName;
     store.taskColor = props.editableWorkout.color;
-    store.pickedExercises = props.editableWorkout.exercisesUserDataSets
+    store.pickedExercises = props.editableWorkout.exercisesUserDataSets;
+    store.workoutTonnage = props.editableWorkout.workoutTonnage
   }
 });
 </script>

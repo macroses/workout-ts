@@ -1,60 +1,53 @@
 <script setup lang="ts">
 import getCollectionByUser from "@/composables/getCollectionByUser";
-import { getDaysArr } from "@/helpers/getDate";
 import { useStore } from "@/stores/store";
-import { computed, ref } from "vue";
+import {computed} from "vue";
 import dayjs from "dayjs";
+import type { Workout, Exercise, Set } from "@/types/interface";
 
 const store = useStore();
-
-const dates = ref([])
-
 const { documents } = getCollectionByUser('workouts');
-const filledDaysCells = computed(() => {
-  // let dates = [];
-  // documents.value?.forEach(doc => {
-  //   dates = [...dates, doc.workoutDate]
-  // })
-});
 
-console.log(filledDaysCells)
+const sortedWorkoutsByDate = computed(() => {
+  return documents.value?.sort((a, b) => a.workoutDate - b.workoutDate)
+})
 
 const options = computed(() => {
   return {
     chart: {
-      id: 'workout-tonnage',
-      width: 800,
-      dropShadow: {
-        enabled: true,
-        color: '#000',
-        top: 18,
-        left: 7,
-        blur: 10,
-        opacity: 0.2
-      },
+      height: 350,
+      type: 'line',
       toolbar: {
         show: false
-      },
-
+      }
     },
     stroke: {
+      width: 3,
       curve: 'smooth'
     },
-    markers: {
-      size: 2
-    },
     xaxis: {
-      labels: {},
-      categories: []
+      tickAmount: 5,
+      categories: sortedWorkoutsByDate?.value?.map(el => dayjs(el?.workoutDate?.seconds * 1000).format('DD.MM'))
     },
-
+    title: {
+      text: 'Тоннаж последних 7 тренировок',
+      align: 'left',
+      style: {
+        fontSize: "16px",
+        color: '#666'
+      }
+    },
+    yaxis: {
+      min: 0,
+      max: 10000
+    }
   };
 })
 const series = computed(() => {
   return [{
-    name: 'Общий объем',
-    data: [30, 40, 45, 50, 49, ],
-  }];
+    name: 'Тоннаж',
+    data: sortedWorkoutsByDate?.value?.map(el => el.workoutTonnage)
+  }]
 })
 </script>
 
@@ -68,13 +61,6 @@ const series = computed(() => {
         :options="options"
         :series="series"
     ></apexchart>
-
-    <div v-for="doc in documents" :key="doc.id">
-      <div v-for="exercise in doc.exercisesUserDataSets">
-        <div v-for="set in exercise.sets">{{ set.weight }}</div>
-      </div>
-    </div>
-<!--    <div v-for="el in filledDaysCells">{{el}}</div>-->
   </div>
 
 </main>

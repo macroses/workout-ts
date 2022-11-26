@@ -12,7 +12,8 @@ const updateWorkoutCollection = () => {
     id: string,
     workoutName?: string,
     color?: string,
-    dataSets?: Exercise[]
+    dataSets?: Exercise[],
+    workoutTonnage?: number
   ) => {
     
     const docRef = doc(db, 'workouts', id);
@@ -23,7 +24,8 @@ const updateWorkoutCollection = () => {
       await updateDoc(docRef, {
         workoutName: workoutName,
         color: color,
-        exercisesUserDataSets: dataSets
+        exercisesUserDataSets: dataSets,
+        workoutTonnage: workoutTonnage
       });
 
       status.value = CollectionStatus.Ok

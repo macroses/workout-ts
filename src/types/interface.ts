@@ -7,7 +7,8 @@ export interface Workout {
   userId: string | null
   userName: string | null
   id?: string | null
-  exercisesUserDataSets: Exercise[] | null
+  exercisesUserDataSets: Exercise[] | null,
+  workoutTonnage: number | null
 }
 
 export interface Exercise {
@@ -49,6 +50,7 @@ export interface Store {
   exerciseWeight: string
   exerciseLoad: LoadType | null
   exerciseRepeats: string
+  workoutTonnage: number
   initialDate: Dayjs
   pickedDate: Dayjs | null
   readWorkout: Workout | null

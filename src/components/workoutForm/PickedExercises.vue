@@ -37,6 +37,8 @@ const saveSet = (exerciseId: string) => {
     }
   })
 
+  store.workoutTonnage += store.exerciseWeight * store.exerciseRepeats
+
 };
 
 watch(activeId, (value) => {

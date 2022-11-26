@@ -24,6 +24,7 @@ export const useStore = defineStore({
     exerciseRepeats: '',
     sets: null,
     exerciseLoad: null,
+    workoutTonnage: 0,
     initialDate: dayjs(),
     pickedDate: null,
     readWorkout: null,
@@ -39,6 +40,7 @@ export const useStore = defineStore({
       this.exerciseRepeats = '';
       this.sets = null;
       this.exerciseLoad = null;
+      this.workoutTonnage = 0;
       this.initialDate = dayjs();
       this.pickedDate = null;
       this.readWorkout = null;
@@ -54,10 +56,13 @@ export const useStore = defineStore({
       }
     },
 
-    deleteSetFromExercise (clickedSetId: string) {
+    deleteSetFromExercise (clickedSetId: string, setWeight: string, setRepeats: string) {
       this.pickedExercises?.forEach(exercise => {
-        exercise.sets = exercise.sets.filter(set => set.setId !== clickedSetId)
+        exercise.sets = exercise.sets.filter(set => set.setId !== clickedSetId);
       })
+
+      console.log(setWeight, parseInt(setWeight))
+      this.workoutTonnage = this.workoutTonnage - parseInt(setWeight) * parseInt(setRepeats)
     },
 
     async pushWorkoutToBase (workout: Workout | null, newDate: Date | null): Promise<void> {
@@ -70,7 +75,8 @@ export const useStore = defineStore({
           color: this.taskColor,
           userId: user.value?.uid ?? null,
           userName: user.value?.displayName ?? null,
-          exercisesUserDataSets: this.pickedExercises
+          exercisesUserDataSets: this.pickedExercises,
+          workoutTonnage: this.workoutTonnage
         });
 
         switch(status.value) {
@@ -92,7 +98,8 @@ export const useStore = defineStore({
           userId: workout.userId,
           userName: workout.userName,
           id: uid(20),
-          exercisesUserDataSets: workout.exercisesUserDataSets
+          exercisesUserDataSets: workout.exercisesUserDataSets,
+          workoutTonnage: this.workoutTonnage
         });
       }
     },

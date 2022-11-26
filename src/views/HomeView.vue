@@ -62,8 +62,8 @@ const translateCalendarLayout = (event: MouseEvent) => {
   <main>
     <Transition :duration="100" mode="out-in" name="slideMonth">
       <div
-          :key="store.initialDate.toDate().toDateString()"
-          :class="[
+        :key="store.initialDate.toDate().toDateString()"
+        :class="[
         {dragged: store.isDragged},
         {toLeft: currentHalf === 'left'},
         {toRight: currentHalf === 'right'}

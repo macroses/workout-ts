@@ -7,7 +7,9 @@ const props = defineProps<{ exerciseId: string }>();
 
 const store = useStore();
 
-const deleteSet = (clickedSetId: string) => store.deleteSetFromExercise(clickedSetId);
+const deleteSet = (clickedSetId: string, setWeight: string, setRepeats: string) => {
+  store.deleteSetFromExercise(clickedSetId, setWeight, setRepeats);
+}
 
 const filteredSets = computed(() => {
   return store.pickedExercises?.filter(el => el.id === props.exerciseId).map(el => el.sets)[0]
@@ -30,7 +32,7 @@ const filteredSets = computed(() => {
         :style="{ backgroundColor: `rgb(${set.load})` }"
       >
         {{ set.weight }} x {{ set.repeats }}
-        <Icon @click="deleteSet(set.setId)" width="13px" iconName="xmark"/>
+        <Icon @click="deleteSet(set.setId, set.weight, set.repeats)" width="13px" iconName="xmark"/>
       </div>
     </li>
   </TransitionGroup>
