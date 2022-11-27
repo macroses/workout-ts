@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import chartTonnage from '@/components/chartsStatistics/ChartTonnage.vue'
 import getCollectionByUser from "@/composables/getCollectionByUser";
 import { useStore } from "@/stores/store";
 import {computed} from "vue";
 import dayjs from "dayjs";
-import type { Workout, Exercise, Set } from "@/types/interface";
 
 const store = useStore();
 const { documents } = getCollectionByUser('workouts');
@@ -54,6 +54,7 @@ const series = computed(() => {
 <template>
 <main>
   <div class="charts-grid">
+    <ChartTonnage />
     <apexchart
         width="100%"
         height="350"
