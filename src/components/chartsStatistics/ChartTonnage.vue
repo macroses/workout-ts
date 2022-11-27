@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import {computed, ref} from "vue";
 
 const props = defineProps<{
   xAxis: Array<string>,
   yAxis: Array<number>
 }>();
+
+const maxYvalue = ref(props.yAxis);
 
 const options = computed(() => {
   return {
@@ -20,12 +22,12 @@ const options = computed(() => {
       curve: 'smooth'
     },
     xaxis: {
-      tickAmount: 5,
+      tickAmount: 10,
       categories: props.xAxis
     },
     yaxis: {
       min: 0,
-      max: 10000
+      max: Math.max(...props.yAxis) + 5000
     }
   };
 })

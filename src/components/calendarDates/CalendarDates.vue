@@ -70,7 +70,8 @@ const taskCopy = async () => {
     userName: dragStore.draggedObject?.userName ?? null,
     userId: dragStore.draggedObject?.userId ?? null,
     exercisesUserDataSets: dragStore.draggedObject?.exercisesUserDataSets ?? null,
-    color: dragStore.draggedObject?.color
+    color: dragStore.draggedObject?.color,
+    workoutTonnage: dragStore.draggedObject?.workoutTonnage ?? null
   });
 
   isConfirm.value = false;
