@@ -1,78 +1,89 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import getCollectionByUser from "@/composables/getCollectionByUser";
+import {computed} from "vue";
+import dayjs from "dayjs";
+import Loader from "@/components/loader/Loader.vue";
 
-const props = defineProps<{
-  xAxis: Array<string>,
-  yAxis: Array<number>
-}>();
+const { documents, pending } = getCollectionByUser('workouts');
 
-const maxYvalue = ref(props.yAxis);
+const sortedWorkoutsByDate = computed(() => {
+  return documents.value?.sort((a, b) => a.workoutDate - b.workoutDate)
+})
+
+const tonnage = computed(() => sortedWorkoutsByDate?.value?.map(el => el.workoutTonnage))
+
+const dates = computed(() => {
+  return sortedWorkoutsByDate?.value?.map(el => dayjs(el?.workoutDate?.seconds * 1000).format('DD.MM'))
+})
 
 const options = computed(() => {
   return {
     chart: {
       height: 350,
       type: 'area',
-      toolbar: {
-        show: false
-      },
+      toolbar: { show: false },
     },
     stroke: {
       width: 1,
       curve: 'smooth',
     },
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 1,
-        type: "vertical",
-        colorStops: [
-          [
-
-            {
-              offset: 0,
-              color: "#FF2E92",
-              opacity: 0.3
-            },
-            {
-              offset: 99,
-              color: "#0085FF",
-              opacity: 0.1
-            }
-          ]
-        ]
-      }
-    },
+    // fill: {
+    //   type: "gradient",
+    //   gradient: {
+    //     shadeIntensity: 1,
+    //     type: "vertical",
+    //     colorStops: [
+    //       [
+    //
+    //         {
+    //           offset: 0,
+    //           color: "#FF2E92",
+    //           opacity: 0.3
+    //         },
+    //         {
+    //           offset: 99,
+    //           color: "#0085FF",
+    //           opacity: 0.1
+    //         }
+    //       ]
+    //     ]
+    //   }
+    // },
     grid: {
       borderColor: "var(--color-bg-hover)"
     },
     xaxis: {
       tickAmount: 5,
-      categories: props.xAxis,
+      categories: dates.value,
       axisBorder: {
         show: false
       }
     },
     yaxis: {
       min: 0,
-      max: Math.max(...props.yAxis) + 5000
+      max: Math.max(...tonnage.value) + 5000
     }
   };
 })
 const series = computed(() => {
   return [{
     name: 'Тоннаж',
-    data: props.yAxis
+    data: tonnage.value
   }]
 })
 </script>
 
 <template>
+
   <apexchart
+      v-if="pending"
       width="100%"
       height="350"
       type="line"
       :options="options"
       :series="series"
   ></apexchart>
+  <div class="chart-loader" v-else>
+    <Loader/>
+  </div>
 </template>

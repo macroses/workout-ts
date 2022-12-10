@@ -1,8 +1,8 @@
-import { onMounted, onUnmounted } from 'vue';
+import {onMounted, onUnmounted} from 'vue';
 
-export const clickOutside = (ref: HTMLElement, callback = () => {}): void => {
-  function handleClickOutside(event: Event) {
-    if (ref.value && !ref.value.contains(event.target)) {
+export const clickOutside = (ref, callback = () => {}): void => {
+  function handleClickOutside(event: EventTarget) {
+    if (ref?.value && !ref.value.contains(event.target)) {
       callback()
     }
   }
