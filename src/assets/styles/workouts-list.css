@@ -6,6 +6,11 @@
     overflow: auto;
 }
 
+.workouts-list__wrap {
+    max-height: calc(100vh - 57px);
+    overflow: auto;
+}
+
 .workouts-list__top {
     display: flex;
     flex-wrap: wrap;
@@ -60,6 +65,9 @@
     font-size: 9px;
     text-transform: uppercase;
     font-weight: bold;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .workouts-list__set {
@@ -82,12 +90,13 @@
 }
 
 .workouts-list__info-item {
-    border-right: 1px solid var(--color-border);
     padding: 4px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-.workouts-list__info-item:not(:nth-last-child(2)) {
-    border-bottom: 1px solid var(--color-border);
+.workouts-list__info-item:nth-child(even) {
+    border-left: 1px solid var(--color-border);
 }
 
 .workouts-list__item.active .workouts-list__info {

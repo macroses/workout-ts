@@ -1,7 +1,7 @@
 import { ref, watchEffect, type Ref } from "vue";
 
 import { db } from '@/firebase/config';
-import {collection, onSnapshot, orderBy} from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import type { Collection } from '@/types/interface';
 
 const getCollection = (c: string) => {

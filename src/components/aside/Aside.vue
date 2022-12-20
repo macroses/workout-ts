@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useAsideStore} from "@/stores/asideStore";
+import {useAsideStore} from "@/stores/modalStore";
 import {clickOutside} from "@/helpers/clickOutside";
 import {ref} from "vue";
 

@@ -67,7 +67,6 @@
   gap: 4px;
   cursor: pointer;
   color: var(--color-text);
-  margin-left: auto;
 }
 
 .user-funcs {
@@ -122,4 +121,8 @@
 .next-month.dragged, .perv-month.dragged {
   opacity: 1;
   visibility: visible;
+}
+
+.filters {
+  padding: 8px 0;
 }

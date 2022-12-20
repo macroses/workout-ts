@@ -27,28 +27,6 @@ const options = computed(() => {
       width: 1,
       curve: 'smooth',
     },
-    // fill: {
-    //   type: "gradient",
-    //   gradient: {
-    //     shadeIntensity: 1,
-    //     type: "vertical",
-    //     colorStops: [
-    //       [
-    //
-    //         {
-    //           offset: 0,
-    //           color: "#FF2E92",
-    //           opacity: 0.3
-    //         },
-    //         {
-    //           offset: 99,
-    //           color: "#0085FF",
-    //           opacity: 0.1
-    //         }
-    //       ]
-    //     ]
-    //   }
-    // },
     grid: {
       borderColor: "var(--color-bg-hover)"
     },

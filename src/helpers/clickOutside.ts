@@ -1,8 +1,9 @@
 import {onMounted, onUnmounted} from 'vue';
+import type {Ref} from "vue";
 
-export const clickOutside = (ref, callback = () => {}): void => {
-  function handleClickOutside(event: EventTarget) {
-    if (ref?.value && !ref.value.contains(event.target)) {
+export const clickOutside = <T extends HTMLElement>(ref: Ref<T | null>, callback = () => {}): void => {
+  function handleClickOutside(event: MouseEvent) {
+    if (ref?.value && !ref.value.contains(event.target as Node)) {
       callback()
     }
   }
@@ -15,4 +16,3 @@ export const clickOutside = (ref, callback = () => {}): void => {
     document.removeEventListener('mousedown', handleClickOutside);
   });
 }
-
