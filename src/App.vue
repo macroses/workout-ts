@@ -2,7 +2,6 @@
 import { RouterView } from 'vue-router';
 import Header from '@/components/header/Header.vue';
 import Aside from '@/components/aside/Aside.vue';
-
 </script>
 
 <template>

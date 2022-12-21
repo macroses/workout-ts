@@ -10,6 +10,7 @@ import {useStore} from "@/stores/store";
 import {ref} from "vue";
 import Icon from "../components/ui/Icon.vue";
 import {getNextMonth, getPrevMonth} from "@/helpers/getDate";
+import Challenges from "@/components/challenges/Challenges.vue";
 
 const store = useStore();
 
@@ -64,10 +65,10 @@ const translateCalendarLayout = (event: MouseEvent) => {
       <div
         :key="store.initialDate.toDate().toDateString()"
         :class="[
-        {dragged: store.isDragged},
-        {toLeft: currentHalf === 'left'},
-        {toRight: currentHalf === 'right'}
-      ]"
+          {dragged: store.isDragged},
+          {toLeft: currentHalf === 'left'},
+          {toRight: currentHalf === 'right'}
+        ]"
           class="calendar-layout"
           @dragend="resetDragInterval"
           @dragover="translateCalendarLayout"
@@ -80,10 +81,10 @@ const translateCalendarLayout = (event: MouseEvent) => {
       </div>
     </Transition>
     <div
-        :class="{ dragged: store.isDragged }"
-        class="next-month"
-        @dragenter="dragIntersection('next')"
-        @dragexit="resetDragInterval"
+      :class="{ dragged: store.isDragged }"
+      class="next-month"
+      @dragenter="dragIntersection('next')"
+      @dragexit="resetDragInterval"
     >
       <Icon iconName="chevrons-right" width="40px"/>
     </div>
@@ -99,4 +100,7 @@ const translateCalendarLayout = (event: MouseEvent) => {
     <ReadWorkoutData @editWorkout="getEditWorkout"/>
     <EditWorkout :editableWorkout="editWorkout"/>
   </main>
+  <Transition>
+    <Challenges />
+  </Transition>
 </template>
