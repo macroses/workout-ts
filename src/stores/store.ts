@@ -60,8 +60,6 @@ export const useStore = defineStore({
       this.pickedExercises?.forEach(exercise => {
         exercise.sets = exercise.sets.filter(set => set.setId !== clickedSetId);
       })
-
-      console.log(setWeight, parseInt(setWeight))
       this.workoutTonnage = this.workoutTonnage - parseInt(setWeight) * parseInt(setRepeats)
     },
 

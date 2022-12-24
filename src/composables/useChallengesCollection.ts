@@ -7,12 +7,12 @@ import type { Ref } from "vue";
 const useChallengesCollection = (col: string) => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const addChallenge = async ( challenge ): Promise<void> => {
+  const addChallenge = async <T>( challenge: T ): Promise<void> => {
     const challenges = collection(db, col);
 
     try {
       status.value = CollectionStatus.Pending
-      await addDoc(challenges, document);
+      await addDoc(challenges, challenge);
       status.value = CollectionStatus.Ok
     }
     catch(e: any) {
