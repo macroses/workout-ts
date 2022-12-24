@@ -4,6 +4,6 @@ export const useAsideStore = defineStore({
   id: 'asideStore',
   state: () => ({
     isAsideActive: false,
-    isChallengeModalActive: true
+    isChallengeModalActive: false,
   }),
 })

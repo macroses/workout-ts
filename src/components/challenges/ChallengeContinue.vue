@@ -8,7 +8,6 @@ const store = useChallengeStore();
 
 const startAt = ref();
 const endAt = ref();
-
 </script>
 
 <template>
@@ -16,16 +15,16 @@ const endAt = ref();
     <div class="challenge-start__title" v-once>Продолжительность:</div>
     <div class="challenge-start__content">
       <label class="datepicker-toggle">
-        <span class="datepicker-toggle__name" v-once>Начать:</span>
+        <span class="datepicker-toggle__name" v-once>Начало:</span>
         <Icon width="17px" iconName="calendar-days"/>
-        <input type="date" class="datepicker-input" v-model="startAt">
+        <input type="date" class="datepicker-input" v-model="startAt" @change="store.challengeStartAt = startAt" name="start">
         <span class="challenge-start__value">{{ dayjs(startAt).format('DD.MM.YYYY') }}</span>
       </label>
 
       <label class="datepicker-toggle">
-        <span class="datepicker-toggle__name" v-once>Закончить:</span>
+        <span class="datepicker-toggle__name" v-once>Конец:</span>
         <Icon width="17px" iconName="calendar-days"/>
-        <input type="date" class="datepicker-input" v-model="endAt">
+        <input type="date" class="datepicker-input" v-model="endAt" @change="store.challengeEndAt = endAt" name="end">
         <span class="challenge-start__value">{{ dayjs(endAt).format('DD.MM.YYYY') }}</span>
       </label>
     </div>

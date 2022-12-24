@@ -29,3 +29,17 @@ export const getDaysArr = (initialDate: Dayjs) => {
   const monthDate = initialDate.startOf('month');
   return [...Array(monthDate.daysInMonth())].map((_, i) => monthDate.clone().add(i, 'day'));
 }
+
+export const getDateRange = (start, end, repeatParams, date) => {
+  // есть начальная дата и конечная.
+  // если дата из промежутка, тогда ставим челлендж в ячейку
+  // для начала выведем подряд все дни челленджа без параметров
+
+
+  if (date >= start && date <= end)
+    console.log('УРА!');
+  else {
+    console.log('ЖАЛЬ :(');
+  }
+
+}

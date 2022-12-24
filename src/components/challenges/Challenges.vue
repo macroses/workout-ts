@@ -6,29 +6,15 @@ import ChallengeWeekdays from "@/components/challenges/ChallengeWeekdays.vue";
 import ChallengeColors from "@/components/challenges/ChallengeColors.vue";
 import ChallengeContinue from "@/components/challenges/ChallengeContinue.vue";
 import ChallengeName from "@/components/challenges/ChallengeName.vue";
-import useChallengesCollection from "@/composables/useChallengesCollection";
 import Button from "@/components/ui/Button.vue";
-import getUser from "@/composables/getUser";
 
 const modalStore = useAsideStore();
 const challengeStore = useChallengeStore();
-const { status, addChallenge } = useChallengesCollection('challenges');
-const { user } = getUser();
 
-const submitChallenge = async () => {
-  if (!challengeStore.challengeName) return;
-
-  await addChallenge({
-    challengeName: challengeStore.challengeName,
-    challengeColor: challengeStore.challengeColor,
-    challengeStartAt: challengeStore.challengeStartAt,
-    challengeEndAt: challengeStore.challengeEndAt,
-    userId: user.value?.uid,
-    chosenDays: challengeStore.chosenDays
-  })
-
+const submitChallenge = () => {
+  challengeStore.pushChallengeToServer();
   modalStore.isChallengeModalActive = false;
-};
+}
 </script>
 
 <template>

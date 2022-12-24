@@ -11,6 +11,7 @@ import useCollection from "@/composables/useCollection";
 import WorkoutTask from "../workoutTask/workoutTask.vue";
 import Button from "@/components/ui/Button.vue";
 import Loader from '@/components/loader/Loader.vue'
+import ChallengeTask from "@/components/challengeTask/ChallengeTask.vue";
 
 const store = useStore();
 const dragStore = useDragStore();
@@ -80,26 +81,27 @@ const taskCopy = async () => {
 
 <template>
   <li
-      v-for="(_, index) in emptyDaysCells"
-      :key="index"
-      class="calendar-cell"
+    v-for="(_, index) in emptyDaysCells"
+    :key="index"
+    class="calendar-cell"
   ></li>
   <li
-      v-for="( day, index ) in filledDaysCells"
-      :key="day.format('D')"
-      ref="cell"
-      :class="[ { today: getDateEquality(day) }, { activeCell: index === activeCellIndex } ]"
-      class="calendar-cell"
-      @click="pickDate(day, index)"
-      @drop="handleDrop(day)"
-      @dragenter.prevent
-      @dragover.prevent
+    v-for="( day, index ) in filledDaysCells"
+    :key="day.format('D')"
+    ref="cell"
+    :class="[ { today: getDateEquality(day) }, { activeCell: index === activeCellIndex } ]"
+    class="calendar-cell"
+    @click="pickDate(day, index)"
+    @drop="handleDrop(day)"
+    @dragenter.prevent
+    @dragover.prevent
   >
     <span class="day-num">{{ day.format('D') }}</span>
     <WorkoutTask
         :workoutDate="day"
         @handleStartDrag="handleStartDrag"
     />
+    <ChallengeTask :challengeDate="day"/>
   </li>
   <teleport to="body">
     <Transition name="bounce">
