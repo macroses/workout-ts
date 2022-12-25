@@ -19,21 +19,20 @@ const checkEqualDates = computed(() => {
   return documents.value?.filter(challenge => {
     const start = dayjs(challenge.challengeStartAt.seconds * 1000);
     const end = dayjs(challenge.challengeEndAt.seconds * 1000);
+
     return dayjs(props.challengeDate).isBetween(start, end, null, '[]');
   })
 })
-
-// посмотреть день недели приходящего дня
-// если приходящий день недели соответствует дням промежутка челленджа, то отрисовываем
-// иначе ничего не делаем
-
 </script>
 
 <template>
-  <div>{{dayjs(challengeDate).weekday()}}</div>
-<div v-for="challenge in checkEqualDates">{{ challenge.challengeName }}</div>
+<div v-for="challenge in checkEqualDates" :key="challenge.id">
+  <span v-for="weekday in challenge.chosenDays" :key="weekday.id">
+    <span v-if="weekday.id === challengeDate.weekday()">{{ challenge.chosenDays.length }}</span>
+  </span>
+</div>
 </template>
 
-<style scoped>
+<style>
 
 </style>
