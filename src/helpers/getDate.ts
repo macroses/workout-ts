@@ -37,9 +37,6 @@ export const getDateRange = (start, end, repeatParams, date) => {
 
 
   if (date >= start && date <= end)
-    console.log('УРА!');
-  else {
-    console.log('ЖАЛЬ :(');
-  }
+    console.log(date + 'УРА!');
 
 }
