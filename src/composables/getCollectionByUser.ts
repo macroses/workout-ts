@@ -2,12 +2,15 @@ import {type Ref, ref, watchEffect} from "vue";
 import { db } from '@/firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import getUser from "./getUser";
-import type {Workout} from "@/types/interface";
+import type { Workout } from "@/types/interface";
+import type { ChallengeStoreState } from "@/types/challengeTypes";
 
 const { user } = getUser();
 
+type Collection = Workout | ChallengeStoreState
+
 const getCollectionByUser = (c: string) => {
-  const documents: Ref<Workout[] | undefined> = ref([]);
+  const documents: Ref<Array<Collection> | undefined> = ref([]);
   const pending = ref(false);
 
   let colRef = collection(db, c);

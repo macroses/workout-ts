@@ -38,31 +38,56 @@ const updateChallengeStatus = (
 </script>
 
 <template>
-<div
-  class="challenge-item"
-  v-for="challenge in documents"
-  :key="challenge.id"
->
-  <div
-    v-for="dates in challenge.challengeDates"
-    :key="dates.id"
-  >
-    <span
-      class="challenge-item__value"
-      @click.self.stop="updateChallengeStatus(challenge.challengeDates, challenge.id, dates)"
-      v-if="dayjs(dates.date.seconds * 1000).format('DD.MM.YYYY') === challengeDate.format('DD.MM.YYYY')"
+  <div class="challenge-task__list">
+    <template
+      class="challenge-item"
+      v-for="challenge in documents"
+      :key="challenge.id"
     >
-      <Icon width="13px" :iconName="dates.isComplete ? 'square-check': 'square-xmark'"/>
-      {{ challenge.challengeName }}
-    </span>
+      <template
+        v-for="dates in challenge.challengeDates"
+        :key="dates.id"
+      >
+      <div
+        class="challenge-item__value"
+        @click.self.stop="updateChallengeStatus(challenge.challengeDates, challenge.id, dates)"
+        v-if="dayjs(dates.date.seconds * 1000).format('DD.MM.YYYY') === challengeDate.format('DD.MM.YYYY')"
+        :style="{backgroundColor: `rgba(${challenge.challengeColor}, 0.2)`}"
+      >
+        <Icon
+          class="challenge-item__icon"
+          width="15px"
+          :iconName="dates.isComplete ? 'square-check': 'square-xmark'"
+        />
+        {{ challenge.challengeName }}
+      </div>
+        <template v-else></template>
+      </template>
+    </template>
   </div>
-</div>
 </template>
 
 <style>
-
+.challenge-task__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2px;
+}
 
 .challenge-item__value {
   font-size: 11px;
+  display: flex;
+  gap: 2px;
+  padding-left: 2px;
+  align-items: center;
+  border: 1px solid var(--color-text-inverted);
+}
+
+.challenge-item__icon {
+  mix-blend-mode: color-dodge;
 }
 </style>

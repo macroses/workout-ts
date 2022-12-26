@@ -13,7 +13,6 @@ import Button from "@/components/ui/Button.vue";
 import Loader from '@/components/loader/Loader.vue'
 import ChallengeTask from "@/components/challengeTask/ChallengeTask.vue";
 import {useChallengeStore} from "@/stores/challengesStore";
-import dayjs from "dayjs";
 import getCollectionByUser from "@/composables/getCollectionByUser";
 
 const store = useStore();
