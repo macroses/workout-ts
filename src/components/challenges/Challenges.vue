@@ -15,12 +15,17 @@ const submitChallenge = () => {
   challengeStore.pushChallengeToServer();
   modalStore.isChallengeModalActive = false;
 }
+
+const closeResetModal = () => {
+  modalStore.isChallengeModalActive = false;
+  challengeStore.resetData()
+}
 </script>
 
 <template>
 <div
   v-if="modalStore.isChallengeModalActive"
-  @click.self="modalStore.isChallengeModalActive = false"
+  @click.self="closeResetModal"
   class="challenges-layer">
   <div class="challenges-modal">
     <ChallengesTop/>
@@ -41,43 +46,3 @@ const submitChallenge = () => {
   </div>
 </div>
 </template>
-
-<style>
-.input-wrap {
-  margin-bottom: 0;
-}
-
-.challenges-button {
-  margin-left: auto;
-}
-
-.challenge-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 24px;
-  padding: 12px 0;
-  margin-bottom: 24px;
-}
-
-.challenges-layer {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(5px);
-  background-color: rgba(0,0,0, 0.3);
-  z-index: 999;
-  padding: 12px;
-}
-
-.challenges-modal {
-  width: 100%;
-  max-width: 800px;
-  border-radius: 4px;
-  background-color: var(--color-bg);
-  padding: 6px 20px 12px;
-  position: relative;
-}
-
-</style>

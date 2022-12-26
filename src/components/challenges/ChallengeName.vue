@@ -12,7 +12,6 @@ const challengeStore = useChallengeStore();
       inputType="text"
       placeholder=""
       v-model="challengeStore.challengeName"
-
     />
   </div>
 </template>

@@ -40,14 +40,14 @@ const pushWorkoutToStore = (workout: Workout) => {
 
 <template>
   <div
-      v-for="item in checkEqualDates"
-      :key="item.id"
-      :class="[item.id === store.readWorkout?.id ? 'active-cell' : null]"
-      :style="{ backgroundColor: `rgb(${item.color})` }"
-      class="workout-task"
-      draggable="true"
-      @dragstart="handleStartDrag(item)"
-      @click.stop="pushWorkoutToStore(item)"
+    v-for="item in checkEqualDates"
+    :key="item.id"
+    :class="[item.id === store.readWorkout?.id ? 'active-cell' : null]"
+    :style="{ backgroundColor: `rgb(${item.color})` }"
+    class="workout-task"
+    draggable="true"
+    @dragstart="handleStartDrag(item)"
+    @click.stop="pushWorkoutToStore(item)"
   >
     <div class="workout-task__name">
       {{ item.workoutName }}

@@ -1,3 +1,202 @@
-.challenges {
+.challenges-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
+.challenges-modal__top {
+    display: flex;
+    gap: 24px;
+    padding: 9px 0;
+    user-select: none;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.challenges-modal__title {
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.challenges-modal__title.active {
+    color: var(--color-accent);
+}
+
+.challenges-modal__title.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-accent);
+}
+
+.challenges-counter {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    justify-content: center;
+    background: var(--color-accent);
+    color: var(--color-text-inverted);
+}
+
+.challenges-layer .input-wrap {
+    margin-bottom: 0;
+}
+
+.challenges-button {
+    margin-left: auto;
+}
+
+.challenge-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+    padding: 12px 0;
+    margin-bottom: 24px;
+}
+
+.challenges-layer {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0, 0.3);
+    z-index: 999;
+    padding: 12px;
+}
+
+.challenges-modal {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 4px;
+    background-color: var(--color-bg);
+    padding: 6px 20px 12px;
+    position: relative;
+}
+
+.challenge-weekday {
+    display: flex;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.weekday-indicator {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.weekday-indicator.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-inverted);
+}
+
+.challenge-body__item-title {
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.datepicker-toggle__name {
+    font-size: 12px;
+}
+
+.challenge-start__value {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--color-accent);
+}
+
+.challenge-start__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.datepicker-toggle {
+    display: inline-flex;
+    gap: 8px;
+    position: relative;
+}
+
+.datepicker-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.challenge-start__title {
+    font-size: 12px;
+}
+
+.color-input {
+    position: absolute;
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+}
+
+.color-label {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+.challenge-color {
+    display: flex;
+    gap: 4px;
+    margin-top: 5px;
+}
+
+.color-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-bg);
+    display: none;
+    border-radius: 2px;
+}
+
+.color-input:checked + .color-indicator {
+    display: block;
+}
+
+.challenge-body__item-title {
+    font-size: 12px;
+    margin-bottom: 4px;
 }

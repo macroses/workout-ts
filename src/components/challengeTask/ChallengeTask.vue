@@ -2,28 +2,57 @@
 import getCollectionByUser from "@/composables/getCollectionByUser";
 import type {Dayjs} from "dayjs";
 import dayjs from "dayjs";
+import updateChallengeCollection from "@/composables/updateChallengeCollection";
+import {useChallengeStore} from "@/stores/challengesStore";
+import Icon from "@/components/ui/Icon.vue";
+
+export interface ChallengeDate {
+  date: Date,
+  id: string,
+  isComplete: boolean
+}
 
 const props = defineProps<{
   challengeDate: Dayjs | null
 }>();
 
+const store = useChallengeStore();
+
+const { updateCollection, status } = updateChallengeCollection()
 const { documents, pending } = getCollectionByUser('challenges');
 
-const log = (i) => {
-  console.log(i)
+const updateChallengeStatus = (
+  challengeDates: Array<ChallengeDate>,
+  challengeId: string,
+  date: ChallengeDate
+) => {
+  challengeDates.forEach(el => {
+    if(el.id === date.id) {
+      date.isComplete = !date.isComplete
+    }
+  })
+
+  updateCollection(challengeDates, challengeId);
+  store.challengeStatus = status.value;
 }
 </script>
 
 <template>
-<div v-for="challenge in documents" :key="challenge.id">
+<div
+  class="challenge-item"
+  v-for="challenge in documents"
+  :key="challenge.id"
+>
   <div
-    v-for="(dates, index) in challenge.challengeDates"
+    v-for="dates in challenge.challengeDates"
     :key="dates.id"
   >
     <span
-      @click.self.stop="log(dates.id)"
+      class="challenge-item__value"
+      @click.self.stop="updateChallengeStatus(challenge.challengeDates, challenge.id, dates)"
       v-if="dayjs(dates.date.seconds * 1000).format('DD.MM.YYYY') === challengeDate.format('DD.MM.YYYY')"
     >
+      <Icon width="13px" :iconName="dates.isComplete ? 'square-check': 'square-xmark'"/>
       {{ challenge.challengeName }}
     </span>
   </div>
@@ -32,4 +61,8 @@ const log = (i) => {
 
 <style>
 
+
+.challenge-item__value {
+  font-size: 11px;
+}
 </style>

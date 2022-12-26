@@ -24,19 +24,19 @@ const colorCollection = [
     <div class="challenge-body__item-title">Цвет:</div>
     <div class="challenge-color">
       <label
-          v-for="color in colorCollection"
-          :key="color.id"
-          class="color-label"
-          :style="{backgroundColor: `rgb(${color.rgb})`}"
+        v-for="color in colorCollection"
+        :key="color.id"
+        class="color-label"
+        :style="{backgroundColor: `rgb(${color.rgb})`}"
       >
         <input
-            class="color-input"
-            type="radio"
-            name="color"
-            :value="color.rgb"
-            max="100"
-            v-model="challengeStore.challengeColor"
-            @change="challengeStore.challengeColor = color.rgb"
+          class="color-input"
+          type="radio"
+          name="color"
+          :value="color.rgb"
+          max="100"
+          v-model="challengeStore.challengeColor"
+          @change="challengeStore.challengeColor = color.rgb"
         >
         <span class="color-indicator"></span>
       </label>
@@ -45,44 +45,6 @@ const colorCollection = [
 </template>
 
 <style scoped>
-.color-input {
-  position: absolute;
-  visibility: hidden;
-  width: 1px;
-  height: 1px;
-}
 
-.color-label {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-}
-
-.challenge-color {
-  display: flex;
-  gap: 4px;
-  margin-top: 5px;
-}
-
-.color-indicator {
-  width: 20px;
-  height: 20px;
-  background-color: var(--color-bg);
-  display: none;
-  border-radius: 2px;
-}
-
-.color-input:checked + .color-indicator {
-  display: block;
-}
-
-.challenge-body__item-title {
-  font-size: 12px;
-  margin-bottom: 4px;
-}
 
 </style>

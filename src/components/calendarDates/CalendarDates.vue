@@ -82,8 +82,6 @@ const taskCopy = async () => {
 
   isConfirm.value = false;
 };
-
-
 </script>
 
 <template>
@@ -105,8 +103,8 @@ const taskCopy = async () => {
   >
     <span class="day-num">{{ day.format('D') }}</span>
     <WorkoutTask
-        :workoutDate="day"
-        @handleStartDrag="handleStartDrag"
+      :workoutDate="day"
+      @handleStartDrag="handleStartDrag"
     />
     <ChallengeTask :challengeDate="day"/>
   </li>

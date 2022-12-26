@@ -1,12 +1,7 @@
 <script lang="ts" setup>
 import {useChallengeStore} from "@/stores/challengesStore";
 import {reactive} from "vue";
-
-export interface ChallengeWeekday {
-  id: number,
-  weekday: string,
-  isChecked: boolean
-}
+import type { ChallengeWeekday } from "@/types/challengeTypes";
 
 const store = useChallengeStore();
 
@@ -43,36 +38,3 @@ const pushToStoreWeekdays = (day: ChallengeWeekday) => store.pushToStoreWeekdays
     </div>
   </div>
 </template>
-
-<style scoped>
-.challenge-weekday {
-  display: flex;
-  gap: 4px;
-  margin-top: 5px;
-}
-
-.weekday-indicator {
-  display: flex;
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 2px;
-}
-
-.weekday-indicator.active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-text-inverted);
-}
-
-.challenge-body__item-title {
-  font-size: 12px;
-  margin-bottom: 4px;
-}
-
-</style>

@@ -1,28 +1,22 @@
+import type { ChallengeStoreState, ChallengeWeekday } from "@/types/challengeTypes";
 import { defineStore } from 'pinia';
-// @ts-ignore
-import type {ChallengeWeekday} from "@/components/challenges/ChallengeWeekdays.vue";
-import type {Dayjs} from "dayjs";
 import dayjs from "dayjs";
 import getUser from "@/composables/getUser";
-import {uid} from "uid";
+import { uid } from "uid";
 import useChallengesCollection from "@/composables/useChallengesCollection";
-import {CollectionStatus} from "@/types/collectionStatus";
+import { CollectionStatus } from "@/types/collectionStatus";
 import weekday from "dayjs/plugin/weekday";
 
 dayjs.extend(weekday)
 
-export interface ChallengeStoreState {
-  challengeName: string | null;
-  challengeColor: string;
-  challengeStartAt: Dayjs | null;
-  challengeEndAt: Dayjs | null;
-  chosenDays: Array<ChallengeWeekday>;
-  userId?: string,
-  challengeDates: Dayjs[] | null
-}
-
 const { user } = getUser();
 const { addChallenge, status } = useChallengesCollection('challenges');
+
+export interface ChallengeDate {
+  date: Date,
+  id: string,
+  isComplete: boolean
+}
 
 export const useChallengeStore = defineStore({
   id: 'challengeStore',
@@ -32,7 +26,8 @@ export const useChallengeStore = defineStore({
     challengeStartAt: null,
     challengeEndAt: null,
     chosenDays: [],
-    challengeDates: null
+    challengeDates: null,
+    challengeStatus: 0
   }),
   actions: {
     resetData() {
@@ -65,7 +60,6 @@ export const useChallengeStore = defineStore({
         challengeEndAt: this.challengeEndAt?.toDate(),
         userId: user.value?.uid,
         chosenDays: this.chosenDays,
-        challengeId: uid(20),
         challengeDates: this.challengeDates
       })
 
@@ -104,7 +98,7 @@ export const useChallengeStore = defineStore({
         const end = state.challengeEndAt;
 
         const datesBetweenChosen = Array.from(Array(end.diff(start, 'day') + 1).keys()).map(i => start.add(i, 'day'));
-        const filteredByChosenDay: Array<Dayjs> = []
+        const filteredByChosenDay: Array<ChallengeDate> = []
 
 
         datesBetweenChosen.forEach(el => {
