@@ -12,16 +12,21 @@ import WorkoutTask from "../workoutTask/workoutTask.vue";
 import Button from "@/components/ui/Button.vue";
 import Loader from '@/components/loader/Loader.vue'
 import ChallengeTask from "@/components/challengeTask/ChallengeTask.vue";
+import {useChallengeStore} from "@/stores/challengesStore";
+import dayjs from "dayjs";
+import getCollectionByUser from "@/composables/getCollectionByUser";
 
 const store = useStore();
 const dragStore = useDragStore();
+const challengeStore = useChallengeStore();
 
 const emits = defineEmits<{
   (e: 'pickDate', day: Dayjs): void
 }>();
 
 const {updateCollection} = updateWorkoutDate();
-const {addDocument, status} = useCollection('workouts')
+const {addDocument, status} = useCollection('workouts');
+const { documents, pending } = getCollectionByUser('challenges');
 
 const activeCellIndex = ref<number>(0); // выделение активной ячейки
 const draggedDate = ref<Date | null>(null);
@@ -58,8 +63,8 @@ const taskReplace = async () => {
   isConfirm.value = false;
 
   await updateCollection(
-      dragStore.draggedObject?.id as string,
-      draggedDate.value
+    dragStore.draggedObject?.id as string,
+    draggedDate.value
   );
 };
 
@@ -77,6 +82,8 @@ const taskCopy = async () => {
 
   isConfirm.value = false;
 };
+
+
 </script>
 
 <template>

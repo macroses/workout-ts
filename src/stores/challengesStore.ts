@@ -7,14 +7,18 @@ import getUser from "@/composables/getUser";
 import {uid} from "uid";
 import useChallengesCollection from "@/composables/useChallengesCollection";
 import {CollectionStatus} from "@/types/collectionStatus";
+import weekday from "dayjs/plugin/weekday";
+
+dayjs.extend(weekday)
 
 export interface ChallengeStoreState {
   challengeName: string | null;
   challengeColor: string;
-  challengeStartAt: Dayjs;
-  challengeEndAt: Dayjs;
+  challengeStartAt: Dayjs | null;
+  challengeEndAt: Dayjs | null;
   chosenDays: Array<ChallengeWeekday>;
-  userId?: string
+  userId?: string,
+  challengeDates: Dayjs[] | null
 }
 
 const { user } = getUser();
@@ -25,17 +29,19 @@ export const useChallengeStore = defineStore({
   state: (): ChallengeStoreState => ({
     challengeName: null,
     challengeColor: "213, 0, 0",
-    challengeStartAt: dayjs(),
-    challengeEndAt: dayjs(),
+    challengeStartAt: null,
+    challengeEndAt: null,
     chosenDays: [],
+    challengeDates: null
   }),
   actions: {
     resetData() {
       this.challengeName = null
       this.challengeColor = "213, 0, 0"
-      this.challengeStartAt = dayjs()
-      this.challengeEndAt = dayjs()
+      this.challengeStartAt = null
+      this.challengeEndAt = null
       this.chosenDays = []
+      this.challengeDates = null
     },
 
     pushToStoreWeekdays (day: ChallengeWeekday) {
@@ -55,11 +61,12 @@ export const useChallengeStore = defineStore({
       await addChallenge({
         challengeName: this.challengeName,
         challengeColor: this.challengeColor,
-        challengeStartAt: this.challengeStartAt.toDate(),
-        challengeEndAt: this.challengeEndAt.toDate(),
+        challengeStartAt: this.challengeStartAt?.toDate(),
+        challengeEndAt: this.challengeEndAt?.toDate(),
         userId: user.value?.uid,
         chosenDays: this.chosenDays,
-        challengeId: uid(20)
+        challengeId: uid(20),
+        challengeDates: this.challengeDates
       })
 
       switch(status.value) {
@@ -77,8 +84,43 @@ export const useChallengeStore = defineStore({
     },
 
     parseToDate: (state: ChallengeStoreState) => {
-      state.challengeStartAt = dayjs(state.challengeStartAt);
-      state.challengeEndAt = dayjs(state.challengeEndAt);
+      if(state.challengeStartAt) {
+        state.challengeStartAt = dayjs(state.challengeStartAt);
+      }
+      if(state.challengeEndAt) {
+        state.challengeEndAt = dayjs(state.challengeEndAt);
+      }
+    },
+
+    getChallengeDates: (state: ChallengeStoreState) => {
+
+      if (state.chosenDays.length === 0) {
+        state.challengeDates = null
+      }
+
+      if (state.challengeStartAt && state.challengeEndAt && state.chosenDays?.length !== 0) {
+
+        const start = state.challengeStartAt;
+        const end = state.challengeEndAt;
+
+        const datesBetweenChosen = Array.from(Array(end.diff(start, 'day') + 1).keys()).map(i => start.add(i, 'day'));
+        const filteredByChosenDay: Array<Dayjs> = []
+
+
+        datesBetweenChosen.forEach(el => {
+          state.chosenDays.forEach(chosenDay => {
+            if (chosenDay.id == el.weekday()) {
+              filteredByChosenDay.push({
+                id: uid(20),
+                date: el.toDate(),
+                isComplete: false
+              })
+            }
+          })
+        })
+
+        state.challengeDates = Array.from(new Set(filteredByChosenDay))
+      }
     }
   }
 })
