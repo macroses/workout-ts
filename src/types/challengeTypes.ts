@@ -10,8 +10,8 @@ export interface ChallengeDate {
 export interface ChallengeStoreState {
   challengeName: string | null;
   challengeColor: string;
-  challengeStartAt: Dayjs | null;
-  challengeEndAt: Dayjs | null;
+  challengeStartAt: Dayjs | string | null;
+  challengeEndAt: Dayjs | string | null;
   chosenDays: Array<ChallengeWeekday>;
   challengeDates: Array<ChallengeDate> | null,
   challengeStatus: CollectionStatus

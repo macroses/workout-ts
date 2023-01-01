@@ -57,7 +57,7 @@
 .challenge-body {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0 24px;
+    gap: 20px 24px;
     padding: 12px 0;
     margin-bottom: 24px;
 }
@@ -126,7 +126,6 @@
 .challenge-start__content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     margin-top: 10px;
 }
 
@@ -134,6 +133,7 @@
     display: inline-flex;
     gap: 8px;
     position: relative;
+    flex: 1;
 }
 
 .datepicker-input {
@@ -199,4 +199,32 @@
 .challenge-body__item-title {
     font-size: 12px;
     margin-bottom: 4px;
+}
+
+.challenge-task__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 20px);
+    grid-auto-rows: 20px;
+    gap: 2px;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    width: 100%;
+    padding: 2px;
+}
+
+.challenge-item__value {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.challenge-item__icon-wrap {
+    background-color: var(--color-bg);
+    height: 13px;
+    width: 13px;
+    border-radius: 2px;
 }

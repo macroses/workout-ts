@@ -1,6 +1,6 @@
 import type { ChallengeStoreState, ChallengeWeekday } from "@/types/challengeTypes";
 import { defineStore } from 'pinia';
-import dayjs from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import getUser from "@/composables/getUser";
 import { uid } from "uid";
 import useChallengesCollection from "@/composables/useChallengesCollection";

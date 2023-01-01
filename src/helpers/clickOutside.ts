@@ -9,10 +9,10 @@ export const clickOutside = <T extends HTMLElement>(ref: Ref<T | null>, callback
   }
 
   onMounted(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
   })
 
   onUnmounted(() => {
-    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('click', handleClickOutside);
   });
 }
