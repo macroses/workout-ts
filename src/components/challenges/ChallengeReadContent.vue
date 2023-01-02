@@ -40,7 +40,6 @@ const challengeCheckedItemsCount = (challenge: ChallengeStoreState) => {
   return Math.round(100 / challenge.challengeDates!.length * counterChecked!)
 }
 
-
 </script>
 
 <template>
@@ -74,37 +73,3 @@ const challengeCheckedItemsCount = (challenge: ChallengeStoreState) => {
     <template v-else></template>
   </template>
 </template>
-
-<style scoped>
-.challenge-item__content {
-  flex-grow: 1;
-  position: relative;
-}
-
-.challenge-item__name {
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.challenges-item__value {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px;
-  box-shadow: 0 0 0 1px var(--color-border);
-}
-
-.challenges-item__value-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  font-size: 11px;
-  gap: 1px;
-}
-
-
-.challenge-done {
-  font-size: 11px;
-}
-</style>

@@ -31,22 +31,3 @@ const setActiveChallengeNumber = (index: number) => {
     </li>
   </ul>
 </template>
-
-<style scoped>
-.challenges-list {
-  width: 200px;
-  border-right: 1px solid var(--color-border);
-}
-
-.challenges-item {
-  font-size: 11px;
-  padding: 4px 8px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.challenges-item.active {
-  background-color: var(--color-bg-hover);
-  color: var(--color-accent);
-}
-</style>

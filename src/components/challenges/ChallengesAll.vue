@@ -24,12 +24,3 @@ const getActiveChallenge = (activeIndex: number) => {
     />
   </div>
 </template>
-
-<style scoped>
-.challenge-body__read {
-  display: flex;
-  gap: 12px;
-  position: relative;
-  padding-top: 12px;
-}
-</style>

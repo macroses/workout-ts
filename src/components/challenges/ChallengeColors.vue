@@ -43,8 +43,3 @@ const colorCollection = [
     </div>
   </div>
 </template>
-
-<style scoped>
-
-
-</style>
