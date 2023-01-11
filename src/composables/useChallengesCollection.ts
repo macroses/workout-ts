@@ -1,27 +1,26 @@
-import { ref } from 'vue';
-import { db } from '@/firebase/config'
-import { collection, addDoc } from 'firebase/firestore';
+import { ref } from "vue";
+import { db } from "@/firebase/config";
+import { collection, addDoc } from "firebase/firestore";
 import { CollectionStatus } from "@/types/collectionStatus";
 import type { Ref } from "vue";
 
 const useChallengesCollection = (col: string) => {
   const status: Ref<CollectionStatus> = ref(CollectionStatus.Ok);
 
-  const addChallenge = async <T>( challenge: T ): Promise<void> => {
+  const addChallenge = async <T>(challenge: T): Promise<void> => {
     const challenges = collection(db, col);
 
     try {
-      status.value = CollectionStatus.Pending
+      status.value = CollectionStatus.Pending;
       await addDoc(challenges, challenge);
-      status.value = CollectionStatus.Ok
-    }
-    catch(e: any) {
+      status.value = CollectionStatus.Ok;
+    } catch (e: any) {
       console.log(e.message);
-      status.value = CollectionStatus.Error
+      status.value = CollectionStatus.Error;
     }
-  }
+  };
 
-  return { status, addChallenge }
-}
+  return { status, addChallenge };
+};
 
 export default useChallengesCollection;

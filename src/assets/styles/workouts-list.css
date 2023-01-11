@@ -1,108 +1,109 @@
 .workouts-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    max-height: calc(100vh - 57px);
-    overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  max-height: calc(100vh - 57px);
+  overflow: auto;
 }
 
 .workouts-list__wrap {
-    max-height: calc(100vh - 57px);
-    overflow: auto;
+  max-height: calc(100vh - 57px);
+  overflow: auto;
 }
 
 .workouts-list__top {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 12px;
-    padding: 5px 10px;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+  padding: 5px 10px;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
 .workouts-list__item {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .workouts-list__top:hover {
-    background-color: var(--color-bg-hover);
+  background-color: var(--color-bg-hover);
 }
 
 .workouts-list__date {
-    font-size: 11px;
-    font-style: italic;
+  font-size: 11px;
+  font-style: italic;
 }
 
 .workouts-list__name {
-    font-size: 12px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .workouts-list__name--tonnage {
-    font-weight: normal;
-    font-size: 10px;
+  font-weight: normal;
+  font-size: 10px;
 
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .workouts-list__name--icon {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .workouts-list__info {
-    max-height: 0;
-    transition: max-height 0.2s;
-    width: 100%;
-    overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s;
+  width: 100%;
+  overflow: hidden;
 }
 
 .workouts-list__info-name {
-    font-size: 9px;
-    text-transform: uppercase;
-    font-weight: bold;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: bold;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .workouts-list__set {
-    display: flex;
-    font-size: 10px;
-    color: var(--color-text-inverted);
-    border-radius: 4px;
-    padding: 1px 4px;
+  display: flex;
+  font-size: 10px;
+  color: var(--color-text-inverted);
+  border-radius: 4px;
+  padding: 1px 4px;
 }
 
 .workouts-list__info-sets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .workouts-list__info-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .workouts-list__info-item {
-    padding: 4px;
-    white-space: nowrap;
-    overflow: hidden;
+  padding: 4px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .workouts-list__info-item:nth-child(even) {
-    border-left: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
 }
 
 .workouts-list__item.active .workouts-list__info {
-    max-height: v-bind(elemMaxHeight)
+  max-height: v-bind(elemMaxHeight);
 }
 
-.workouts-list-weight, .workouts-list-repeats {
-    font-weight: bold;
+.workouts-list-weight,
+.workouts-list-repeats {
+  font-weight: bold;
 }

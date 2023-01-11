@@ -82,7 +82,7 @@
 }
 
 .muscle-groups__item:hover {
-  background-color: var( --color-bg-hover);
+  background-color: var(--color-bg-hover);
 }
 
 .muscle-groups__item:not(:nth-child(2n)) {
@@ -144,7 +144,7 @@
 }
 
 .exercise-item__btn:hover {
-  background-color: var( --color-bg-hover);
+  background-color: var(--color-bg-hover);
 }
 
 .picked-exercises {
@@ -190,11 +190,10 @@
 }
 
 .picked-exercise__set {
-
 }
 
-.picked-exercise__set svg{
-  fill:  var(--color-text-inverted);
+.picked-exercise__set svg {
+  fill: var(--color-text-inverted);
   cursor: pointer;
 }
 
@@ -213,7 +212,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  color:  var(--color-text-inverted);
+  color: var(--color-text-inverted);
   border-radius: 4px;
   font-size: 11px;
   padding: 2px 4px;

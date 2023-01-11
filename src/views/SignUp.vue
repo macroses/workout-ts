@@ -1,32 +1,32 @@
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
-import Login from '../components/Login/Login.vue';
+import { ref, watchEffect } from "vue";
+import Login from "../components/Login/Login.vue";
 import Signup from "@/components/Login/Signup.vue";
 import getUser from "@/composables/getUser";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const isSignup = ref<boolean>(true);
 const { user } = getUser();
 
 const router = useRouter();
 
-const handleReg = () :void => {
+const handleReg = (): void => {
   isSignup.value = true;
-}
+};
 
-const handleLogin = () :void => {
+const handleLogin = (): void => {
   isSignup.value = false;
-}
+};
 
 const getAuthMethod = (loginMethod: string) => {
-  isSignup.value = loginMethod !== 'login';
-}
+  isSignup.value = loginMethod !== "login";
+};
 
 watchEffect(() => {
-  if(user.value) {
-    router.push('/home');
+  if (user.value) {
+    router.push("/home");
   }
-})
+});
 </script>
 
 <template>
@@ -48,6 +48,4 @@ watchEffect(() => {
   </div>
 </template>
 
-<style>
-  
-</style>
+<style></style>

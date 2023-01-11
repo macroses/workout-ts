@@ -1,9 +1,9 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 export const useAsideStore = defineStore({
-  id: 'asideStore',
+  id: "asideStore",
   state: () => ({
     isAsideActive: false,
     isChallengeModalActive: false,
   }),
-})
+});

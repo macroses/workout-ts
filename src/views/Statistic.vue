@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import ChartTonnage from '@/components/chartsStatistics/ChartTonnage.vue'
+import ChartTonnage from "@/components/chartsStatistics/ChartTonnage.vue";
 import WorkoutsList from "@/components/workoutsList/WorkoutsList.vue";
-
 </script>
 
 <template>
-<main>
-  <div class="charts-grid">
-    <ChartTonnage />
-    <WorkoutsList />
-  </div>
-</main>
+  <main>
+    <div class="charts-grid">
+      <ChartTonnage />
+      <WorkoutsList />
+    </div>
+  </main>
 </template>
 
 <style>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const props = defineProps<{
-  inputType: string,
-  placeholder: string,
-  required?: boolean,
+  inputType: string;
+  placeholder: string;
+  required?: boolean;
 
-  modelValue: any,
-  size?: string
-}>()
+  modelValue: any;
+  size?: string;
+}>();
 </script>
 
 <template>
@@ -16,11 +16,10 @@ const props = defineProps<{
       :class="size"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
-
-      :type="inputType" 
+      :type="inputType"
       :required="required"
       :placeholder="placeholder"
-    >
+    />
   </label>
 </template>
 

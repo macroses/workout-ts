@@ -1,5 +1,5 @@
 <script lang="ts" setup="">
-const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс",]
+const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 </script>
 
 <template>

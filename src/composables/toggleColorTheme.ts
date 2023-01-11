@@ -1,7 +1,7 @@
-import {onMounted, type Ref, ref} from 'vue'
+import { onMounted, type Ref, ref } from "vue";
 
 const toggleColorTheme = () => {
-  const userTheme: Ref<string> = ref('light-theme');
+  const userTheme: Ref<string> = ref("light-theme");
 
   const getTheme = () => localStorage.getItem("user-theme");
 
@@ -12,7 +12,9 @@ const toggleColorTheme = () => {
   };
 
   const getMediaPreference = () => {
-    const hasDarkPreference = window.matchMedia( "(prefers-color-scheme: dark)" ).matches;
+    const hasDarkPreference = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
     if (hasDarkPreference) {
       return "dark-theme";
     } else {
@@ -24,19 +26,19 @@ const toggleColorTheme = () => {
     const activeTheme = localStorage.getItem("user-theme");
     if (activeTheme === "light-theme") {
       setTheme("dark-theme");
-      userTheme.value = 'dark-theme'
+      userTheme.value = "dark-theme";
     } else {
       setTheme("light-theme");
-      userTheme.value = 'light-theme'
+      userTheme.value = "light-theme";
     }
-  }
+  };
 
   onMounted(() => {
     const initUserTheme = getTheme() || getMediaPreference();
     setTheme(initUserTheme);
-  })
+  });
 
-  return { toggleTheme, userTheme }
-}
+  return { toggleTheme, userTheme };
+};
 
 export default toggleColorTheme;

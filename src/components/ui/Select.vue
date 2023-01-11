@@ -1,56 +1,50 @@
 <script setup lang="ts">
 import Icon from "@/components/ui/Icon.vue";
-import {ref} from "vue";
-import {clickOutside} from "@/helpers/clickOutside";
+import { ref } from "vue";
+import { clickOutside } from "@/helpers/clickOutside";
 
 interface Option {
-  optionName: string,
-  iconName: string,
-  id: string
+  optionName: string;
+  iconName: string;
+  id: string;
 }
 
 const props = defineProps<{
-  options: Array<Option>
+  options: Array<Option>;
 }>();
 
 const selectRef = ref(null);
 const isActiveOption = ref(false);
 
 const emit = defineEmits<{
-  (event: 'getOptionValue', workoutName: string): void
-}>()
+  (event: "getOptionValue", workoutName: string): void;
+}>();
 
-const optionNameValue = ref('');
-const optionIcon = ref('');
+const optionNameValue = ref("");
+const optionIcon = ref("");
 
 const getOptionValue = (nameValue: Option) => {
   optionNameValue.value = nameValue.optionName;
   optionIcon.value = nameValue.iconName;
-  isActiveOption.value = !isActiveOption.value
+  isActiveOption.value = !isActiveOption.value;
   emit("getOptionValue", nameValue.id);
-}
+};
 
 // todo: можно добавить иконку на выбранной опции, чтоб было видно выбранную опцию
 
-clickOutside(selectRef, () => isActiveOption.value = false);
+clickOutside(selectRef, () => (isActiveOption.value = false));
 </script>
 
 <template>
   <div class="select" ref="selectRef">
-    <div
-      class="select__value"
-      @click.stop="isActiveOption = !isActiveOption"
-    >
+    <div class="select__value" @click.stop="isActiveOption = !isActiveOption">
       <div class="select__value-name">
         {{ optionNameValue || options[0].optionName }}
-        <Icon width="10px" :iconName="optionIcon || 'arrow-down'"/>
+        <Icon width="10px" :iconName="optionIcon || 'arrow-down'" />
       </div>
-      <Icon width="12px" iconName="angle-down"/>
+      <Icon width="12px" iconName="angle-down" />
     </div>
-    <ul
-      class="select__list"
-      :class="{active: isActiveOption}"
-    >
+    <ul class="select__list" :class="{ active: isActiveOption }">
       <li
         class="select__option"
         v-for="option in options"
@@ -58,10 +52,7 @@ clickOutside(selectRef, () => isActiveOption.value = false);
         @click.stop="getOptionValue(option)"
       >
         <div class="option__name">{{ option.optionName }}</div>
-        <Icon
-          width="12px"
-          :iconName="option.iconName"
-        />
+        <Icon width="12px" :iconName="option.iconName" />
       </li>
     </ul>
   </div>

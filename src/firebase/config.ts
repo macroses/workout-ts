@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, serverTimestamp } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getFirestore, serverTimestamp } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDkDC9v4eKxFg4NoqyHz6EAprWsGe-33s0",
@@ -8,7 +8,7 @@ const firebaseConfig = {
   projectId: "workouts-note",
   storageBucket: "workouts-note.appspot.com",
   messagingSenderId: "207490181588",
-  appId: "1:207490181588:web:409a92ba4eb1ecf0954e41"
+  appId: "1:207490181588:web:409a92ba4eb1ecf0954e41",
 };
 
 // init
@@ -18,6 +18,6 @@ initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 
-const timestamp = serverTimestamp()
+const timestamp = serverTimestamp();
 
 export { db, auth, timestamp };

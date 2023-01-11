@@ -93,7 +93,8 @@
   background: var(--color-bg-hover);
 }
 
-.perv-month, .next-month {
+.perv-month,
+.next-month {
   position: absolute;
   top: 0;
   height: 100%;
@@ -104,7 +105,7 @@
   align-items: center;
   justify-content: center;
   transition: opacity 0.2s;
-  background-color: rgba(0,0,0, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(3px);
   z-index: 2;
 }
@@ -117,8 +118,8 @@
   left: 0;
 }
 
-
-.next-month.dragged, .perv-month.dragged {
+.next-month.dragged,
+.perv-month.dragged {
   opacity: 1;
   visibility: visible;
 }

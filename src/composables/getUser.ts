@@ -1,9 +1,9 @@
-import { ref } from 'vue';
-import type { Ref } from 'vue';
+import { ref } from "vue";
+import type { Ref } from "vue";
 
-import { auth } from '@/firebase/config';
-import { onAuthStateChanged } from 'firebase/auth';
-import type { User } from 'firebase/auth';
+import { auth } from "@/firebase/config";
+import { onAuthStateChanged } from "firebase/auth";
+import type { User } from "firebase/auth";
 
 const user: Ref<User | null> = ref(auth.currentUser);
 
@@ -12,7 +12,7 @@ onAuthStateChanged(auth, (_user) => {
 });
 
 const getUser = () => {
-  return { user }
+  return { user };
 };
 
 export default getUser;

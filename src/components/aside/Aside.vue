@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import {useAsideStore} from "@/stores/modalStore";
-import {clickOutside} from "@/helpers/clickOutside";
-import {ref} from "vue";
+import { useAsideStore } from "@/stores/modalStore";
+import { clickOutside } from "@/helpers/clickOutside";
+import { ref } from "vue";
 
 const asideStore = useAsideStore();
 const asideRef = ref(null);
 
-clickOutside(asideRef, () => asideStore.isAsideActive = false);
+// clickOutside(asideRef, () => asideStore.isAsideActive = false);
 </script>
 
 <template>
-<aside
-  ref="asideRef"
-  class="aside"
-  :class="{ active: asideStore.isAsideActive }"
->
-  <router-link to="/statistic">stats</router-link>
-</aside>
+  <aside
+    ref="asideRef"
+    class="aside"
+    :class="{ active: asideStore.isAsideActive }"
+  >
+    <router-link to="/statistic">stats</router-link>
+  </aside>
 </template>
 
 <style>

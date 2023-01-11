@@ -1,34 +1,32 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import getCollection from '@/composables/getCollection';
-import type { Exercise } from '@/types/interface';
+import { computed } from "vue";
+import getCollection from "@/composables/getCollection";
+import type { Exercise } from "@/types/interface";
 import { useStore } from "@/stores/store";
 
 const props = defineProps<{ pickedMuscleGroupId: number | null }>();
 const emits = defineEmits<{
-  (e: 'pickedExercise', item: Exercise): void
+  (e: "pickedExercise", item: Exercise): void;
 }>();
 
 const store = useStore();
 
-const { documents } = getCollection('exercises');
+const { documents } = getCollection("exercises");
 
 const filtered = computed(() => {
   if (props.pickedMuscleGroupId !== null) {
     return documents.value?.filter((doc: Exercise) => {
-      return doc.categoryId === props.pickedMuscleGroupId
+      return doc.categoryId === props.pickedMuscleGroupId;
     });
   } else {
     return;
   }
-})
+});
 
 const pickedExercise = (item: Exercise) => {
-  emits('pickedExercise', item);
+  emits("pickedExercise", item);
   item.isSelected = !item.isSelected;
-}
-
-
+};
 </script>
 
 <template>
@@ -37,10 +35,7 @@ const pickedExercise = (item: Exercise) => {
     class="exercises"
     :class="[pickedMuscleGroupId ? 'active' : null]"
   >
-    <li class="exercise-item"
-      v-for="item in filtered"
-      :key="item.id"
-    >
+    <li class="exercise-item" v-for="item in filtered" :key="item.id">
       <button
         @click="pickedExercise(item)"
         class="exercise-item__btn"

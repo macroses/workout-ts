@@ -1,25 +1,28 @@
-import type { ChallengeStoreState, ChallengeWeekday } from "@/types/challengeTypes";
-import { defineStore } from 'pinia';
-import dayjs, {Dayjs} from "dayjs";
+import type {
+  ChallengeStoreState,
+  ChallengeWeekday,
+} from "@/types/challengeTypes";
+import { defineStore } from "pinia";
+import dayjs from "dayjs";
 import getUser from "@/composables/getUser";
 import { uid } from "uid";
 import useChallengesCollection from "@/composables/useChallengesCollection";
 import { CollectionStatus } from "@/types/collectionStatus";
 import weekday from "dayjs/plugin/weekday";
 
-dayjs.extend(weekday)
+dayjs.extend(weekday);
 
 const { user } = getUser();
-const { addChallenge, status } = useChallengesCollection('challenges');
+const { addChallenge, status } = useChallengesCollection("challenges");
 
 export interface ChallengeDate {
-  date: Date,
-  id: string,
-  isComplete: boolean
+  date: Date;
+  id: string;
+  isComplete: boolean;
 }
 
 export const useChallengeStore = defineStore({
-  id: 'challengeStore',
+  id: "challengeStore",
   state: (): ChallengeStoreState => ({
     challengeName: null,
     challengeColor: "213, 0, 0",
@@ -27,24 +30,23 @@ export const useChallengeStore = defineStore({
     challengeEndAt: null,
     chosenDays: [],
     challengeDates: null,
-    challengeStatus: 0
+    challengeStatus: 0,
   }),
   actions: {
     resetData() {
-      this.challengeName = null
-      this.challengeColor = "213, 0, 0"
-      this.challengeStartAt = null
-      this.challengeEndAt = null
-      this.chosenDays = []
-      this.challengeDates = null
+      this.challengeName = null;
+      this.challengeColor = "213, 0, 0";
+      this.challengeStartAt = null;
+      this.challengeEndAt = null;
+      this.chosenDays = [];
+      this.challengeDates = null;
     },
 
-    pushToStoreWeekdays (day: ChallengeWeekday) {
-      if(this.chosenDays?.includes(day)) {
-        day.isChecked = false
-        this.chosenDays = this.chosenDays.filter(el => el.id !== day.id);
-      }
-      else {
+    pushToStoreWeekdays(day: ChallengeWeekday) {
+      if (this.chosenDays?.includes(day)) {
+        day.isChecked = false;
+        this.chosenDays = this.chosenDays.filter((el) => el.id !== day.id);
+      } else {
         day.isChecked = true;
         this.chosenDays?.push(day);
       }
@@ -53,21 +55,23 @@ export const useChallengeStore = defineStore({
     async pushChallengeToServer() {
       if (!this.challengeName) return;
 
+      this.getChallengeDates;
+
       await addChallenge({
         challengeName: this.challengeName,
         challengeColor: this.challengeColor,
-        challengeStartAt: this.challengeStartAt?.toDate(),
-        challengeEndAt: this.challengeEndAt?.toDate(),
         userId: user.value?.uid,
         chosenDays: this.chosenDays,
-        challengeDates: this.challengeDates
-      })
+        challengeDates: this.challengeDates,
+      });
 
-      switch(status.value) {
+      switch (status.value) {
         case CollectionStatus.Ok:
           this.resetData();
           break;
-        default: { break }
+        default: {
+          break;
+        }
       }
     },
   },
@@ -77,44 +81,39 @@ export const useChallengeStore = defineStore({
       state.chosenDays = state.chosenDays.sort((a, b) => a.id - b.id);
     },
 
-    parseToDate: (state: ChallengeStoreState) => {
-      if(state.challengeStartAt) {
-        state.challengeStartAt = dayjs(state.challengeStartAt);
-      }
-      if(state.challengeEndAt) {
-        state.challengeEndAt = dayjs(state.challengeEndAt);
-      }
-    },
-
     getChallengeDates: (state: ChallengeStoreState) => {
-
       if (state.chosenDays.length === 0) {
-        state.challengeDates = null
+        state.challengeDates = null;
       }
 
-      if (state.challengeStartAt && state.challengeEndAt && state.chosenDays?.length !== 0) {
-
+      if (
+        state.challengeStartAt &&
+        state.challengeEndAt &&
+        state.chosenDays?.length !== 0
+      ) {
         const start = state.challengeStartAt;
         const end = state.challengeEndAt;
 
-        const datesBetweenChosen = Array.from(Array(end.diff(start, 'day') + 1).keys()).map(i => start.add(i, 'day'));
-        const filteredByChosenDay: Array<ChallengeDate> = []
+        const datesBetweenChosen = Array.from(
+          Array(end.diff(start, "day") + 1).keys()
+        ).map((i) => start.add(i, "day"));
 
+        const filteredByChosenDay: Array<ChallengeDate> = [];
 
-        datesBetweenChosen.forEach(el => {
-          state.chosenDays.forEach(chosenDay => {
+        datesBetweenChosen.forEach((el) => {
+          state.chosenDays.forEach((chosenDay) => {
             if (chosenDay.id == el.weekday()) {
               filteredByChosenDay.push({
                 id: uid(20),
                 date: el.toDate(),
-                isComplete: false
-              })
+                isComplete: false,
+              });
             }
-          })
-        })
+          });
+        });
 
-        state.challengeDates = Array.from(new Set(filteredByChosenDay))
+        state.challengeDates = Array.from(new Set(filteredByChosenDay));
       }
-    }
-  }
-})
+    },
+  },
+});

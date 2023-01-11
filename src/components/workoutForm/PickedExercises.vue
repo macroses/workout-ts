@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch} from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "@/stores/store";
 import { useOnlyNumbers } from "@/helpers/usseOnlyNumbers";
 import Input from "@/components/ui/Input.vue";
@@ -13,13 +13,13 @@ import Button from "@/components/ui/Button.vue";
 const store = useStore();
 
 const isFormOpened = ref<boolean>(false);
-const activeId = ref<string>('');
+const activeId = ref<string>("");
 const sets = ref<Set | null>(null);
 
 const toggleSelect = (id: string) => {
   activeId.value = id;
   isFormOpened.value = activeId.value === id;
-}
+};
 
 // for active exercise
 const saveSet = (exerciseId: string) => {
@@ -28,23 +28,22 @@ const saveSet = (exerciseId: string) => {
     load: store.exerciseLoad?.color,
     repeats: store.exerciseRepeats,
     setId: uid(20),
-    weight: store.exerciseWeight
-  }
+    weight: store.exerciseWeight,
+  };
 
   store.pickedExercises?.forEach((exercise: Exercise) => {
-    if(exercise.id === exerciseId) {
+    if (exercise.id === exerciseId) {
       exercise.sets.push(sets.value);
     }
-  })
+  });
 
-  store.workoutTonnage += store.exerciseWeight * store.exerciseRepeats
-
+  store.workoutTonnage += store.exerciseWeight * store.exerciseRepeats;
 };
 
 watch(activeId, (value) => {
-  if(value) {
-    store.exerciseWeight = '';
-    store.exerciseRepeats = '';
+  if (value) {
+    store.exerciseWeight = "";
+    store.exerciseRepeats = "";
   }
 });
 </script>
@@ -57,12 +56,12 @@ watch(activeId, (value) => {
       class="picked-exercises__item"
       @click.stop="toggleSelect(pickedExercise.id)"
     >
-      <PickedExerciseTitle :title="pickedExercise.name"/>
-      <PickedExerciseSets :exerciseId="pickedExercise.id"/>
+      <PickedExerciseTitle :title="pickedExercise.name" />
+      <PickedExerciseSets :exerciseId="pickedExercise.id" />
 
       <div
         class="picked-exercise__form"
-        v-if="isFormOpened = activeId === pickedExercise.id"
+        v-if="(isFormOpened = activeId === pickedExercise.id)"
       >
         <Input
           inputType="text"
@@ -78,7 +77,7 @@ watch(activeId, (value) => {
           v-model="store.exerciseRepeats"
           @keydown="useOnlyNumbers($event)"
         />
-        <DropdownLoadType/>
+        <DropdownLoadType />
 
         <Button
           size="sm"

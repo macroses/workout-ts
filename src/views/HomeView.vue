@@ -1,29 +1,29 @@
 <script lang="ts" setup>
-import type {Workout} from "@/types/interface";
-import type {Dayjs} from 'dayjs';
-import Weekdays from '@/components/weekdays/Weekdays.vue';
-import CalendarDates from '@/components/calendarDates/CalendarDates.vue';
-import WorkoutForm from '@/components/workoutForm/WorkoutForm.vue';
+import type { Workout } from "@/types/interface";
+import type { Dayjs } from "dayjs";
+import Weekdays from "@/components/weekdays/Weekdays.vue";
+import CalendarDates from "@/components/calendarDates/CalendarDates.vue";
+import WorkoutForm from "@/components/workoutForm/WorkoutForm.vue";
 import EditWorkout from "@/components/editWorkout/EditWorkout.vue";
 import ReadWorkoutData from "@/components/readWorkoutData/ReadWorkoutData.vue";
-import {useStore} from "@/stores/store";
-import {ref} from "vue";
+import { useStore } from "@/stores/store";
+import { ref } from "vue";
 import Icon from "../components/ui/Icon.vue";
-import {getNextMonth, getPrevMonth} from "@/helpers/getDate";
+import { getNextMonth, getPrevMonth } from "@/helpers/getDate";
 import Challenges from "@/components/challenges/Challenges.vue";
 
 const store = useStore();
 
-const getPickedDate = (date: Dayjs) => store.pickedDate = date;
+const getPickedDate = (date: Dayjs) => (store.pickedDate = date);
 const editWorkout = ref<Workout | null>(null);
-const getEditWorkout = (workout: Workout) => editWorkout.value = workout;
+const getEditWorkout = (workout: Workout) => (editWorkout.value = workout);
 
 let isHovered = false;
 let isNext = false;
 let isPrev = false;
 let timer = ref(0);
 
-const currentHalf = ref('');
+const currentHalf = ref("");
 let leftSideWidth = window.innerWidth / 2;
 
 const dragIntersection = (direction: string) => {
@@ -51,12 +51,12 @@ const dragIntersection = (direction: string) => {
 const resetDragInterval = () => {
   isHovered = isNext = isPrev = false;
   clearInterval(timer.value);
-}
+};
 
 const translateCalendarLayout = (event: MouseEvent) => {
-  if (event.clientX <= leftSideWidth) currentHalf.value = 'left';
-  else currentHalf.value = 'right';
-}
+  if (event.clientX <= leftSideWidth) currentHalf.value = "left";
+  else currentHalf.value = "right";
+};
 </script>
 
 <template>
@@ -65,18 +65,18 @@ const translateCalendarLayout = (event: MouseEvent) => {
       <div
         :key="store.initialDate.toDate().toDateString()"
         :class="[
-          {dragged: store.isDragged},
-          {toLeft: currentHalf === 'left'},
-          {toRight: currentHalf === 'right'}
+          { dragged: store.isDragged },
+          { toLeft: currentHalf === 'left' },
+          { toRight: currentHalf === 'right' },
         ]"
-          class="calendar-layout"
-          @dragend="resetDragInterval"
-          @dragover="translateCalendarLayout"
+        class="calendar-layout"
+        @dragend="resetDragInterval"
+        @dragover="translateCalendarLayout"
       >
-        <div :class="{editMode: store.isEditMode}" class="lock-layer"></div>
-        <Weekdays/>
+        <div :class="{ editMode: store.isEditMode }" class="lock-layer"></div>
+        <Weekdays />
         <ul ref="countCells" class="days">
-          <CalendarDates @pickDate="getPickedDate"/>
+          <CalendarDates @pickDate="getPickedDate" />
         </ul>
       </div>
     </Transition>
@@ -86,19 +86,19 @@ const translateCalendarLayout = (event: MouseEvent) => {
       @dragenter="dragIntersection('next')"
       @dragexit="resetDragInterval"
     >
-      <Icon iconName="chevrons-right" width="40px"/>
+      <Icon iconName="chevrons-right" width="40px" />
     </div>
     <div
-        :class="{ dragged: store.isDragged }"
-        class="perv-month"
-        @dragenter="dragIntersection('prev')"
-        @dragexit="resetDragInterval"
+      :class="{ dragged: store.isDragged }"
+      class="perv-month"
+      @dragenter="dragIntersection('prev')"
+      @dragexit="resetDragInterval"
     >
-      <Icon iconName="chevrons-left" width="40px"/>
+      <Icon iconName="chevrons-left" width="40px" />
     </div>
-    <WorkoutForm/>
-    <ReadWorkoutData @editWorkout="getEditWorkout"/>
-    <EditWorkout :editableWorkout="editWorkout"/>
+    <WorkoutForm />
+    <ReadWorkoutData @editWorkout="getEditWorkout" />
+    <EditWorkout :editableWorkout="editWorkout" />
   </main>
   <Transition>
     <Challenges />

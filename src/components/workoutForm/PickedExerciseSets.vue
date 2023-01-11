@@ -7,32 +7,38 @@ const props = defineProps<{ exerciseId: string }>();
 
 const store = useStore();
 
-const deleteSet = (clickedSetId: string, setWeight: string, setRepeats: string) => {
+const deleteSet = (
+  clickedSetId: string,
+  setWeight: string,
+  setRepeats: string
+) => {
   store.deleteSetFromExercise(clickedSetId, setWeight, setRepeats);
-}
+};
 
 const filteredSets = computed(() => {
-  return store.pickedExercises?.filter(el => el.id === props.exerciseId).map(el => el.sets)[0]
-})
+  return store.pickedExercises
+    ?.filter((el) => el.id === props.exerciseId)
+    .map((el) => el.sets)[0];
+});
 </script>
 
 <template>
-  <TransitionGroup
-    name="list"
-    tag="ul"
-    class="picked-exercise__sets"
-  >
+  <TransitionGroup name="list" tag="ul" class="picked-exercise__sets">
     <li
       v-for="set in filteredSets"
       :key="set.setId"
       class="picked-exercise__set"
     >
       <div
-        class="picked-exercise__box" 
+        class="picked-exercise__box"
         :style="{ backgroundColor: `rgb(${set.load})` }"
       >
         {{ set.weight }} x {{ set.repeats }}
-        <Icon @click="deleteSet(set.setId, set.weight, set.repeats)" width="13px" iconName="xmark"/>
+        <Icon
+          @click="deleteSet(set.setId, set.weight, set.repeats)"
+          width="13px"
+          iconName="xmark"
+        />
       </div>
     </li>
   </TransitionGroup>

@@ -35,7 +35,6 @@
   opacity: 0;
 }
 
-
 .slideMonth-enter-active,
 .slideMonth-leave-active {
   transition: all 0.2s ease-in-out;

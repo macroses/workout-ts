@@ -20,20 +20,18 @@
   transform: translateX(50px) scale(0.9);
 }
 
-
 .lock-layer {
   position: absolute;
   inset: 0;
   z-index: 2;
   backdrop-filter: blur(3px);
-  background-color: rgba(0,0,0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   transition: opacity 0.2s;
   visibility: hidden;
   opacity: 0;
 }
 
 .lock-layer.editMode {
-
   visibility: visible;
   opacity: 1;
 }
@@ -101,7 +99,7 @@
   font-size: 12px;
 }
 
-.today .day-num{
+.today .day-num {
   color: var(--color-text-inverted);
   background: var(--color-accent);
 }
@@ -123,7 +121,8 @@
 
 .active-cell {
   opacity: 1;
-  box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2), 0 8px 20px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2),
+    0 8px 20px 5px rgba(0, 0, 0, 0.2);
 }
 
 .workout-task:hover {

@@ -1,18 +1,18 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import useSignup from '@/composables/useSignup';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import useSignup from "@/composables/useSignup";
 import authErrors from "@/errors/authErrors";
-import Input from '@/components/ui/Input.vue';
-import Button from '@/components/ui/Button.vue';
+import Input from "@/components/ui/Input.vue";
+import Button from "@/components/ui/Button.vue";
 
 const emits = defineEmits<{
-  (e: 'changeAuthMethodToLogin', login: string): void
-}>()
+  (e: "changeAuthMethodToLogin", login: string): void;
+}>();
 
-const displayName = ref('');
-const email = ref('');
-const password = ref('');
+const displayName = ref("");
+const email = ref("");
+const password = ref("");
 
 const { signup, error } = useSignup();
 const router = useRouter();
@@ -20,14 +20,14 @@ const router = useRouter();
 const handleSubmit = async () => {
   await signup(email.value, password.value, displayName.value);
 
-  if(!error.value) {
-    router.push('/home');
+  if (!error.value) {
+    router.push("/home");
   }
-}
+};
 
 const changeAuthMethodToLogin = () => {
-  emits('changeAuthMethodToLogin', 'login')
-}
+  emits("changeAuthMethodToLogin", "login");
+};
 </script>
 
 <template>
@@ -54,10 +54,7 @@ const changeAuthMethodToLogin = () => {
           placeholder="Пароль"
           v-model="password"
         />
-        <div
-          @click="changeAuthMethodToLogin"
-          class="auth-tip"
-        >
+        <div @click="changeAuthMethodToLogin" class="auth-tip">
           Уже зарегистрированы? Тогда войдите
         </div>
         <div class="btn-block">

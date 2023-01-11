@@ -1,36 +1,43 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 // firebase imports
-import { auth } from '@/firebase/config';
-import { createUserWithEmailAndPassword, updateProfile, type User } from 'firebase/auth';
+import { auth } from "@/firebase/config";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  type User,
+} from "firebase/auth";
 
 const error = ref(null);
 const isPending = ref(false);
 
 const signup = async (
-    email: string, 
-    password: string, 
-    displayName: string
-  ): Promise<User | undefined> => {
+  email: string,
+  password: string,
+  displayName: string
+): Promise<User | undefined> => {
   error.value = null;
   isPending.value = true;
 
   try {
-    const { user } = await createUserWithEmailAndPassword(auth, email, password);
+    const { user } = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    if(!user) {
-      throw new Error('Регистрация не завершена');
+    if (!user) {
+      throw new Error("Регистрация не завершена");
     }
 
     await updateProfile(user, {
-      displayName: displayName
-    })
-    
+      displayName: displayName,
+    });
+
     error.value = null;
     isPending.value = false;
 
     return user;
-  } 
-  catch (e: any) {
+  } catch (e: any) {
     console.log(e.message);
     error.value = e.message;
     isPending.value = false;
@@ -41,8 +48,8 @@ const useSignup = () => {
   return {
     error,
     isPending,
-    signup
-  }
+    signup,
+  };
 };
 
 export default useSignup;

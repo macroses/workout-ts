@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import type {Dayjs} from "dayjs";
-import type {Workout} from "@/types/interface";
-import {CollectionStatus} from "@/types/collectionStatus";
-import {computed, ref} from "vue";
-import {useStore} from "@/stores/store";
-import {useDragStore} from "@/stores/dragStore";
-import {getDateEquality, getDaysArr, getEmptyDays} from "@/helpers/getDate";
-import updateWorkoutDate from '@/composables/updateWorkoutDate';
+import type { Dayjs } from "dayjs";
+import type { Workout } from "@/types/interface";
+import { CollectionStatus } from "@/types/collectionStatus";
+import { computed, ref } from "vue";
+import { useStore } from "@/stores/store";
+import { useDragStore } from "@/stores/dragStore";
+import { getDateEquality, getDaysArr, getEmptyDays } from "@/helpers/getDate";
+import updateWorkoutDate from "@/composables/updateWorkoutDate";
 import useCollection from "@/composables/useCollection";
 import WorkoutTask from "../workoutTask/workoutTask.vue";
 import Button from "@/components/ui/Button.vue";
-import Loader from '@/components/loader/Loader.vue'
+import Loader from "@/components/loader/Loader.vue";
 import ChallengeTask from "@/components/challengeTask/ChallengeTask.vue";
-import {useChallengeStore} from "@/stores/challengesStore";
 import getCollectionByUser from "@/composables/getCollectionByUser";
 
 const store = useStore();
 const dragStore = useDragStore();
-const challengeStore = useChallengeStore();
 
 const emits = defineEmits<{
-  (e: 'pickDate', day: Dayjs): void
+  (e: "pickDate", day: Dayjs): void;
 }>();
 
-const {updateCollection} = updateWorkoutDate();
-const {addDocument, status} = useCollection('workouts');
-const { documents, pending } = getCollectionByUser('challenges');
+const cell = ref(null);
+
+const { updateCollection } = updateWorkoutDate();
+const { addDocument, status } = useCollection("workouts");
+const { documents, pending } = getCollectionByUser("challenges");
 
 const activeCellIndex = ref<number>(0); // выделение активной ячейки
 const draggedDate = ref<Date | null>(null);
@@ -42,7 +42,7 @@ const pickDate = (date: Dayjs, index: number): void => {
     store.pickedDate = date;
   }
 
-  emits('pickDate', date)
+  emits("pickDate", date);
 };
 
 const handleStartDrag = (workout: Workout) => {
@@ -55,7 +55,7 @@ const handleDrop = (day: Dayjs) => {
   isConfirm.value = !isConfirm.value;
   draggedDate.value = day.toDate(); // drop workout and get new date of workout
   store.isDragged = false;
-}
+};
 
 const taskReplace = async () => {
   store.readWorkout = null; // clear, for closing read window
@@ -68,15 +68,15 @@ const taskReplace = async () => {
 };
 
 const taskCopy = async () => {
-
   await addDocument({
     workoutDate: draggedDate.value,
     workoutName: dragStore.draggedObject?.workoutName ?? null,
     userName: dragStore.draggedObject?.userName ?? null,
     userId: dragStore.draggedObject?.userId ?? null,
-    exercisesUserDataSets: dragStore.draggedObject?.exercisesUserDataSets ?? null,
+    exercisesUserDataSets:
+      dragStore.draggedObject?.exercisesUserDataSets ?? null,
     color: dragStore.draggedObject?.color,
-    workoutTonnage: dragStore.draggedObject?.workoutTonnage ?? null
+    workoutTonnage: dragStore.draggedObject?.workoutTonnage ?? null,
   });
 
   isConfirm.value = false;
@@ -90,38 +90,43 @@ const taskCopy = async () => {
     class="calendar-cell"
   ></li>
   <li
-    v-for="( day, index ) in filledDaysCells"
+    v-for="(day, index) in filledDaysCells"
     :key="day.format('D')"
     ref="cell"
-    :class="[ { today: getDateEquality(day) }, { activeCell: index === activeCellIndex } ]"
+    :class="[
+      { today: getDateEquality(day) },
+      { activeCell: index === activeCellIndex },
+    ]"
     class="calendar-cell"
     @click="pickDate(day, index)"
     @drop="handleDrop(day)"
     @dragenter.prevent
     @dragover.prevent
   >
-    <span class="day-num">{{ day.format('D') }}</span>
-    <WorkoutTask
-      :workoutDate="day"
-      @handleStartDrag="handleStartDrag"
-    />
-    <ChallengeTask :challengeDate="day"/>
+    <span class="day-num">{{ day.format("D") }}</span>
+    <WorkoutTask :workoutDate="day" @handleStartDrag="handleStartDrag" />
+    <ChallengeTask :challengeDate="day" />
   </li>
   <teleport to="body">
     <Transition name="bounce">
-      <div
-          v-if="isConfirm"
-          class="confirm-dialog"
-      >
+      <div v-if="isConfirm" class="confirm-dialog">
         <div class="confirm-dialog__layer">
-          <div v-if="status === CollectionStatus.Ok" class="confirm-dialog__title">Выберите действие для тренировки
+          <div
+            v-if="status === CollectionStatus.Ok"
+            class="confirm-dialog__title"
+          >
+            Выберите действие для тренировки
           </div>
           <div class="confirm-dialog__buttons button-group">
             <Button size="custom" @click="isConfirm = false">Отменить</Button>
-            <Button :accent="true" size="custom" @click="taskCopy">Копировать</Button>
-            <Button :accent="true" size="custom" @click="taskReplace">Переместить</Button>
+            <Button :accent="true" size="custom" @click="taskCopy"
+              >Копировать</Button
+            >
+            <Button :accent="true" size="custom" @click="taskReplace"
+              >Переместить</Button
+            >
           </div>
-          <Loader v-if="status === CollectionStatus.Pending"/>
+          <Loader v-if="status === CollectionStatus.Pending" />
         </div>
       </div>
     </Transition>

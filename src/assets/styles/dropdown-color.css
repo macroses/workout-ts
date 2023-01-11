@@ -19,7 +19,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  
+
   border: 2px solid var(--color-border);
   outline: 1px solid var(--color-border);
   margin-right: 4px;
@@ -39,9 +39,8 @@
   top: 100%;
   right: 0;
   z-index: 3;
-  box-shadow: 0 8px 10px 1px rgb(0 0 0 / 14%),
-  0 3px 14px 2px rgb(0 0 0 / 12%),
-  0 5px 5px -3px rgb(0 0 0 / 20%);
+  box-shadow: 0 8px 10px 1px rgb(0 0 0 / 14%), 0 3px 14px 2px rgb(0 0 0 / 12%),
+    0 5px 5px -3px rgb(0 0 0 / 20%);
 }
 
 .dropdown-color li {
@@ -53,7 +52,7 @@
 }
 
 .dropdown-color li.active::after {
-  content: '\2713';
+  content: "\2713";
   position: absolute;
   color: #fff;
   font-weight: bold;

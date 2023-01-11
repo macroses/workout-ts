@@ -39,7 +39,7 @@
 }
 
 .workout-data__header .a11y-wrap:hover {
-  background: rgba(255,255,255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .workout-data__header svg {
@@ -52,7 +52,6 @@
 
   margin-left: auto;
 }
-
 
 .workout-data__icon.delete {
   background-color: var(--color-icon-accent-red-bg);
