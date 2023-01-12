@@ -2,7 +2,7 @@
 import type { Dayjs } from "dayjs";
 import type { Workout } from "@/types/interface";
 import { CollectionStatus } from "@/types/collectionStatus";
-import { computed, ref } from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useStore } from "@/stores/store";
 import { useDragStore } from "@/stores/dragStore";
 import { getDateEquality, getDaysArr, getEmptyDays } from "@/helpers/getDate";
@@ -104,7 +104,11 @@ const taskCopy = async () => {
     @dragover.prevent
   >
     <span class="day-num">{{ day.format("D") }}</span>
-    <WorkoutTask :workoutDate="day" @handleStartDrag="handleStartDrag" />
+    <div class="task-expand">
+      <ul class="workout-tasks__list">
+        <WorkoutTask :workoutDate="day" @handleStartDrag="handleStartDrag" />
+      </ul>
+    </div>
     <ChallengeTask :challengeDate="day" />
   </li>
   <teleport to="body">

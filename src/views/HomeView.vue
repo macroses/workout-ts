@@ -7,7 +7,7 @@ import WorkoutForm from "@/components/workoutForm/WorkoutForm.vue";
 import EditWorkout from "@/components/editWorkout/EditWorkout.vue";
 import ReadWorkoutData from "@/components/readWorkoutData/ReadWorkoutData.vue";
 import { useStore } from "@/stores/store";
-import { ref } from "vue";
+import {nextTick, onBeforeMount, onMounted, onUpdated, ref} from "vue";
 import Icon from "../components/ui/Icon.vue";
 import { getNextMonth, getPrevMonth } from "@/helpers/getDate";
 import Challenges from "@/components/challenges/Challenges.vue";
@@ -60,7 +60,7 @@ const translateCalendarLayout = (event: MouseEvent) => {
 </script>
 
 <template>
-  <main>
+  <main ref="mainRef">
     <Transition :duration="100" mode="out-in" name="slideMonth">
       <div
         :key="store.initialDate.toDate().toDateString()"

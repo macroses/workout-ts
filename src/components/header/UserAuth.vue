@@ -1,15 +1,15 @@
-<script setup lang="ts">
-import { ref, watchEffect } from "vue";
-import { auth } from "@/firebase/config";
-import { signOut } from "firebase/auth";
+<script lang="ts" setup>
+import {ref, watchEffect} from "vue";
+import {auth} from "@/firebase/config";
+import {signOut} from "firebase/auth";
 import getUser from "@/composables/getUser";
-import { useRouter } from "vue-router";
-import { clickOutside } from "@/helpers/clickOutside";
+import {useRouter} from "vue-router";
+import {clickOutside} from "@/helpers/clickOutside";
 
 import Icon from "../ui/Icon.vue";
 import ThemeToggle from "@/components/header/ThemeToggle.vue";
 
-const { user } = getUser();
+const {user} = getUser();
 const router = useRouter();
 const isListActive = ref(false);
 const list = ref(null);
@@ -30,16 +30,36 @@ clickOutside(list, () => (isListActive.value = false));
 
 <template>
   <div
-    ref="list"
-    class="logged"
     v-if="user"
-    @click="isListActive = !isListActive"
-  >
-    <div class="user-name">{{ user.displayName }}</div>
-    <Icon width="14px" iconName="angle-down" />
-    <ul class="user-funcs" v-if="isListActive">
-      <li class="user-funcs__item" @click="logOut">Выйти</li>
-      <li class="user-funcs__item"><ThemeToggle /></li>
+    class="logged">
+    <div ref="list" class="user-name" @click="isListActive = !isListActive">
+      {{ user.displayName }}
+      <Icon :iconName="isListActive ? 'angle-up' : 'angle-down'" width="14px"/>
+    </div>
+    <ul class="user-funcs" :class="{active: isListActive}">
+      <li class="user-funcs__item">
+        <ThemeToggle/>
+      </li>
+      <li class="user-funcs__item">
+        <router-link to="/settings" >персональные данные</router-link>
+      </li>
+      <li class="user-funcs__item" @click="logOut">
+        Выйти
+        <Icon width="17px" iconName="right-from-bracket"/>
+      </li>
     </ul>
   </div>
 </template>
+
+<style>
+.user-funcs {
+
+  transform: scale(0);
+  transform-origin: top right;
+  transition: transform 0.2s;
+}
+
+.user-funcs.active {
+  transform: scaleY(1);
+}
+</style>

@@ -1,7 +1,7 @@
 import { onMounted, type Ref, ref } from "vue";
 
 const toggleColorTheme = () => {
-  const userTheme: Ref<string> = ref("light-theme");
+  const userTheme: Ref<string> = ref("prefer");
 
   const getTheme = () => localStorage.getItem("user-theme");
 
@@ -15,22 +15,29 @@ const toggleColorTheme = () => {
     const hasDarkPreference = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
+
     if (hasDarkPreference) {
-      return "dark-theme";
-    } else {
-      return "light-theme";
+      return "prefer";
     }
   };
 
-  const toggleTheme = () => {
-    const activeTheme = localStorage.getItem("user-theme");
-    if (activeTheme === "light-theme") {
-      setTheme("dark-theme");
-      userTheme.value = "dark-theme";
-    } else {
-      setTheme("light-theme");
-      userTheme.value = "light-theme";
-    }
+  // проверим, если
+
+  const toggleTheme = (theme: string) => {
+    // const activeTheme = localStorage.getItem("user-theme");
+    setTheme(theme);
+    // if (activeTheme === "prefer") {
+    //   setTheme("prefer");
+    //   userTheme.value = "prefer";
+    // }
+    // if (activeTheme === "light-theme") {
+    //   setTheme("light-theme");
+    //   userTheme.value = "light-theme";
+    // }
+    // if (activeTheme === "dark-theme") {
+    //   setTheme("dark-theme");
+    //   userTheme.value = "dark-theme";
+    // }
   };
 
   onMounted(() => {

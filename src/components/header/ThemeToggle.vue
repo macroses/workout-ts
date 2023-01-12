@@ -6,13 +6,30 @@ const { userTheme, toggleTheme } = toggleColorTheme();
 </script>
 
 <template>
-  <label class="switcher-box">
-    <input type="checkbox" class="input-switch" @change="toggleTheme" />
-    <span class="switcher">
+  <div class="switcher-box">
+    <div
+      class="light"
+      :class="{active: userTheme === 'light-theme'}"
+      @click.stop="toggleTheme('light-theme')">
       <Icon
-        width="15px"
-        :icon-name="userTheme === 'light-theme' ? 'sun-bright' : 'moon'"
-      />
-    </span>
-  </label>
+        width="17px"
+        icon-name="sun-bright"/>
+    </div>
+    <div
+      class="dark"
+      @click.stop="toggleTheme('dark-theme')"
+      :class="{active: userTheme === 'dark-theme'}">
+      <Icon
+        width="17px"
+        icon-name="moon"/>
+    </div>
+    <div
+      class="dark"
+      @click.stop="toggleTheme('prefer')"
+      :class="{active: userTheme === 'prefer'}">
+      <Icon
+        width="17px"
+        icon-name="gear"/>
+    </div>
+  </div>
 </template>

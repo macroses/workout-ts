@@ -1,0 +1,45 @@
+.aside {
+    width: 225px;
+    background: var(--color-bg);
+    height: calc(100vh - 57px);
+    z-index: 3;
+    position: fixed;
+    top: 57px;
+    border-right: 2px solid var(--color-border);
+    transform: scaleX(0);
+    transform-origin: left;
+    overflow: hidden;
+    transition: transform 0.2s, width 0.2s;
+}
+
+.aside.active {
+    transform: scaleX(1);
+}
+.aside .a11y-wrap {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+}
+
+.aside__list {
+    padding-top: 50px;
+}
+
+.aside__link {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 12px 24px;
+    color: var(--color-text);
+    gap: 8px;
+}
+
+.aside__link svg {
+    fill: var(--color-icon-accent);
+}
+
+.aside__link:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-accent);
+}

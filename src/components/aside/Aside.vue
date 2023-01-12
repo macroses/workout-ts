@@ -1,40 +1,34 @@
 <script setup lang="ts">
 import { useAsideStore } from "@/stores/modalStore";
-import { clickOutside } from "@/helpers/clickOutside";
-import { ref } from "vue";
+import { useRoute } from "vue-router";
+import Icon from "@/components/ui/Icon.vue";
+import {onMounted, onUnmounted, ref, watch} from "vue";
 
 const asideStore = useAsideStore();
 const asideRef = ref(null);
+const route = useRoute();
 
-// clickOutside(asideRef, () => asideStore.isAsideActive = false);
+watch(() => route.name, (to, from) => {
+  asideStore.isAsideActive = false
+})
+
 </script>
 
 <template>
   <aside
-    ref="asideRef"
     class="aside"
-    :class="{ active: asideStore.isAsideActive }"
-  >
-    <router-link to="/statistic">stats</router-link>
+    ref="asideRef"
+    :class="{ active: asideStore.isAsideActive }">
+    <div class="a11y-wrap" @click="asideStore.isAsideActive = false">
+      <Icon width="20px" iconName="xmark" />
+    </div>
+    <ul class="aside__list">
+      <li class="aside__item">
+        <router-link class="aside__link" to="/statistic">
+          Статистика
+          <Icon width="18px" icon-name="chart-simple"/>
+        </router-link>
+      </li>
+    </ul>
   </aside>
 </template>
-
-<style>
-.aside {
-  width: 0;
-  background: var(--color-bg);
-  height: calc(100vh - 57px);
-  z-index: 3;
-  position: fixed;
-  top: 57px;
-  border-right: 1px solid var(--color-border);
-  transform: translateX(-100%);
-  overflow: hidden;
-  transition: transform 0.2s, width 0.2s;
-}
-
-.aside.active {
-  transform: translateX(0);
-  width: 225px;
-}
-</style>

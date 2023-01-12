@@ -4,6 +4,7 @@ import SignUp from "../views/SignUp.vue";
 import Statistic from "../views/Statistic.vue";
 
 import { auth } from "@/firebase/config";
+import Settings from "@/views/Settings.vue";
 
 const requireAuth = (to, from, next): void => {
   let user = auth.currentUser;
@@ -41,6 +42,15 @@ const router = createRouter({
       beforeEnter: requireAuth,
       meta: {
         title: "Статистика",
+      },
+    },
+    {
+      path: "/settings",
+      name: "settings",
+      component: Settings,
+      beforeEnter: requireAuth,
+      meta: {
+        title: "Личные данные",
       },
     },
   ],

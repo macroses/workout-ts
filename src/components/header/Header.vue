@@ -7,15 +7,15 @@ import UserAuth from "./UserAuth.vue";
 import ChallengeToggle from "@/components/header/ChallengeToggle.vue";
 
 const asideStore = useAsideStore();
-const toggleAside = () => (asideStore.isAsideActive = true);
+const toggleAside = () => (asideStore.isAsideActive = !asideStore.isAsideActive);
 </script>
 
 <template>
   <header class="header red">
     <Burger @click="toggleAside" />
     <Logo />
-    <CurrentDate />
-    <ChallengeToggle />
+    <CurrentDate v-if="$route.name === 'home'"/>
+    <ChallengeToggle v-if="$route.name === 'home'" />
     <UserAuth />
   </header>
 </template>
