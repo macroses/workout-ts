@@ -54,13 +54,7 @@
   border: 0;
 }
 
-.btn-block {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-/* user list auth */
+  /* user list auth */
 .logged {
   position: relative;
   display: flex;

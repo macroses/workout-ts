@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 import { useRouter } from "vue-router";
 import useLogin from "@/composables/useLogin";
 import authErrors from "@/errors/authErrors";
 import Input from "@/components/ui/Input.vue";
 import Button from "@/components/ui/Button.vue";
+import useGoogleAuth from "@/composables/googleAuth";
+const handleGoogleAuth = () => useGoogleAuth();
 
 const emits = defineEmits<{
   (e: "changeAuthMethodToSignup", login: string): void;
@@ -31,25 +33,25 @@ const changeAuthMethodToSignup = () => {
 
 <template>
   <div class="auth-box">
-    <div v-if="error" class="err-msg">{{ authErrors(error) }}</div>
     <div class="auth-title">Вход</div>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="auth__form">
       <div class="modal-auth__body">
-        <Input
-          v-model="email"
-          :required="true"
-          inputType="email"
-          placeholder="Почта"
-        />
-        <Input
-          v-model="password"
-          :required="true"
-          inputType="password"
-          placeholder="Пароль"
-        />
-        <div class="auth-tip" @click="changeAuthMethodToSignup">
-          Нет аккаунта? Пройдите регистрацию
+        <div class="input-block">
+          <Input
+            v-model="email"
+            :required="true"
+            inputType="email"
+            placeholder="Почта"
+          />
+          <Input
+            v-model="password"
+            :required="true"
+            inputType="password"
+            placeholder="Пароль"
+          />
+          <div v-if="error" class="err-msg">{{ authErrors(error) }}</div>
         </div>
+
         <div class="btn-block">
           <Button v-if="!pending" size="md" @click="handleSubmit">Войти</Button>
           <Button
@@ -59,6 +61,13 @@ const changeAuthMethodToSignup = () => {
             @click="handleSubmit"
             >Loading...
           </Button>
+          <Button size="md" @click="handleGoogleAuth">
+            <img src="/Google.svg" alt="Google auth">
+            Войти с Google
+          </Button>
+          <div class="auth-tip" @click="changeAuthMethodToSignup">
+            Нет аккаунта? Пройдите регистрацию
+          </div>
         </div>
       </div>
     </form>
@@ -66,17 +75,5 @@ const changeAuthMethodToSignup = () => {
 </template>
 
 <style>
-.auth-box {
-  max-width: 400px;
-  margin: 0 auto;
-  position: relative;
-}
 
-.err-msg {
-  position: absolute;
-  top: -30px;
-  left: 0;
-  font-size: 12px;
-  color: red;
-}
 </style>

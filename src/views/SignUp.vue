@@ -32,20 +32,46 @@ watchEffect(() => {
 <template>
   <div class="auth-container">
     <div class="auth-body">
-      <Transition :duration="100" mode="out-in" name="slideMonth">
-        <Signup
-          v-if="isSignup"
-          @handleReg="handleReg"
-          @changeAuthMethodToLogin="getAuthMethod"
-        />
-        <Login
-          v-else
-          @handleLogin="handleLogin"
-          @changeAuthMethodToSignup="getAuthMethod"
-        />
-      </Transition>
+      <div class="auth-carousel">
+        <div class="auth-tip-time">Что-то тут должно быть для красоты...</div>
+        <div class="img-wrap">
+          <img src="/think.png" alt="thinking guy">
+        </div>
+      </div>
+      <Signup
+        v-if="isSignup"
+        @handleReg="handleReg"
+        @changeAuthMethodToLogin="getAuthMethod" />
+      <Login
+        v-else
+        @handleLogin="handleLogin"
+        @changeAuthMethodToSignup="getAuthMethod" />
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.img-wrap {
+  width: 100%;
+  height: 200px;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.auth-carousel {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.auth-carousel .auth-tip-time {
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+</style>
