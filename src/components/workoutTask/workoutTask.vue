@@ -39,7 +39,7 @@ const pushWorkoutToStore = (workout: Workout) => {
 </script>
 
 <template>
-  <div
+  <li
     v-for="item in checkEqualDates"
     :key="item.id"
     :class="[item.id === store.readWorkout?.id ? 'active-cell' : null]"
@@ -52,5 +52,5 @@ const pushWorkoutToStore = (workout: Workout) => {
     <div class="workout-task__name">
       {{ item.workoutName }}
     </div>
-  </div>
+  </li>
 </template>

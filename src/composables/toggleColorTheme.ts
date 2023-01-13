@@ -5,7 +5,7 @@ const toggleColorTheme = () => {
 
   const getTheme = () => localStorage.getItem("user-theme");
 
-  const setTheme = (theme: string) => {
+  const setTheme = (theme: string = "prefer") => {
     localStorage.setItem("user-theme", theme);
     userTheme.value = theme;
     document.documentElement.className = theme;
@@ -21,23 +21,8 @@ const toggleColorTheme = () => {
     }
   };
 
-  // проверим, если
-
   const toggleTheme = (theme: string) => {
-    // const activeTheme = localStorage.getItem("user-theme");
     setTheme(theme);
-    // if (activeTheme === "prefer") {
-    //   setTheme("prefer");
-    //   userTheme.value = "prefer";
-    // }
-    // if (activeTheme === "light-theme") {
-    //   setTheme("light-theme");
-    //   userTheme.value = "light-theme";
-    // }
-    // if (activeTheme === "dark-theme") {
-    //   setTheme("dark-theme");
-    //   userTheme.value = "dark-theme";
-    // }
   };
 
   onMounted(() => {

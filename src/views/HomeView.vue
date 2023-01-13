@@ -57,10 +57,13 @@ const translateCalendarLayout = (event: MouseEvent) => {
   if (event.clientX <= leftSideWidth) currentHalf.value = "left";
   else currentHalf.value = "right";
 };
+const logged = (e) => {
+  console.log('lol')
+}
 </script>
 
 <template>
-  <main ref="mainRef">
+  <main @touchstart="logged">
     <Transition :duration="100" mode="out-in" name="slideMonth">
       <div
         :key="store.initialDate.toDate().toDateString()"
