@@ -16,10 +16,6 @@ const modalStore = useAsideStore();
 </template>
 
 <style scoped>
-.challenge-toggle {
-  margin-left: auto;
-}
-
 .challenge-toggle svg {
   fill: var(--color-icon-accent-orange);
 }

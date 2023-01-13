@@ -41,10 +41,11 @@
   height: 36px;
 }
 
-.button[disabled="disabled"] {
+.button[disabled] {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+  background-color: var(--color-border);
 }
 
 .button.accent {

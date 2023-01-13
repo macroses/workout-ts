@@ -14,11 +14,13 @@ const setStart = () => {
 const setEnd = () => {
   store.challengeEndAt = dayjs(endAt.value);
 };
+
+const title = "Помните, что дата начала не может быть раньше сегодняшнего дня. А дата окончания не может быть раньше начальной даты.😀"
 </script>
 
 <template>
   <div class="challenge-body__item">
-    <div v-once class="challenge-start__title">Продолжительность:</div>
+    <div v-once class="challenge-start__title" :title="title">Продолжительность:</div>
     <div class="challenge-start__content">
       <label class="datepicker-toggle">
         <span v-once class="datepicker-toggle__name">Начало:</span>

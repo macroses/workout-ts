@@ -15,7 +15,9 @@ const toggleAside = () => (asideStore.isAsideActive = !asideStore.isAsideActive)
     <Burger @click="toggleAside" />
     <Logo />
     <CurrentDate v-if="$route.name === 'home'"/>
-    <ChallengeToggle v-if="$route.name === 'home'" />
-    <UserAuth />
+    <div class="header__personal">
+      <ChallengeToggle v-if="$route.name === 'home'" />
+      <UserAuth />
+    </div>
   </header>
 </template>

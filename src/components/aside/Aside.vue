@@ -25,8 +25,8 @@ watch(() => route.name, (to, from) => {
     <ul class="aside__list">
       <li class="aside__item">
         <router-link class="aside__link" to="/statistic">
-          Статистика
           <Icon width="18px" icon-name="chart-simple"/>
+          Статистика
         </router-link>
       </li>
     </ul>

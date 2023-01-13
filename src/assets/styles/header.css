@@ -44,3 +44,9 @@
 .current-textdate {
   font-size: 15px;
 }
+
+.header__personal {
+  margin-left: auto;
+  display: flex;
+  gap: 24px;
+}
