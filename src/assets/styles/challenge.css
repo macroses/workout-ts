@@ -50,10 +50,6 @@
   margin-bottom: 0;
 }
 
-.challenges-button {
-
-}
-
 .err-info {
   font-size: 13px;
   color: var(--color-icon-accent-red);
@@ -172,6 +168,13 @@
 
 .challenge-start__title {
   font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.challenge-start__title svg {
+  fill: var(--color-accent);
 }
 
 .color-input {

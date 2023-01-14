@@ -53,7 +53,14 @@ export const useChallengeStore = defineStore({
     },
 
     async pushChallengeToServer() {
-      if (!this.challengeName) return;
+      if (
+        !this.challengeName ||
+        this.challengeDates?.length === 0 ||
+        !this.challengeDates
+      ) {
+        console.log("dates no");
+        return;
+      }
 
       this.getChallengeDates;
 

@@ -24,7 +24,7 @@ const submitChallenge = () => {
     challengeStore.challengeName &&
     challengeStore.challengeStartAt &&
     challengeStore.challengeEndAt &&
-    challengeStore.challengeDates
+    challengeStore.challengeDates?.length !== 0 || challengeStore.challengeDates !== null
   ) {
     challengeStore.pushChallengeToServer();
     modalStore.isChallengeModalActive = false;
@@ -33,20 +33,18 @@ const submitChallenge = () => {
     isSubmitDisabled.value = true;
     return;
   }
-
 };
 
 const closeResetModal = () => {
   modalStore.isChallengeModalActive = false;
   challengeStore.resetData();
   isSubmitDisabled.value = false;
+  activeTabId.value = 1;
 };
 
 const getTabId = (activeTab: number) => activeTabId.value = activeTab;
 
-watch(() => activeTabId.value, value => {
-  isSubmitDisabled.value = false;
-})
+watch(() => activeTabId.value, value => isSubmitDisabled.value = false)
 </script>
 
 <template>

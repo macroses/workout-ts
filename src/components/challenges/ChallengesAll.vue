@@ -16,7 +16,7 @@ const getActiveChallenge = (activeIndex: number) => {
 </script>
 
 <template>
-  <div v-if="documents.length > 1" class="challenge-body__read">
+  <div v-if="documents.length > 0" class="challenge-body__read">
     <ChallengeReadName
       @challengeNumber="getActiveChallenge"
       :challenges="documents"

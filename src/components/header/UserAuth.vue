@@ -33,19 +33,22 @@ clickOutside(list, () => (isListActive.value = false));
     v-if="user"
     class="logged">
     <div ref="list" class="user-name" @click="isListActive = !isListActive">
-      {{ user.displayName }}
+      <div v-if="user.photoURL" class="user-photo">
+        <img :alt="user.displayName" :src="user.photoURL" class="user-photo__image">
+      </div>
+      <span v-else>{{ user.displayName }}</span>
       <Icon :iconName="isListActive ? 'angle-up' : 'angle-down'" width="14px"/>
     </div>
-    <ul class="user-funcs" :class="{active: isListActive}">
+    <ul :class="{active: isListActive}" class="user-funcs">
       <li class="user-funcs__item">
         <ThemeToggle/>
       </li>
       <li class="user-funcs__item">
-        <router-link to="/settings" >персональные данные</router-link>
+        <router-link to="/settings">персональные данные</router-link>
       </li>
       <li class="user-funcs__item" @click="logOut">
         Выйти
-        <Icon width="17px" iconName="right-from-bracket"/>
+        <Icon iconName="right-from-bracket" width="17px"/>
       </li>
     </ul>
   </div>
@@ -53,7 +56,6 @@ clickOutside(list, () => (isListActive.value = false));
 
 <style>
 .user-funcs {
-
   transform: scale(0);
   transform-origin: top right;
   transition: transform 0.2s;
@@ -61,5 +63,18 @@ clickOutside(list, () => (isListActive.value = false));
 
 .user-funcs.active {
   transform: scaleY(1);
+}
+
+.user-photo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-photo__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

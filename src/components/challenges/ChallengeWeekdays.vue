@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useChallengeStore } from "@/stores/challengesStore";
-import { reactive } from "vue";
+import {reactive, ref, watch} from "vue";
 import type { ChallengeWeekday } from "@/types/challengeTypes";
 
 const store = useChallengeStore();
@@ -15,8 +15,19 @@ const challengeWeekdays = reactive([
   { id: 6, weekday: "Вс", isChecked: false },
 ]);
 
+const isArrayFilled = ref(false);
+
 const pushToStoreWeekdays = (day: ChallengeWeekday) =>
   store.pushToStoreWeekdays(day);
+
+watch(() => store.challengeDates, (value) => {
+  if (value?.length === 0) {
+    isArrayFilled.value = true;
+  }
+  else {
+    isArrayFilled.value = false;
+  }
+})
 </script>
 
 <template>
@@ -33,5 +44,16 @@ const pushToStoreWeekdays = (day: ChallengeWeekday) =>
         </span>
       </div>
     </div>
+    <div v-if="isArrayFilled" class="challenge-weekday-err">Нет дней, которые подходят под выбранный диапазон дат.</div>
   </div>
 </template>
+
+<style>
+.challenge-weekday-err {
+  position: absolute;
+  font-size: 12px;
+  top: 100%;
+  left: 0;
+  color: var(--color-icon-accent-red);
+}
+</style>
