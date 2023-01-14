@@ -39,8 +39,7 @@ const sortedWorkouts = sortingCollection(activeSortOption);
       <div class="filters__item">
         <Select
           :options="sortParameters"
-          @getOptionValue="getSortOptionValue"
-        />
+          @getOptionValue="getSortOptionValue" />
       </div>
     </div>
     <ul class="workouts-list">
@@ -49,14 +48,10 @@ const sortedWorkouts = sortingCollection(activeSortOption);
         :key="workout.id"
         class="workouts-list__item"
         :class="{ active: activeIndex === index }"
-        @click="toggleWorkoutItem(index, listItemHeight)"
-      >
+        @click="toggleWorkoutItem(index, listItemHeight)" >
         <div
-          :style="{
-            backgroundImage: `linear-gradient(to right, transparent, rgba(${workout.color}, 0.2))`,
-          }"
-          class="workouts-list__top"
-        >
+          :style="{backgroundImage: `linear-gradient(to right, transparent, rgba(${workout.color}, 0.2))`}"
+          class="workouts-list__top" >
           <div class="workouts-list__date">
             {{ dayjs(workout.workoutDate.seconds * 1000).format("DD.MM.YYYY") }}
           </div>
@@ -65,16 +60,14 @@ const sortedWorkouts = sortingCollection(activeSortOption);
             <Icon
               class="workouts-list__name--icon"
               width="12px"
-              iconName="angle-down"
-            />
+              iconName="angle-down" />
           </div>
         </div>
         <div class="workouts-list__info" ref="listItemHeight">
           <ul class="workouts-list__info-list">
             <li
               v-for="exercise in workout.exercisesUserDataSets"
-              class="workouts-list__info-item"
-            >
+              class="workouts-list__info-item" >
               <div class="workouts-list__info-name">
                 {{ exercise.name }}
               </div>
@@ -82,8 +75,7 @@ const sortedWorkouts = sortingCollection(activeSortOption);
                 <div
                   v-for="set in exercise.sets"
                   class="workouts-list__set"
-                  :style="{ backgroundColor: `rgba(${set.load}, 0.8)` }"
-                >
+                  :style="{ backgroundColor: `rgba(${set.load}, 0.8)` }" >
                   <div class="workouts-list-weight">{{ set.weight }}</div>
                   x
                   <div class="workouts-list-repeats">{{ set.repeats }}</div>
