@@ -5,6 +5,7 @@ import CurrentDate from "./CurrentDate.vue";
 import { useAsideStore } from "@/stores/modalStore";
 import UserAuth from "./UserAuth.vue";
 import ChallengeToggle from "@/components/header/ChallengeToggle.vue";
+import ThemeToggle from "@/components/header/ThemeToggle.vue";
 
 const asideStore = useAsideStore();
 const toggleAside = () => (asideStore.isAsideActive = !asideStore.isAsideActive);
@@ -17,6 +18,7 @@ const toggleAside = () => (asideStore.isAsideActive = !asideStore.isAsideActive)
     <CurrentDate v-if="$route.name === 'home'"/>
     <div class="header__personal">
       <ChallengeToggle v-if="$route.name === 'home'" />
+      <ThemeToggle/>
       <UserAuth />
     </div>
   </header>

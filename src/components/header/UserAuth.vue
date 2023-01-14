@@ -40,12 +40,12 @@ clickOutside(list, () => (isListActive.value = false));
       <Icon :iconName="isListActive ? 'angle-up' : 'angle-down'" width="14px"/>
     </div>
     <ul :class="{active: isListActive}" class="user-funcs">
-      <li class="user-funcs__item">
-        <ThemeToggle/>
-      </li>
-      <li class="user-funcs__item">
-        <router-link to="/settings">персональные данные</router-link>
-      </li>
+<!--      <li class="user-funcs__item">-->
+<!--        <ThemeToggle/>-->
+<!--      </li>-->
+<!--      <li class="user-funcs__item">-->
+<!--        <router-link to="/settings">персональные данные</router-link>-->
+<!--      </li>-->
       <li class="user-funcs__item" @click="logOut">
         Выйти
         <Icon iconName="right-from-bracket" width="17px"/>
