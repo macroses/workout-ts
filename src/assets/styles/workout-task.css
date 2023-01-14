@@ -8,7 +8,7 @@
     display: grid;
     grid-template-rows: 0fr;
     overflow: hidden;
-    transition: grid-template-rows 0.1s ease-in;
+    transition: grid-template-rows 0.3s ease-in-out;
 }
 
 .task-expand:hover {
@@ -16,32 +16,28 @@
     z-index: 11;
 }
 
-.task-expand:hover .workout-task:nth-child(2)::before {
+.task-expand::after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom, transparent 5%, var(--color-bg));
+    z-index: 20;
+    pointer-events: none;
+    transform: scaleY(1);
+    transform-origin: bottom;
+
+    transition-delay: 1s;
+}
+
+.task-expand:hover::after {
+    transition-delay: 1s;
+    transition: transform 1s;
     transform: scaleY(0);
 }
 
 .workout-tasks__list {
     min-height: 60px;
-}
-
-.workout-task:nth-child(2) {
-    position: relative;
-}
-
-.workout-task:nth-child(2)::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(to bottom, transparent 8%, var(--color-bg) 55%);
-    z-index: 20;
-    transform: scaleY(1);
-    transform-origin: bottom;
-    transition: transform 0.3s;
-}
-
-.workout-task {
-    margin-bottom: 2px;
 }

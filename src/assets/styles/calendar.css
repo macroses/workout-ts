@@ -118,16 +118,11 @@
   display: flex;
   align-items: center;
   box-shadow: none;
+  margin-bottom: 2px;
 }
 
 .active-cell {
   opacity: 1;
-  box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.2),
-    0 8px 20px 5px rgba(0, 0, 0, 0.2);
-}
-
-.workout-task:hover {
-  box-shadow: var(--elements-shadow);
 }
 
 .workout-task svg {

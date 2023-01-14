@@ -35,35 +35,45 @@ const dragIntersection = (direction: string) => {
     if (direction === "next") {
       isNext = true;
 
-      timer.value = setTimeout(() => {
+      timer.value = setInterval(() => {
         store.initialDate = getNextMonth(store.initialDate);
       }, 700);
     } else if (direction === "prev") {
       isPrev = true;
 
-      timer.value = setTimeout(() => {
+      timer.value = setInterval(() => {
         store.initialDate = getPrevMonth(store.initialDate);
       }, 700);
-    } else store.isDragged = false;
+    }
+    else {
+      store.isDragged = false;
+      currentHalf.value = '';
+    }
   }
 };
 
-const resetDragInterval = () => {
+const resetDragInterval = (e) => {
   isHovered = isNext = isPrev = false;
   clearInterval(timer.value);
 };
 
 const translateCalendarLayout = (event: MouseEvent) => {
-  if (event.clientX <= leftSideWidth) currentHalf.value = "left";
+  if (event.clientX <= leftSideWidth) {
+    currentHalf.value = "left";
+  }
   else currentHalf.value = "right";
 };
-const logged = (e) => {
-  console.log('lol')
+
+const resetByDrop = (dropEvent: any) => {
+  if ( dropEvent.dataTransfer.dropEffect === 'none' ) {
+    store.isDragged = false;
+    currentHalf.value = '';
+  }
 }
 </script>
 
 <template>
-  <main @touchstart="logged">
+  <main>
     <Transition :duration="100" mode="out-in" name="slideMonth">
       <div
         :key="store.initialDate.toDate().toDateString()"
@@ -73,8 +83,9 @@ const logged = (e) => {
           { toRight: currentHalf === 'right' },
         ]"
         class="calendar-layout"
-        @dragend="resetDragInterval"
         @dragover="translateCalendarLayout"
+        @dragleave="resetDragInterval"
+        @dragend="resetByDrop"
       >
         <div :class="{ editMode: store.isEditMode }" class="lock-layer"></div>
         <Weekdays />

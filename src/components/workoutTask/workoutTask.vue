@@ -25,7 +25,7 @@ const handleStartDrag = (workout: Workout) => {
 
 const checkEqualDates = computed(() => {
   if (!documents.value) return [];
-  return documents.value.filter((el) => {
+  return documents.value.filter(el => {
     if (props.workoutDate?.isSame(dayjs(el?.workoutDate?.seconds * 1000))) {
       return el;
     }
@@ -47,8 +47,7 @@ const pushWorkoutToStore = (workout: Workout) => {
     class="workout-task"
     draggable="true"
     @dragstart="handleStartDrag(item)"
-    @click.stop="pushWorkoutToStore(item)"
-  >
+    @click.stop="pushWorkoutToStore(item)" >
     <div class="workout-task__name">
       {{ item.workoutName }}
     </div>

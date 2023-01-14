@@ -225,7 +225,7 @@
   position: absolute;
   bottom: 1px;
   left: 1px;
-  width: 100%;
+  width: calc(100% - 3px);
   padding: 2px;
   background-color: var(--color-bg);
 }
