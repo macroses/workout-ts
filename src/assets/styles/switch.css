@@ -26,3 +26,7 @@
 .switcher-box .active svg {
   fill: var(--color-text-inverted);
 }
+
+.user-funcs__item > .switcher-box {
+  display: none;
+}

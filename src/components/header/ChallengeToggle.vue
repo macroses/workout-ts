@@ -10,7 +10,7 @@ const modalStore = useAsideStore();
   <div class="challenge-toggle">
     <Button size="md" @click="modalStore.isChallengeModalActive = true">
       <Icon width="15" icon-name="trophy-star" />
-      Challenge
+      <span class="challenge-toggle__text">Challenge</span>
     </Button>
   </div>
 </template>

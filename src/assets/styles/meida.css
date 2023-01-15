@@ -2,6 +2,26 @@
   .header-logo__text {
     display: none;
   }
+
+  .challenge-toggle__text {
+    display: none;
+  }
+
+  .header__personal {
+    gap: 8px;
+  }
+
+  .header__personal > .switcher-box {
+    display: none;
+  }
+
+  .user-funcs__item > .switcher-box {
+    display: flex;
+  }
+
+  .header {
+    gap: 4px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -11,10 +31,6 @@
 
   .button {
     font-size: 11px;
-  }
-
-  .header-currentdate .button {
-    height: 23px;
   }
 
   .current-textdate {
@@ -36,21 +52,22 @@
   .workout-form,
   .workout-data,
   .edit-workout {
-    transform: unset;
-    transform: translateY(-100%);
-    position: absolute;
-  }
-
-  .workout-form.active {
+    width: 100%;
+    transform: scaleY(0);
+    transition: 0.3s all;
+    transform-origin: top;
     position: absolute;
     top: 0;
     bottom: 0;
+  }
+
+  .workout-form.active {
     z-index: 2;
     width: 100%;
     max-height: 100vh;
     overflow: auto;
-    isolation: isolate;
-    transform: translateY(0);
+    transform-origin: top;
+    transform: scaleY(1);
   }
 
   .workout-data.active {
@@ -61,8 +78,8 @@
     width: 100%;
     max-height: 100vh;
     overflow: auto;
-    isolation: isolate;
-    transform: translateY(0);
+    transform-origin: top;
+    transform: scaleY(1);
   }
 
   .lock-layer.editMode {
@@ -77,7 +94,15 @@
     width: 100%;
     max-height: 100vh;
     overflow: auto;
-    isolation: isolate;
-    transform: translateY(0);
+    transform-origin: top;
+    transform: scaleY(1);
+  }
+
+  .challenge-start__content {
+    gap: 24px;
+  }
+
+  .datepicker-toggle {
+    flex: 0;
   }
 }
