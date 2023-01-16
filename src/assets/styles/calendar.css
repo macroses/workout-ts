@@ -23,7 +23,7 @@
 .lock-layer {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 11;
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 0.1);
   transition: opacity 0.2s;
